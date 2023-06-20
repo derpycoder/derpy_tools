@@ -74,6 +74,8 @@ defmodule DerpyToolsWeb.Router do
   scope "/", DerpyToolsWeb do
     pipe_through [:browser]
 
+    live "/utm-builder", UtmBuilderLive
+
     delete "/users/log_out", UserSessionController, :delete
 
     live_session :current_user,
