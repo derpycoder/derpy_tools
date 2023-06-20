@@ -123,7 +123,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
     changeset =
       %UtmParams{}
       |> UtmParams.change_utm_params(params)
-      |> Map.put(:action, :update)
+      |> Map.put(:action, :validate)
 
     socket = assign(socket, form: to_form(changeset))
     {:noreply, socket}
