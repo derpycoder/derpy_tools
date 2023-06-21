@@ -62,7 +62,37 @@ defmodule DerpyToolsWeb.MetaDataAnalyzer do
   def blank?(_), do: false
 end
 
+defmodule FetchLocations do
+  @doc """
+  Prints request and response headers.
+
+  ## Request Options
+
+    * `:get_location_header` - if `true`, gets the location header. Defaults to `false`.
+  """
+  def attach(%Req.Request{} = request, options \\ []) do
+    request
+    |> Req.Request.register_options([:get_location_header])
+    |> Req.Request.merge_options(options)
+    |> Req.Request.prepend_response_steps(get_location_header: &get_location_header/1)
+  end
+
+  defp get_location_header({request, response}) do
+    response =
+      if request.options[:get_location_header] do
+        Map.put_new(response, :location, request.url)
+      else
+        response
+      end
+
+    {request, response}
+  end
+end
+
 defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
+  @moduledoc """
+  URL with multiple redirects: http://www.superuser.com/q/1471861/
+  """
   use DerpyToolsWeb, :live_view
 
   alias DerpyToolsWeb.MetaDataAnalyzer
@@ -82,7 +112,7 @@ defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="w-full m-auto">
+    <div>
       <.form for={@form} phx-change="validate" phx-submit="save">
         <label for="url">URL</label>
         <.input field={@form[:url]} phx-debounce="1000" />
@@ -90,8 +120,9 @@ defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
           Fetch MetaData
         </.button>
       </.form>
-
-      <%= inspect(@meta_data, pretty: true) %>
+      <pre>
+    <%= inspect(@meta_data, pretty: true) %>
+    </pre>
     </div>
     """
   end
@@ -125,7 +156,11 @@ defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
   end
 
   def fetch_meta_data(url) do
-    {:ok, parsed_doc} = Req.get!(url).body |> Floki.parse_document()
+    req = Req.new() |> FetchLocations.attach()
+    res = Req.get!(req, url: url, get_location_header: true)
+    location = Map.get(res, :location)
+
+    {:ok, parsed_doc} = res.body |> Floki.parse_document()
     {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
 
     head
@@ -138,9 +173,12 @@ defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
       case k1 do
         "name" -> {v1, v2}
         "property" -> {v1, v2}
+        "rel" -> {v1, v2}
         _ -> nil
       end
     end)
     |> Enum.into(%{}, fn row -> row end)
+    |> Map.put_new("uri", location)
+    |> Map.put_new("url", location |> URI.to_string())
   end
 end
