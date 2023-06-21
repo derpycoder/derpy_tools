@@ -75,7 +75,7 @@ defmodule DerpyToolsWeb.Router do
     pipe_through [:browser]
 
     live "/utm-builder", UtmBuilderLive
-    live "/meta-data-analyzer", MetaDataAnalyzerLive
+    live "/metadata-analyzer", MetadataAnalyzerLive
 
     delete "/users/log_out", UserSessionController, :delete
 
