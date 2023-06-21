@@ -80,7 +80,9 @@ defmodule FetchLocations do
   defp get_location_header({request, response}) do
     response =
       if request.options[:get_location_header] do
-        Map.put_new(response, :location, request.url)
+        response
+        |> Map.put_new(:location, request.url)
+        |> Map.put_new(:redirections, Map.get(request.private, :req_redirect_count, 0))
       else
         response
       end
@@ -159,6 +161,7 @@ defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
     req = Req.new() |> FetchLocations.attach()
     res = Req.get!(req, url: url, get_location_header: true)
     location = Map.get(res, :location)
+    redirections = Map.get(res, :redirections)
 
     {:ok, parsed_doc} = res.body |> Floki.parse_document()
     {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
@@ -180,5 +183,6 @@ defmodule DerpyToolsWeb.MetaDataAnalyzerLive do
     |> Enum.into(%{}, fn row -> row end)
     |> Map.put_new("uri", location)
     |> Map.put_new("url", location |> URI.to_string())
+    |> Map.put_new("redirections", redirections)
   end
 end
