@@ -188,8 +188,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
         res =
           Req.new()
-          |> FetchExtraMetadata.attach()
-          |> Req.get!(url: url, fetch_redirects: true)
+          |> FetchExtraMetadata.attach(fetch_redirects: true)
+          |> Req.get!(url: url)
 
         {:ok, parsed_doc} = res.body |> Floki.parse_document()
         {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
