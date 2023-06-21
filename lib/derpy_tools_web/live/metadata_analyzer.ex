@@ -96,7 +96,8 @@ defmodule FetchExtraMetadata do
     private =
       response.private
       |> Map.put_new(:redirects, %{
-        url: URI.to_string(request.url),
+        uri: request.url,
+        url: URI.to_string(request.url |> Map.replace(:query, nil)),
         count: Map.get(request.private, :req_redirect_count, 0),
         trail: Map.get(request.private, :trail, [])
       })
@@ -133,7 +134,9 @@ end
 
 defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   @moduledoc """
-  URL with multiple redirects: http://www.superuser.com/q/1471861/
+  URL with multiple redirects:
+  http://derpytools.com/4-privacy-focused-alternatives-to-google-analytics-for-your-blog
+  http://derpytools.com/hostsfile-mkcert-caddy-achieving-development-production-parity-has-never-been-easier
   content-security-policy: upgrade-insecure-requests; (HTTP - HTTPS)
   """
   use DerpyToolsWeb, :live_view
