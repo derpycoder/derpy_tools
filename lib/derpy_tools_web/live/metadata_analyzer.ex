@@ -137,6 +137,13 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   URL with multiple redirects:
   http://derpytools.com/4-privacy-focused-alternatives-to-google-analytics-for-your-blog
   http://derpytools.com/hostsfile-mkcert-caddy-achieving-development-production-parity-has-never-been-easier
+
+  Normal URLs:
+  https://www.derpytools.com
+  https://www.derpytools.com/croc-easily-send-files-across-computers-with-this-modern-alternative-to-magic-wormhole/
+  https://derpycoder.github.io/dont-let-him-poo/
+
+  TODO:
   content-security-policy: upgrade-insecure-requests; (HTTP - HTTPS)
   """
   use DerpyToolsWeb, :live_view
@@ -209,7 +216,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             form: to_form(changeset),
             output: %{
               metas: fetch_meta(head),
-              redirects: res.private.redirects
+              redirects: res.private.redirects,
+              others: fetch_others(head)
             }
           )
           |> put_flash(:info, "Yay!")
@@ -238,5 +246,12 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     end)
     |> Enum.reject(&is_nil/1)
     |> Enum.into(%{}, fn row -> row end)
+  end
+
+  def fetch_others(head) do
+    head
+    |> Enum.filter(&is_tuple/1)
+    |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
+    |> Enum.filter(fn {name, _, _} -> String.downcase(name) != "meta" end)
   end
 end
