@@ -145,6 +145,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   JSON LD:
   https://www.similarweb.com/top-websites/food-and-drink/cooking-and-recipes/
+  https://www.wix.com/blog/how-to-start-a-blog
 
   TODO:
   content-security-policy: upgrade-insecure-requests; (HTTP - HTTPS)
@@ -279,6 +280,9 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   end
 
   def fetch_json_ld(head) do
+    # Maybe available in body:
+    # https://psprices.com/region-in/game/5048716/kinduo-ps4-ps5
+    # https://www.apple.com
     head
     |> Enum.filter(fn
       {"script", arr, _} ->
