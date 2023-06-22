@@ -143,6 +143,9 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   https://www.derpytools.com/croc-easily-send-files-across-computers-with-this-modern-alternative-to-magic-wormhole/
   https://derpycoder.github.io/dont-let-him-poo/
 
+  JSON LD:
+  https://www.similarweb.com/top-websites/food-and-drink/cooking-and-recipes/
+
   TODO:
   content-security-policy: upgrade-insecure-requests; (HTTP - HTTPS)
   """
@@ -217,7 +220,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             output: %{
               metas: fetch_meta(head),
               redirects: res.private.redirects,
-              others: fetch_others(head)
+              misc: fetch_misc(head)
             }
           )
           |> put_flash(:info, "Yay!")
@@ -235,23 +238,61 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
     |> Enum.filter(fn {name, _, _} -> String.downcase(name) == "meta" end)
     |> Enum.map(fn {"meta", meta, _} -> meta end)
-    |> Enum.filter(fn each -> each |> Enum.count() == 2 end)
-    |> Enum.map(fn [{k1, v1} | [{"content", v2}]] ->
-      case k1 do
-        "name" -> {v1, v2}
-        "property" -> {v1, v2}
-        "rel" -> {v1, v2}
-        _ -> nil
-      end
+    |> Enum.filter(fn each -> Enum.count(each) == 2 end)
+    |> Enum.map(fn
+      [{k1, v1} | [{"content", v2}]] ->
+        case k1 do
+          "name" -> {v1, v2}
+          "property" -> {v1, v2}
+          "rel" -> {v1, v2}
+          _ -> nil
+        end
+
+      _ ->
+        nil
     end)
     |> Enum.reject(&is_nil/1)
     |> Enum.into(%{}, fn row -> row end)
   end
 
-  def fetch_others(head) do
+  def fetch_misc(head) do
+    head =
+      head
+      |> Enum.filter(&is_tuple/1)
+      |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
+      |> Enum.filter(fn {name, _, _} -> String.downcase(name) != "meta" end)
+
+    %{
+      title: fetch_title(head),
+      json_ld: fetch_json_ld(head)
+    }
+  end
+
+  def fetch_title(head) do
+    case Enum.find(head, fn
+           {"title", _, _} -> true
+           {_, _, _} -> false
+         end) do
+      {"title", _, [title]} -> title
+      nil -> nil
+    end
+  end
+
+  def fetch_json_ld(head) do
     head
-    |> Enum.filter(&is_tuple/1)
-    |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
-    |> Enum.filter(fn {name, _, _} -> String.downcase(name) != "meta" end)
+    |> Enum.filter(fn
+      {"script", arr, _} ->
+        Enum.into(arr, %{}, & &1) |> Map.get("type") == "application/ld+json"
+
+      {_, _, _} ->
+        false
+    end)
+    |> Enum.map(fn
+      {"script", _, [json]} ->
+        case Jason.decode(json) do
+          {:ok, map} -> map
+          {:error, _} -> nil
+        end
+    end)
   end
 end
