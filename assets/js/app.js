@@ -52,3 +52,7 @@ window.addEventListener("phx:copy", (event) => {
     console.log("All done!"); // Or a nice tooltip or something.
   });
 });
+
+window.addEventListener("phx:focus", (event) => {
+  event.target.focus();
+});

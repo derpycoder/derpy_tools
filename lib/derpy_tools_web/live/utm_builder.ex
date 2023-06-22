@@ -88,9 +88,15 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
   def render(assigns) do
     ~H"""
     <div class="w-60 m-auto">
-      <.form for={@form} phx-change="validate" phx-submit="generate-utm">
+      <.form
+        for={@form}
+        phx-change="validate"
+        phx-submit="generate-utm"
+        phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
+        phx-key="/"
+      >
         <label for="url">URL</label>
-        <.input field={@form[:url]} phx-debounce="1000" />
+        <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus />
         <label for="utm_source">Source</label>
         <.input field={@form[:utm_source]} phx-debounce="blur" />
         <label for="utm_medium">Medium</label>

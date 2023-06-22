@@ -159,9 +159,15 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   def render(assigns) do
     ~H"""
     <div>
-      <.form for={@form} phx-change="validate" phx-submit="save">
+      <.form
+        for={@form}
+        phx-change="validate"
+        phx-submit="save"
+        phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
+        phx-key="/"
+      >
         <label for="url">URL</label>
-        <.input field={@form[:url]} phx-debounce="1000" />
+        <.input field={@form[:url]} phx-debounce="1000" id="url" autofocus />
         <.button class="mt-5" phx-disable-with="Loading...">
           Fetch Metadata
         </.button>
