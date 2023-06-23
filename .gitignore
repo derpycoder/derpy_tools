@@ -41,3 +41,6 @@ npm-debug.log
 
 # Useless MacOS files
 .DS_Store
+
+# Ansible retry files
+tmp/
