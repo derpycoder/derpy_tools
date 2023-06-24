@@ -1,4 +1,8 @@
-<main class="px-4 py-20 sm:px-6 lg:px-8">
+<main
+  class="px-4 py-20 sm:px-6 lg:px-8"
+  phx-disconnected={JS.add_class("is-monochrome", to: "body:not(.is-monochrome)")}
+  phx-connected={JS.remove_class("is-monochrome", to: "body")}
+>
   <div class="mx-auto max-w-full">
     <.flash_group flash={@flash} />
     <DerpyToolsWeb.Header.header />
