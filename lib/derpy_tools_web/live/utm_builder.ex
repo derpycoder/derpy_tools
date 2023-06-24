@@ -164,4 +164,10 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
         {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
+
+  def handle_event(event, params, socket) do
+    IO.inspect(event)
+    IO.inspect(params)
+    {:noreply, socket}
+end
 end

@@ -19,6 +19,26 @@ defmodule DerpyToolsWeb.CoreComponents do
   alias Phoenix.LiveView.JS
   import DerpyToolsWeb.Gettext
 
+  def inspector(assigns) do
+    ~H"""
+    <div class="absolute -top-10 flex justify-end w-full">
+      <%!-- To link directly to the storybook page! --%>
+      <button class="rounded-tl-lg rounded-bl-lg p-2 bg-slate-100 m-0" title="Show in Catalog">
+        <Heroicons.eye solid class="h-3 w-3 text-gray-500" />
+      </button>
+      <button
+        phx-click="inspect-source"
+        phx-value-file={@file}
+        phx-value-line={@line}
+        class="-ml-1 rounded-tr-lg rounded-br-lg p-2 bg-slate-100 m-0 border-l border-slate-200"
+        title="Open in VS Code"
+      >
+        <Heroicons.code_bracket solid class="h-3 w-3 text-gray-500" />
+      </button>
+    </div>
+    """
+  end
+
   @doc """
   Renders a modal.
 

@@ -87,9 +87,6 @@ defmodule DerpyToolsWeb do
       import DerpyToolsWeb.CoreComponents
       import DerpyToolsWeb.Gettext
 
-      # Custom Dev Components
-      import DerpyToolsWeb.DevComponents
-
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 

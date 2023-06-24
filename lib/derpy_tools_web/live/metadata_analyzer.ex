@@ -234,6 +234,12 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     end
   end
 
+  def handle_event(event, params, socket) do
+    IO.inspect(event)
+    IO.inspect(params)
+    {:noreply, socket}
+end
+
   def fetch_meta(head) do
     head
     |> Enum.filter(&is_tuple/1)
