@@ -169,5 +169,5 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
     IO.inspect(event)
     IO.inspect(params)
     {:noreply, socket}
-end
+  end
 end

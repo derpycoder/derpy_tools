@@ -238,7 +238,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     IO.inspect(event)
     IO.inspect(params)
     {:noreply, socket}
-end
+  end
 
   def fetch_meta(head) do
     head
