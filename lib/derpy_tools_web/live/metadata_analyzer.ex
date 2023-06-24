@@ -169,7 +169,14 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div>
+    <div class="relative">
+      <.live_component
+        :if={Mix.env() == :dev}
+        module={DerpyToolsWeb.InspectorComponent}
+        file={__ENV__.file}
+        line={__ENV__.line}
+        id={"#{__MODULE__}-inspector"}
+      />
       <.form
         for={@form}
         phx-change="validate"
