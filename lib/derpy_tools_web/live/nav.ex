@@ -10,7 +10,7 @@ defmodule DerpyToolsWeb.Nav do
   def handle_event("inspect-source", %{"file" => file, "line" => line}, socket) do
     System.cmd("code", ["--goto", "#{file}:#{line}"])
 
-    {:cont, socket}
+    {:halt, socket}
   end
 
   def handle_event(_, _, socket), do: {:cont, socket}
