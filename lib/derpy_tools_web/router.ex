@@ -20,7 +20,8 @@ defmodule DerpyToolsWeb.Router do
   scope "/", DerpyToolsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    # get "/", PageController, :home
+    live "/", HomePageLive
   end
 
   # Other scopes may use custom stacks.

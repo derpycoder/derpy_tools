@@ -10,9 +10,12 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
+    <script>
+      localStorage.getItem("dark_mode") === "true" && document.documentElement.classList.add("dark");
+    </script>
   </head>
-  <body class="bg-white antialiased">
-    <header class="px-3 absolute top-0 left-0 w-full">
+  <body class="bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-900 dark:text-navy-200 dark:[color-scheme:dark]">
+    <%!-- <header class="px-3 absolute top-0 left-0 w-full">
       <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
         <div class="flex items-center gap-4">
           <a href="/">
@@ -24,7 +27,7 @@
         </div>
       </div>
       <h1>Derpy Tools</h1>
-    </header>
+    </header> --%>
     <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
       <%= if @current_user do %>
         <li class="text-[0.8125rem] leading-6 text-zinc-900">

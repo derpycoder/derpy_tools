@@ -1,22 +1,65 @@
 @import "tailwindcss/base";
+@import "./base.css";
+
 @import "tailwindcss/components";
+@import "./components.css";
+
 @import "tailwindcss/utilities";
+
+@import "./pages.css";
 
 /* This file is for your main application CSS */
 
-/* Basic styles */
-html {
-  @apply h-full overflow-x-hidden [text-rendering:optimizeLegibility] [-webkit-tap-highlight-color:transparent];
+html.dark #moon {
+  animation: moonrise 0.5s ease-in-out 1 normal forwards;
+}
+html.dark #sun {
+  animation: sunset 0.3s ease-in-out 1 normal forwards;
+}
+html #moon {
+  animation: moonset 0.3s ease-in-out 1 normal forwards;
+}
+html #sun {
+  animation: sunrise 0.5s ease-in-out 1 normal forwards;
 }
 
-html.dark {
-  @apply [color-scheme:dark];
+@keyframes sunrise {
+  0% {
+    transform: translateY(12px) scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
-
-body {
-  @apply bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-900 dark:text-navy-200 dark:[color-scheme:dark];
+@keyframes sunset {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px) scale(0.7);
+    opacity: 0;
+  }
 }
-
-body.is-monochrome::before {
-  @apply pointer-events-none fixed inset-0 z-[999999] -m-[5rem] h-[calc(100%+10rem)] w-[calc(100%+10rem)] backdrop-grayscale backdrop-opacity-[.92] content-[''];
+@keyframes moonrise {
+  0% {
+    transform: translateY(-12px) scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes moonset {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-12px) scale(0.7);
+    opacity: 0;
+  }
 }
