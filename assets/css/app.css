@@ -34,3 +34,19 @@ html #sun {
   transform: translateY(0) scale(1);
   opacity: 1;
 }
+
+html.offline .offline-indicator {
+  @apply block;
+}
+
+html .offline-indicator {
+  @apply hidden;
+}
+
+html.offline .online-indicator {
+  @apply mix-blend-soft-light;
+}
+
+html.offline .ping-indicator {
+  @apply hidden;
+}

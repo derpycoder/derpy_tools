@@ -24,7 +24,7 @@ defmodule DerpyToolsWeb.CoreComponents do
     <div class="absolute -top-10 flex justify-end w-full">
       <%!-- To link directly to the storybook page! --%>
       <button class="rounded-tl-lg rounded-bl-lg p-2 bg-slate-100 m-0" title="Show in Catalog">
-        <Heroicons.eye solid class="h-3 w-3 text-gray-500" />
+        <.icon class="hero-eye-solid h-3 w-3 text-gray-500" />
       </button>
       <button
         phx-click="inspect-source"
@@ -33,7 +33,7 @@ defmodule DerpyToolsWeb.CoreComponents do
         class="-ml-1 rounded-tr-lg rounded-br-lg p-2 bg-slate-100 m-0 border-l border-slate-200"
         title="Open in VS Code"
       >
-        <Heroicons.code_bracket solid class="h-3 w-3 text-gray-500" />
+        <.icon class="hero-code-bracket-solid h-3 w-3 text-gray-500" />
       </button>
     </div>
     """
@@ -95,7 +95,7 @@ defmodule DerpyToolsWeb.CoreComponents do
                   class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="h-5 w-5" />
+                  <.icon class="hero-x-mark-solid h-5 w-5" />
                 </button>
               </div>
               <div id={"#{@id}-content"}>
@@ -142,13 +142,13 @@ defmodule DerpyToolsWeb.CoreComponents do
       {@rest}
     >
       <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
-        <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" />
+        <.icon :if={@kind == :info} class="hero-information-circle-mini h-4 w-4" />
+        <.icon :if={@kind == :error} class="hero-exclamation-circle-mini h-4 w-4" />
         <%= @title %>
       </p>
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
-        <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
+        <.icon class="hero-x-mark-solid h-5 w-5 opacity-40 group-hover:opacity-70" />
       </button>
     </div>
     """
@@ -167,15 +167,8 @@ defmodule DerpyToolsWeb.CoreComponents do
     ~H"""
     <.flash kind={:info} title="Success!" flash={@flash} />
     <.flash kind={:error} title="Error!" flash={@flash} />
-    <.flash
-      id="client-error"
-      kind={:error}
-      title="We can't find the internet"
-      phx-disconnected={show(".phx-client-error #client-error")}
-      phx-connected={hide("#client-error")}
-      hidden
-    >
-      Attempting to reconnect <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+    <.flash id="client-error" kind={:error} title="We can't find the internet" hidden>
+      Attempting to reconnect <.icon class="hero-arrow-path ml-1 h-3 w-3 animate-spin" />
     </.flash>
 
     <.flash
@@ -187,7 +180,7 @@ defmodule DerpyToolsWeb.CoreComponents do
       hidden
     >
       Hang in there while we get back on track
-      <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+      <.icon class="hero-arrow-path ml-1 h-3 w-3 animate-spin" />
     </.flash>
     """
   end
@@ -425,7 +418,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   def error(assigns) do
     ~H"""
     <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
+      <.icon class="hero-exclamation-circle-mini mt-0.5 h-5 w-5 flex-none" />
       <%= render_slot(@inner_block) %>
     </p>
     """
@@ -576,7 +569,7 @@ defmodule DerpyToolsWeb.CoreComponents do
         navigate={@navigate}
         class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
       >
-        <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
+        <.icon class="hero-arrow-left-solid h-3 w-3" />
         <%= render_slot(@inner_block) %>
       </.link>
     </div>
@@ -598,15 +591,14 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   ## Examples
 
-      <.icon name="hero-x-mark-solid" />
-      <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
+      <.icon class="hero-x-mark-solid" />
+      <.icon class="hero-arrow-path ml-1 w-3 h-3 animate-spin" />
   """
-  attr :name, :string, required: true
   attr :class, :string, default: nil
 
-  def icon(%{name: "hero-" <> _} = assigns) do
+  def icon(assigns) do
     ~H"""
-    <span class={[@name, @class]} />
+    <span class={@class} />
     """
   end
 
