@@ -5,20 +5,20 @@ defmodule DerpyToolsWeb.HomePageLive do
     ~H"""
     <ol class="ml-10 mt-12 list-decimal text-md">
       <li>
-        <a
-          href={~p"/utm-builder"}
+        <.link
+          navigate={~p"/utm-builder"}
           class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
         >
           UTM Builder
-        </a>
+        </.link>
       </li>
       <li>
-        <a
-          href={~p"/metadata-analyzer"}
+        <.link
+          navigate={~p"/metadata-analyzer"}
           class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
         >
           Meta Data Analyzer (To see if images will load in Twitter, Insta)
-        </a>
+        </.link>
       </li>
       <li></li>
     </ol>

@@ -17,7 +17,7 @@ html.dark #sun {
   animation: sunset 0.3s ease-in-out 1 normal forwards;
 }
 html #moon {
-  animation: moonset 0.3s ease-in-out 1 normal forwards;
+  animation: moonset 0s ease-in-out 1 normal forwards;
 }
 html #sun {
   animation: sunrise 0.5s ease-in-out 1 normal forwards;

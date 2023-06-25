@@ -1,7 +1,7 @@
-<%= live_render(@socket, DerpyToolsWeb.Header, id: "nav") %>
+<%= live_render(@socket, DerpyToolsWeb.HeaderLive, id: :header_nav, sticky: true) %>
 
 <main
-  class="px-4 py-20 sm:px-6 lg:px-8"
+  class="px-4 py-28 sm:px-6 lg:px-8"
   phx-disconnected={JS.add_class("is-monochrome", to: "body:not(.is-monochrome)")}
   phx-connected={JS.remove_class("is-monochrome", to: "body.is-monochrome")}
 >

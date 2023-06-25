@@ -1,5 +1,9 @@
-defmodule DerpyToolsWeb.Header do
+defmodule DerpyToolsWeb.HeaderLive do
   use DerpyToolsWeb, :live_view
+
+  def mount(_params, _session, socket) do
+    {:ok, socket, layout: false}
+  end
 
   def render(assigns) do
     ~H"""

@@ -21,7 +21,12 @@ defmodule DerpyToolsWeb.Router do
     pipe_through :browser
 
     # get "/", PageController, :home
-    live "/", HomePageLive
+    live_session :no_log_in_required,
+      on_mount: [DerpyToolsWeb.Nav] do
+      live "/", HomePageLive
+      live "/utm-builder", UtmBuilderLive
+      live "/metadata-analyzer", MetadataAnalyzerLive
+    end
   end
 
   # Other scopes may use custom stacks.
@@ -74,12 +79,6 @@ defmodule DerpyToolsWeb.Router do
 
   scope "/", DerpyToolsWeb do
     pipe_through [:browser]
-
-    live_session :no_log_in_required,
-      on_mount: [DerpyToolsWeb.Nav] do
-      live("/utm-builder", UtmBuilderLive)
-      live("/metadata-analyzer", MetadataAnalyzerLive)
-    end
 
     delete "/users/log_out", UserSessionController, :delete
 

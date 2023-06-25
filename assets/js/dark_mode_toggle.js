@@ -8,7 +8,6 @@ const DarkModeToggle = {
         localStorage.setItem("dark_mode", true);
         document.documentElement.classList.add("dark");
       }
-      console.log("Toggle");
     });
   },
 };
