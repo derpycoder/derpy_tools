@@ -17,11 +17,8 @@ defmodule DerpyToolsWeb.HeaderLive do
           <div class="h-7 w-7">
             <button
               id="menu-toggle"
-              phx-click={
-                JS.remove_class("active", to: "#menu-toggle.active")
-                |> JS.add_class("active", to: "#menu-toggle:not(.active)")
-              }
-              class="menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+              phx-click={JS.navigate(~p"/")}
+              class="menu-toggle active ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
             >
               <span></span>
               <span></span>
