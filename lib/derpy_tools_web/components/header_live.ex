@@ -49,7 +49,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               <input
                 id="search-box"
                 placeholder="Search here..."
-                class="form-input border-none peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+                class="form-input border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
                 -click="isShowPopper ? 'w-80' : 'w-60'"
                 @focus="isShowPopper= true"
                 type="text"
@@ -109,7 +109,7 @@ defmodule DerpyToolsWeb.HeaderLive do
                 x-ref="popperRef"
                 class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
               >
-                <.icon class="hero-bell w-5.5 h-5.5" />
+                <.icon class="hero-bell w-5.5 h-5.5 text-slate-500 dark:text-navy-100" />
               </button>
             </div>
             <!-- Right Sidebar Toggle -->
