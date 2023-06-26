@@ -169,8 +169,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-28 flex items-center justify-center">
-      <div class="relative">
+    <div class="p-28 w-full">
+      <div class="relative max-w-full">
         <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
         <.form
           for={@form}
@@ -185,7 +185,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             Fetch Metadata
           </.button>
         </.form>
-        <pre>
+        <pre class="overflow-scroll max-h-96">
     <%= inspect(@output, pretty: true) %>
     </pre>
       </div>
