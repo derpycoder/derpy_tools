@@ -2,9 +2,9 @@ defmodule DerpyToolsWeb.Nav do
   import Phoenix.LiveView
   use Phoenix.Component
 
-  @pubsub DerpyTools.PubSub
+  # @pubsub DerpyTools.PubSub
 
-  def on_mount(:default, _params, session, socket) do
+  def on_mount(:default, _params, _session, socket) do
     {:cont,
      socket
      #  |> subscribe_ping(session)
@@ -18,7 +18,7 @@ defmodule DerpyToolsWeb.Nav do
     {:halt, socket}
   end
 
-  defp handle_event("ping", %{"rtt" => rtt}, socket) do
+  defp handle_event("ping", %{"rtt" => _rtt}, socket) do
     {:halt,
      socket
      #  |> rate_limited_ping_broadcast(rtt)
@@ -32,42 +32,42 @@ defmodule DerpyToolsWeb.Nav do
   # that way the team members can see the pings of each other.
   # ==============================================================================
 
-  defp subscribe_ping(socket, %{"live_socket_id" => live_socket_id}) do
-    topic = live_socket_id
+  # defp subscribe_ping(socket, %{"live_socket_id" => live_socket_id}) do
+  #   topic = live_socket_id
 
-    if connected?(socket), do: Phoenix.PubSub.subscribe(@pubsub, topic)
+  #   if connected?(socket), do: Phoenix.PubSub.subscribe(@pubsub, topic)
 
-    assign(socket, topic: topic)
-  end
+  #   assign(socket, topic: topic)
+  # end
 
-  defp subscribe_ping(socket, %{"_csrf_token" => csrf_token}) do
-    topic = "guest_session:#{Base.url_encode64(csrf_token)}"
+  # defp subscribe_ping(socket, %{"_csrf_token" => csrf_token}) do
+  #   topic = "guest_session:#{Base.url_encode64(csrf_token)}"
 
-    if connected?(socket), do: Phoenix.PubSub.subscribe(@pubsub, topic)
+  #   if connected?(socket), do: Phoenix.PubSub.subscribe(@pubsub, topic)
 
-    assign(socket, topic: topic)
-  end
+  #   assign(socket, topic: topic)
+  # end
 
-  defp rate_limited_ping_broadcast(%{assigns: %{topic: topic}} = socket, rtt)
-       when is_integer(rtt) do
-    now = System.system_time(:millisecond)
-    last_ping_at = socket.assigns[:last_ping_at]
+  # defp rate_limited_ping_broadcast(%{assigns: %{topic: topic}} = socket, rtt)
+  #      when is_integer(rtt) do
+  #   now = System.system_time(:millisecond)
+  #   last_ping_at = socket.assigns[:last_ping_at]
 
-    if is_nil(last_ping_at) || now - last_ping_at > 1000 do
-      # ping_broadcast(topic, rtt)
-      assign(socket, :last_ping_at, now)
-    else
-      socket
-    end
-  end
+  #   if is_nil(last_ping_at) || now - last_ping_at > 1000 do
+  #     # ping_broadcast(topic, rtt)
+  #     assign(socket, :last_ping_at, now)
+  #   else
+  #     socket
+  #   end
+  # end
 
-  defp rate_limited_ping_broadcast(socket, _rtt), do: socket
+  # defp rate_limited_ping_broadcast(socket, _rtt), do: socket
 
-  defp ping_broadcast(topic, rtt) do
-    Phoenix.PubSub.broadcast!(
-      @pubsub,
-      topic,
-      {:ping, %{rtt: rtt}}
-    )
-  end
+  # defp ping_broadcast(topic, rtt) do
+  #   Phoenix.PubSub.broadcast!(
+  #     @pubsub,
+  #     topic,
+  #     {:ping, %{rtt: rtt}}
+  #   )
+  # end
 end

@@ -187,7 +187,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
         </.form>
         <pre class="overflow-scroll max-h-96">
     <%= inspect(@output, pretty: true) %>
-    </pre>
+        </pre>
       </div>
     </div>
     """
