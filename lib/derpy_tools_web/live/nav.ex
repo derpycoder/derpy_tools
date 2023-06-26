@@ -8,21 +8,14 @@ defmodule DerpyToolsWeb.Nav do
     {:cont,
      socket
      #  |> subscribe_ping(session)
-     |> attach_hook(:inspect_source, :handle_event, &handle_event/3)
-     |> attach_hook(:ping, :handle_event, &handle_event/3)}
+     #  |> attach_hook(:ping, :handle_event, &handle_event/3)
+     |> attach_hook(:inspect_source, :handle_event, &handle_event/3)}
   end
 
   defp handle_event("inspect-source", %{"file" => file, "line" => line}, socket) do
     System.cmd("code", ["--goto", "#{file}:#{line}"])
 
     {:halt, socket}
-  end
-
-  defp handle_event("ping", %{"rtt" => _rtt}, socket) do
-    {:halt,
-     socket
-     #  |> rate_limited_ping_broadcast(rtt)
-     |> push_event("pong", %{})}
   end
 
   defp handle_event(_, _, socket), do: {:cont, socket}
