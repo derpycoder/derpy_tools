@@ -1,6 +1,7 @@
 /* Variables */
 :root {
   @apply [--margin-x:1rem]
+    [--header-height:61px]
     /* [--main-sidebar-width:4.5rem] */
     [--main-sidebar-width:0rem]
     [--sidebar-panel-width:230px]
@@ -105,7 +106,7 @@ body.is-monochrome::before {
 
 /* Header */
 nav.header {
-  @apply fixed top-0 right-0 z-20 flex h-[61px] w-full border-b border-slate-150 transition-all duration-[.25s] dark:border-navy-700 md:w-[calc(100%-var(--main-sidebar-width))];
+  @apply fixed top-0 right-0 z-20 flex h-[var(--header-height)] w-full border-b border-slate-150 transition-all duration-[.25s] dark:border-navy-700 md:w-[calc(100%-var(--main-sidebar-width))];
 }
 
 nav.header:before {

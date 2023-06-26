@@ -87,41 +87,43 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
 
   def render(assigns) do
     ~H"""
-    <div class="w-60 m-auto relative">
-      <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
-      <.form
-        for={@form}
-        phx-change="validate"
-        phx-submit="generate-utm"
-        phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
-        phx-key="/"
-      >
-        <label for="url">URL</label>
-        <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus />
-        <label for="utm_source">Source</label>
-        <.input field={@form[:utm_source]} phx-debounce="blur" />
-        <label for="utm_medium">Medium</label>
-        <.input field={@form[:utm_medium]} phx-debounce="blur" />
-        <label for="utm_campaign">Campaign</label>
-        <.input field={@form[:utm_campaign]} phx-debounce="blur" />
-        <label for="utm_content">Content</label>
-        <.input field={@form[:utm_content]} phx-debounce="blur" />
-        <label for="utm_term">Term</label>
-        <.input field={@form[:utm_term]} phx-debounce="blur" />
-        <.button class="mt-5" phx-disable-with="Concatenating...">
-          Save
-        </.button>
-      </.form>
+    <div class="p-28 flex items-center justify-center">
+      <div class="w-60 relative">
+        <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
+        <.form
+          for={@form}
+          phx-change="validate"
+          phx-submit="generate-utm"
+          phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
+          phx-key="/"
+        >
+          <label for="url">URL</label>
+          <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus />
+          <label for="utm_source">Source</label>
+          <.input field={@form[:utm_source]} phx-debounce="blur" />
+          <label for="utm_medium">Medium</label>
+          <.input field={@form[:utm_medium]} phx-debounce="blur" />
+          <label for="utm_campaign">Campaign</label>
+          <.input field={@form[:utm_campaign]} phx-debounce="blur" />
+          <label for="utm_content">Content</label>
+          <.input field={@form[:utm_content]} phx-debounce="blur" />
+          <label for="utm_term">Term</label>
+          <.input field={@form[:utm_term]} phx-debounce="blur" />
+          <.button class="mt-5" phx-disable-with="Concatenating...">
+            Save
+          </.button>
+        </.form>
 
-      <button phx-click={JS.dispatch("phx:copy", to: "#utm-url")}>
-        📋
-      </button>
+        <button phx-click={JS.dispatch("phx:copy", to: "#utm-url")}>
+          📋
+        </button>
 
-      <div id="utm-url"><%= @output %></div>
+        <div id="utm-url"><%= @output %></div>
 
-      <a id="utm-clipboard" data-content={@output} phx-hook="Clipboard">
-        Copy Link
-      </a>
+        <a id="utm-clipboard" data-content={@output} phx-hook="Clipboard">
+          Copy Link
+        </a>
+      </div>
     </div>
     """
   end

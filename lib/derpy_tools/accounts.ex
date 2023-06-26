@@ -8,6 +8,22 @@ defmodule DerpyTools.Accounts do
 
   alias DerpyTools.Accounts.{User, UserToken, UserNotifier}
 
+  @pubsub DerpyTools.PubSub
+
+  def subscribe_to_profile(%User{} = user) do
+    Phoenix.PubSub.subscribe(@pubsub, "user:#{user.email}")
+  end
+
+  def broadcast_ping(%User{} = user, rtt) do
+    if user.email do
+      Phoenix.PubSub.broadcast!(
+        @pubsub,
+        user.email,
+        {:ping, %{user: user, rtt: rtt}}
+      )
+    end
+  end
+
   ## Database getters
 
   @doc """

@@ -50,3 +50,7 @@ html.offline .online-indicator {
 html.offline .ping-indicator {
   @apply hidden;
 }
+
+html.offline .ping-display {
+  @apply hidden;
+}

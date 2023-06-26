@@ -136,8 +136,8 @@ defmodule DerpyToolsWeb.HeaderLive do
                 />
               </svg>
             </button>
-            <span class="border-r border-slate-900/15 h-5.5"></span>
-            <.network_indicator />
+            <span class="border-r border-slate-900/15 dark:border-slate-300/75 h-5.5"></span>
+            <.heartbeat />
           </div>
         </div>
       </div>
@@ -145,7 +145,7 @@ defmodule DerpyToolsWeb.HeaderLive do
     """
   end
 
-  def network_indicator(assigns) do
+  def heartbeat(assigns) do
     ~H"""
     <button class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
       <.icon class="online-indicator hero-wifi-solid w-5.5 h-5.5 bg-lime-500" />
@@ -155,6 +155,13 @@ defmodule DerpyToolsWeb.HeaderLive do
         </span>
         <span class="inline-flex h-2 w-2 rounded-full bg-secondary"></span>
       </span>
+
+      <p
+        id="ping-display"
+        class="ping-display absolute -bottom-3 text-tiny font-semibold text-white p-1 bg-pink-400 rounded-lg"
+        phx-hook="Ping"
+      >
+      </p>
 
       <.icon class="offline-indicator hero-x-mark w-4 h-4 absolute right-1 bottom-1 mix-blend-difference" />
     </button>
