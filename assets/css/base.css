@@ -1,7 +1,7 @@
 /* Variables */
 :root {
   @apply [--margin-x:1rem]
-    [--header-height:61px]
+    [--header-height:65px]
     /* [--main-sidebar-width:4.5rem] */
     [--main-sidebar-width:0rem]
     [--sidebar-panel-width:230px]

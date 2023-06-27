@@ -36,17 +36,17 @@ defmodule DerpyTools.Accounts do
     Phoenix.PubSub.subscribe(@pubsub, topic(user))
   end
 
-  defp broadcast({:ok, user}, event) do
-    Phoenix.PubSub.broadcast(
-      @pubsub,
-      topic(user),
-      {event, user}
-    )
+  # defp broadcast({:ok, user}, event) do
+  #   Phoenix.PubSub.broadcast(
+  #     @pubsub,
+  #     topic(user),
+  #     {event, user}
+  #   )
 
-    {:ok, user}
-  end
+  #   {:ok, user}
+  # end
 
-  defp broadcast({:error, _changeset} = error, _event), do: error
+  # defp broadcast({:error, _changeset} = error, _event), do: error
 
   defp topic(%User{id: id}) do
     "user:#{id}"
