@@ -81,7 +81,7 @@ defmodule DerpyToolsWeb.HeaderLive do
                 for="search-box"
                 class="absolute right-3 flex items-center justify-center h-full cursor-pointer"
               >
-                <kbd class="custom text-[16px]">⌘</kbd><kbd class="custom">K</kbd>
+                <kbd class="text-[16px]">⌘</kbd><kbd>K</kbd>
               </label>
             </div>
             <!-- Dark Mode Toggle -->
