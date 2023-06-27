@@ -398,7 +398,7 @@ defmodule DerpyToolsWeb.CoreComponents do
       <span
         :if={@icon}
         class={[
-          "pointer-events-none absolute top-3 flex w-10 items-center justify-center  peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
+          "pointer-events-none absolute top-3 flex w-10 items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
           @errors == [] &&
             "peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400",
           @errors != [] && "text-rose-600"

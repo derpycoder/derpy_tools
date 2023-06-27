@@ -54,7 +54,13 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
           <label class="mt-4 block">
             <span>Email:</span>
             <span class="relative mt-1.5 flex">
-              <.input field={@form[:email]} placeholder="Enter Email" type="text" required>
+              <.input
+                field={@form[:email]}
+                placeholder="Enter Email"
+                type="text"
+                required
+                phx-debounce="1000"
+              >
                 <:icon>
                   <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
                 </:icon>
@@ -64,7 +70,13 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
           <label class="mt-4 block">
             <span>Password:</span>
             <span class="relative mt-1.5 flex">
-              <.input field={@form[:password]} placeholder="Password" type="password" required>
+              <.input
+                field={@form[:password]}
+                placeholder="Password"
+                type="password"
+                required
+                phx-debounce="1000"
+              >
                 <:icon>
                   <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
                 </:icon>
