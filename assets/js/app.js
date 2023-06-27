@@ -24,6 +24,7 @@ import topbar from "../vendor/topbar";
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
+import CommandPallete from "./command_pallete";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -38,7 +39,12 @@ let liveSocket = new LiveSocket("/live", Socket, {
       };
     },
   },
-  hooks: { Clipboard, DarkModeToggle, Ping },
+  hooks: {
+    Clipboard,
+    DarkModeToggle,
+    Ping,
+    CommandPallete,
+  },
 });
 
 // Show progress bar on live navigation and form submits
