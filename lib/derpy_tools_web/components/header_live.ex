@@ -1,6 +1,8 @@
 defmodule DerpyToolsWeb.HeaderLive do
   use DerpyToolsWeb, :live_view
 
+  on_mount {DerpyToolsWeb.Permit, :anyone}
+
   def mount(_params, _session, socket) do
     {:ok, socket, layout: false}
   end
@@ -138,6 +140,29 @@ defmodule DerpyToolsWeb.HeaderLive do
             </button>
             <span class="border-r border-slate-900/15 dark:border-slate-300/75 h-5.5"></span>
             <.heartbeat />
+            <span class="border-r border-slate-900/15 dark:border-slate-300/75 h-5.5"></span>
+            <%= if @current_user do %>
+              <.link
+                navigate={~p"/users/settings"}
+                class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+              >
+                <.icon class="hero-adjustments-horizontal w-5.5 h-5.5 text-slate-500 dark:text-navy-100" />
+              </.link>
+              <.link
+                href={~p"/users/log_out"}
+                method="delete"
+                class="btn bg-gradient-to-r from-fuchsia-600 to-pink-600 font-medium text-white"
+              >
+                Log out
+              </.link>
+            <% else %>
+              <.link
+                navigate={~p"/users/log_in"}
+                class="btn bg-gradient-to-r from-green-400 to-blue-600 font-medium text-white"
+              >
+                Log in
+              </.link>
+            <% end %>
           </div>
         </div>
       </div>
