@@ -150,7 +150,7 @@ defmodule DerpyToolsWeb.HeaderLive do
     |> JS.dispatch("phx:focus", to: "#search-box")
   end
 
-  def handle_event("open-command-pallete", %{"key" => "k", "metaKey" => true} = params, socket) do
+  def handle_event("open-command-pallete", %{"key" => "k", "metaKey" => true}, socket) do
     {:noreply,
      socket
      |> push_event("phx:focus", %{

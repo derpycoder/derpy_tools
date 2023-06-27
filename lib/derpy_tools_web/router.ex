@@ -22,7 +22,7 @@ defmodule DerpyToolsWeb.Router do
 
     # get "/", PageController, :home
     live_session :no_log_in_required,
-      on_mount: [DerpyToolsWeb.Nav] do
+      on_mount: [DerpyToolsWeb.Nav, {DerpyToolsWeb.Permit, :anyone}] do
       live "/", HomePageLive
       live "/utm-builder", UtmBuilderLive
       live "/metadata-analyzer", MetadataAnalyzerLive

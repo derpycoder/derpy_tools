@@ -10,19 +10,61 @@ defmodule DerpyTools.Accounts do
 
   @pubsub DerpyTools.PubSub
 
-  def subscribe_to_profile(%User{} = user) do
-    Phoenix.PubSub.subscribe(@pubsub, "user:#{user.email}")
+  # ==============================================================================
+  # Used to verify if the user is actually a Super Admin!!
+  # ==============================================================================
+  # def is_super_admin?(nil), do: false
+
+  # def is_super_admin?(user_id) do
+  #   user_id in Application.get_env(:derpy_tools, :super_admin_user_ids)
+  # end
+
+  # ==============================================================================
+  # Used to lock user out, across all devices!!
+  # ==============================================================================
+  # @spec lock(map()) :: {:ok, map()} | {:error, map()}
+  # def lock(%User{id: id, role: :super_admin}), do: not is_super_admin?(id)
+
+  # def lock(user) do
+  #   user
+  #   |> User.lock_changeset()
+  #   |> Repo.update()
+  #   |> broadcast(:lock_account)
+  # end
+
+  def subscribe(user) do
+    Phoenix.PubSub.subscribe(@pubsub, topic(user))
   end
 
-  def broadcast_ping(%User{} = user, rtt) do
-    if user.email do
-      Phoenix.PubSub.broadcast!(
-        @pubsub,
-        user.email,
-        {:ping, %{user: user, rtt: rtt}}
-      )
-    end
+  defp broadcast({:ok, user}, event) do
+    Phoenix.PubSub.broadcast(
+      @pubsub,
+      topic(user),
+      {event, user}
+    )
+
+    {:ok, user}
   end
+
+  defp broadcast({:error, _changeset} = error, _event), do: error
+
+  defp topic(%User{id: id}) do
+    "user:#{id}"
+  end
+
+  # def subscribe_to_profile(%User{} = user) do
+  #   Phoenix.PubSub.subscribe(@pubsub, "user:#{user.email}")
+  # end
+
+  # def broadcast_ping(%User{} = user, rtt) do
+  #   if user.email do
+  #     Phoenix.PubSub.broadcast!(
+  #       @pubsub,
+  #       user.email,
+  #       {:ping, %{user: user, rtt: rtt}}
+  #     )
+  #   end
+  # end
 
   ## Database getters
 
