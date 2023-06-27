@@ -301,6 +301,7 @@ defmodule DerpyToolsWeb.CoreComponents do
                 multiple pattern placeholder readonly required rows size step)
 
   slot :inner_block
+  slot :icon
 
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
@@ -325,7 +326,7 @@ defmodule DerpyToolsWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
+          class="form-checkbox is-basic h-5 w-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
           {@rest}
         />
         <%= @label %>
@@ -377,7 +378,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class="w-full">
+    <div phx-feedback-for={@name} class="w-full relative">
       <.label for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -385,14 +386,21 @@ defmodule DerpyToolsWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
+          "w-full form-input peer rounded-lg border bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10",
+          @errors == [] &&
+            "border-slate-300 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent",
           @errors != [] && "border-rose-400 focus:border-rose-400",
+          @icon != [] && "pl-9",
           @class
         ]}
         {@rest}
       />
+      <span
+        :if={@icon}
+        class="pointer-events-none absolute top-3 flex w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+      >
+        <%= render_slot(@icon) %>
+      </span>
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """

@@ -36,41 +36,26 @@ defmodule DerpyToolsWeb.UserLoginLive do
           <label class="block">
             <span>Email:</span>
             <span class="relative mt-1.5 flex">
-              <.input
-                field={@form[:email]}
-                class="form-input peer rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Enter Email"
-                type="text"
-                required
-                id="email"
-              />
-              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
-              </span>
+              <.input field={@form[:email]} placeholder="Enter Email" type="text" required id="email">
+                <:icon>
+                  <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
+                </:icon>
+              </.input>
             </span>
           </label>
           <label class="mt-4 block">
             <span>Password:</span>
             <span class="relative mt-1.5 flex">
-              <.input
-                field={@form[:password]}
-                class="form-input peer rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Enter Password"
-                type="password"
-                required
-              />
-              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
-              </span>
+              <.input field={@form[:password]} placeholder="Enter Password" type="password" required>
+                <:icon>
+                  <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
+                </:icon>
+              </.input>
             </span>
           </label>
-          <div class="mt-4 flex items-center justify-between space-x-2">
+          <div class="mt-6 flex items-center justify-between space-x-2">
             <label class="inline-flex items-center space-x-2">
-              <.input
-                field={@form[:remember_me]}
-                class="form-checkbox is-basic h-5 w-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
-                type="checkbox"
-              />
+              <.input field={@form[:remember_me]} type="checkbox" />
               <span class="line-clamp-1">Remember me</span>
             </label>
             <.link

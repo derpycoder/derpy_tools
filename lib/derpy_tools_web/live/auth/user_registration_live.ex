@@ -35,7 +35,6 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
           phx-trigger-action={@trigger_submit}
           method="post"
           action={~p"/users/log_in?_action=registered"}
-          phx-update="ignore"
           phx-window-keyup={JS.dispatch("phx:focus", to: "#username")}
           phx-key="/"
         >
@@ -45,67 +44,45 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
           <label class="block">
             <span>Name:</span>
             <span class="relative mt-1.5 flex">
-              <.input
-                id="username"
-                field={@form[:username]}
-                class="form-input peer rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Username"
-                type="text"
-              />
-              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <.icon class="hero-finger-print h-5 w-5 transition-colors duration-200" />
-              </span>
+              <.input id="username" field={@form[:username]} placeholder="Username" type="text">
+                <:icon>
+                  <.icon class="hero-finger-print h-5 w-5 transition-colors duration-200" />
+                </:icon>
+              </.input>
             </span>
           </label>
           <label class="mt-4 block">
             <span>Email:</span>
             <span class="relative mt-1.5 flex">
-              <.input
-                field={@form[:email]}
-                class="form-input peer rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Enter Email"
-                type="text"
-                required
-              />
-              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
-              </span>
+              <.input field={@form[:email]} placeholder="Enter Email" type="text" required>
+                <:icon>
+                  <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
+                </:icon>
+              </.input>
             </span>
           </label>
           <label class="mt-4 block">
             <span>Password:</span>
             <span class="relative mt-1.5 flex">
-              <.input
-                field={@form[:password]}
-                class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Password"
-                type="password"
-                required
-              />
-              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
-              </span>
+              <.input field={@form[:password]} placeholder="Password" type="password" required>
+                <:icon>
+                  <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
+                </:icon>
+              </.input>
             </span>
           </label>
           <label class="mt-4 block">
             <span>Confirm Password:</span>
             <span class="relative mt-1.5 flex">
-              <.input
-                field={@form[:repeated_password]}
-                class="form-input peer rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Repeat Password"
-                type="password"
-              />
-              <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
-              </span>
+              <.input field={@form[:repeated_password]} placeholder="Repeat Password" type="password">
+                <:icon>
+                  <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
+                </:icon>
+              </.input>
             </span>
           </label>
-          <div class="mt-4 flex items-center space-x-2">
-            <input
-              class="form-checkbox is-basic h-5 w-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
-              type="checkbox"
-            />
+          <div class="mt-6 flex items-center space-x-2">
+            <input type="checkbox" />
             <p class="line-clamp-1">
               I agree with
               <a href="#" class="text-slate-400 hover:underline dark:text-navy-300">
