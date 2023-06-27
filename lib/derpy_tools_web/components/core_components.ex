@@ -388,8 +388,8 @@ defmodule DerpyToolsWeb.CoreComponents do
         class={[
           "w-full form-input transition-colors duration-300 peer rounded-lg border bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 autofill:!text-black autofill:!bg-yellow-300",
           @errors == [] &&
-            "border-slate-300 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent",
-          @errors != [] && "border-rose-400 focus:border-rose-400",
+            "border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent",
+          @errors != [] && "!border-rose-400 focus:ring-rose-400",
           @icon != [] && "pl-9",
           @class
         ]}
