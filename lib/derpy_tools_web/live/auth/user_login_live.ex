@@ -12,7 +12,7 @@ defmodule DerpyToolsWeb.UserLoginLive do
             class="mx-auto"
             width="64"
             height="64"
-            src={~p"/images/emojis/grinning_face_with_big_eyes.min.gif"}
+            src={~p"/images/emojis/grinning_face_with_big_eyes.gif"}
             alt="logo"
           />
           <div class="mt-4">
@@ -106,11 +106,11 @@ defmodule DerpyToolsWeb.UserLoginLive do
           </div>
           <div class="flex space-x-4">
             <button class="btn w-full space-x-3 border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
-              <.google-logo />
+              <.google_logo />
               <span>Google</span>
             </button>
             <button class="btn w-full space-x-3 border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
-              <.github-logo />
+              <.github_logo />
               <span>Github</span>
             </button>
           </div>
