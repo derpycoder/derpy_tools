@@ -30,6 +30,14 @@ let csrfToken = document
   .getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
+  metadata: {
+    keydown: (e, el) => {
+      return {
+        key: e.key,
+        metaKey: e.metaKey,
+      };
+    },
+  },
   hooks: { Clipboard, DarkModeToggle, Ping },
 });
 

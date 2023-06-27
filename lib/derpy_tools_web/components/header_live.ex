@@ -54,6 +54,7 @@ defmodule DerpyToolsWeb.HeaderLive do
                 @focus="isShowPopper= true"
                 type="text"
                 x-ref="popperRef"
+                phx-window-keydown="open-command-pallete"
               />
               <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                 <svg
@@ -143,6 +144,21 @@ defmodule DerpyToolsWeb.HeaderLive do
     </nav>
     """
   end
+
+  def open_command_pallete(js \\ %JS{}) do
+    js
+    |> JS.dispatch("phx:focus", to: "#search-box")
+  end
+
+  def handle_event("open-command-pallete", %{"key" => "k", "metaKey" => true} = params, socket) do
+    {:noreply,
+     socket
+     |> push_event("phx:focus", %{
+       to: "#search-box"
+     })}
+  end
+
+  def handle_event("open-command-pallete", _params, socket), do: {:noreply, socket}
 
   def handle_event("ping", %{"rtt" => _rtt}, socket) do
     {:noreply, socket |> push_event("pong", %{})}
