@@ -386,7 +386,7 @@ defmodule DerpyToolsWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "w-full form-input peer rounded-lg border bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 autofill:!text-black autofill:!bg-yellow-300",
+          "w-full form-input transition-colors duration-300 peer rounded-lg border bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 autofill:!text-black autofill:!bg-yellow-300",
           @errors == [] &&
             "border-slate-300 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent",
           @errors != [] && "border-rose-400 focus:border-rose-400",
@@ -397,7 +397,12 @@ defmodule DerpyToolsWeb.CoreComponents do
       />
       <span
         :if={@icon}
-        class="pointer-events-none absolute top-3 flex w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+        class={[
+          "pointer-events-none absolute top-3 flex w-10 items-center justify-center  peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
+          @errors == [] &&
+            "peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400",
+          @errors != [] && "text-rose-600"
+        ]}
       >
         <%= render_slot(@icon) %>
       </span>

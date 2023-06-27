@@ -15,8 +15,17 @@ defmodule DerpyToolsWeb.HeaderLive do
       <div class="header-container supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-750/80 relative flex w-full bg-white dark:bg-navy-750 print:hidden">
         <!-- Header Items -->
         <div class="flex w-full items-center justify-between">
+          <.link
+            navigate={~p"/"}
+            class="flex p-4 text-2xl font-semibold text-center text-slate-700 dark:text-slate-200"
+          >
+            Derpy
+            <span class="ml-2 before:h-10 before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+              <span class="relative text-white">Tools</span>
+            </span>
+          </.link>
           <!-- Left: Sidebar Toggle Button -->
-          <div class="h-7 w-7">
+          <%!-- <div class="h-7 w-7">
             <button
               id="menu-toggle"
               phx-click={JS.navigate(~p"/")}
@@ -26,7 +35,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               <span></span>
               <span></span>
             </button>
-          </div>
+          </div> --%>
           <!-- Right: Header buttons -->
           <div class="-mr-1.5 flex items-center space-x-2">
             <!-- Mobile Search Toggle -->
@@ -51,7 +60,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               <input
                 id="search-box"
                 placeholder="Search here..."
-                class="form-input border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+                class="form-input border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
                 -click="isShowPopper ? 'w-80' : 'w-60'"
                 @focus="isShowPopper= true"
                 type="text"
