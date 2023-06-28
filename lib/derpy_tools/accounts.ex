@@ -32,11 +32,11 @@ defmodule DerpyTools.Accounts do
   #   |> broadcast(:lock_account)
   # end
 
+  def subscribe(nil), do: raise("Please pass a user to subscribe for.")
+
   def subscribe(user) do
     Phoenix.PubSub.subscribe(@pubsub, topic(user))
   end
-
-  def subscribe(nil), do: raise("Please pass a user to subscribe for.")
 
   # defp broadcast({:ok, user}, event) do
   #   Phoenix.PubSub.broadcast(
