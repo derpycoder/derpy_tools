@@ -5,7 +5,7 @@ defmodule DerpyToolsWeb.UserForgotPasswordLive do
 
   def render(assigns) do
     ~H"""
-    <div class="grid w-full grow grid-cols-1 place-items-center mt-36">
+    <div class="grid w-full grow grid-cols-1 place-items-center h-[80vh]">
       <div class="w-full max-w-[26rem] p-4 sm:px-5">
         <div class="text-center">
           <img
@@ -24,9 +24,14 @@ defmodule DerpyToolsWeb.UserForgotPasswordLive do
             </p>
           </div>
         </div>
-        <.form for={@form} id="reset_password_form" phx-submit="send_email" class="card mt-5 rounded-lg p-5 lg:p-7">
-          <.input field={@form[:email]} type="email" placeholder="Email" required label="Email:" >
-          <:icon>
+        <.form
+          for={@form}
+          id="reset_password_form"
+          phx-submit="send_email"
+          class="card mt-5 rounded-lg p-5 lg:p-7"
+        >
+          <.input field={@form[:email]} type="email" placeholder="Email" required label="Email:">
+            <:icon>
               <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
             </:icon>
           </.input>
