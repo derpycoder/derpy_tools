@@ -22,8 +22,12 @@ defmodule DerpyToolsWeb.Permit do
     {:cont, socket}
   end
 
-  defp find_current_user(%{"user_token" => user_token}),
-    do: {:ok, Accounts.get_user_by_session_token(user_token)}
+  defp find_current_user(%{"user_token" => user_token}) do
+    case Accounts.get_user_by_session_token(user_token) do
+      user -> {:ok, user}
+      nil -> {:error, nil}
+    end
+  end
 
   defp find_current_user(_), do: {:error, nil}
 

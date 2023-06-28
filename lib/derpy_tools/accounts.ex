@@ -36,6 +36,8 @@ defmodule DerpyTools.Accounts do
     Phoenix.PubSub.subscribe(@pubsub, topic(user))
   end
 
+  def subscribe(nil), do: raise("Please pass a user to subscribe for.")
+
   # defp broadcast({:ok, user}, event) do
   #   Phoenix.PubSub.broadcast(
   #     @pubsub,
