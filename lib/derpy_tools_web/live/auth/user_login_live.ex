@@ -5,7 +5,7 @@ defmodule DerpyToolsWeb.UserLoginLive do
 
   def render(assigns) do
     ~H"""
-    <main class="grid w-full h-full grow grid-cols-1 place-items-center">
+    <div class="grid w-full h-full grow grid-cols-1 place-items-center">
       <div class="w-full max-w-[26rem] p-4 sm:px-5">
         <div class="text-center">
           <img
@@ -106,7 +106,7 @@ defmodule DerpyToolsWeb.UserLoginLive do
           <a href="#">Term of service</a>
         </div>
       </div>
-    </main>
+    </div>
     """
   end
 
