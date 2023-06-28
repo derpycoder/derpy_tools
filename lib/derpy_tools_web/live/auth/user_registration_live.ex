@@ -91,7 +91,7 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
             </:icon>
           </.input>
           <div class="mt-6 flex items-center space-x-2">
-            <input type="checkbox" />
+            <.input field={@form[:agree_privacy_policy]} type="checkbox" />
             <p class="line-clamp-1">
               I agree with
               <a href="#" class="text-slate-400 hover:underline dark:text-navy-300">
@@ -108,7 +108,6 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
               <.link
                 navigate={~p"/users/log_in"}
                 class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-                href="pages-login-1.html"
               >
                 Sign In
               </.link>

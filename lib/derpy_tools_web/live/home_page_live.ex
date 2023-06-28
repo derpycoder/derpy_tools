@@ -7,7 +7,7 @@ defmodule DerpyToolsWeb.HomePageLive do
       <li>
         <.link
           navigate={~p"/utm-builder"}
-          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+          class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
         >
           UTM Builder
         </.link>
@@ -15,7 +15,7 @@ defmodule DerpyToolsWeb.HomePageLive do
       <li>
         <.link
           navigate={~p"/metadata-analyzer"}
-          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+          class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
         >
           Meta Data Analyzer (To see if images will load in Twitter, Insta)
         </.link>

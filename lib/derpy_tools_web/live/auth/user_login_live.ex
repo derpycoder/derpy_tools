@@ -76,11 +76,9 @@ defmodule DerpyToolsWeb.UserLoginLive do
           <div class="mt-4 text-center text-xs+">
             <p class="line-clamp-1">
               <span>Dont have Account?</span>
-
               <.link
                 navigate={~p"/users/register"}
                 class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-                href="pages-singup-1.html"
               >
                 Create account
               </.link>
