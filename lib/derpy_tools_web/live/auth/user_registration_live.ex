@@ -14,7 +14,7 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
             class="mx-auto"
             width="64"
             height="64"
-            src={~p"/images/emojis/grinning_face_with_big_eyes.gif"}
+            src={~p"/images/emojis/smiling_face_with_hearts.gif"}
             alt="logo"
           />
           <div class="mt-4">
