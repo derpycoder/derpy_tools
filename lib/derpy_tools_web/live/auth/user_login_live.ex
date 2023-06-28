@@ -33,26 +33,31 @@ defmodule DerpyToolsWeb.UserLoginLive do
           phx-window-keyup={JS.dispatch("phx:focus", to: "#email")}
           phx-key="/"
         >
-          <label class="block">
-            <span>Email:</span>
-            <span class="relative mt-1.5 flex">
-              <.input field={@form[:email]} placeholder="Enter Email" type="text" required id="email">
-                <:icon>
-                  <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
-                </:icon>
-              </.input>
-            </span>
-          </label>
-          <label class="mt-4 block">
-            <span>Password:</span>
-            <span class="relative mt-1.5 flex">
-              <.input field={@form[:password]} placeholder="Enter Password" type="password" required>
-                <:icon>
-                  <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
-                </:icon>
-              </.input>
-            </span>
-          </label>
+          <.input
+            field={@form[:email]}
+            placeholder="Enter Email"
+            type="text"
+            required
+            id="email"
+            label="Email:"
+            autofocus
+          >
+            <:icon>
+              <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
+            </:icon>
+          </.input>
+          <.input
+            field={@form[:password]}
+            placeholder="Enter Password"
+            type="password"
+            required
+            label="Password:"
+            class="mt-4"
+          >
+            <:icon>
+              <.icon class="hero-lock-closed h-5 w-5 transition-colors duration-200" />
+            </:icon>
+          </.input>
           <div class="mt-6 flex items-center justify-between space-x-2">
             <label class="inline-flex items-center space-x-2">
               <.input field={@form[:remember_me]} type="checkbox" />
@@ -65,12 +70,9 @@ defmodule DerpyToolsWeb.UserLoginLive do
               Forgot Password?
             </.link>
           </div>
-          <button
-            phx-disable-with="Logging in..."
-            class="btn mt-5 w-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-          >
+          <.button phx-disable-with="Logging in...">
             Log In <span aria-hidden="true" class="ml-2">&rarr;</span>
-          </button>
+          </.button>
           <div class="mt-4 text-center text-xs+">
             <p class="line-clamp-1">
               <span>Dont have Account?</span>

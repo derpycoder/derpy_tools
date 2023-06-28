@@ -97,18 +97,12 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
           phx-key="/"
         >
-          <label for="url">URL</label>
-          <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus />
-          <label for="utm_source">Source</label>
-          <.input field={@form[:utm_source]} phx-debounce="blur" />
-          <label for="utm_medium">Medium</label>
-          <.input field={@form[:utm_medium]} phx-debounce="blur" />
-          <label for="utm_campaign">Campaign</label>
-          <.input field={@form[:utm_campaign]} phx-debounce="blur" />
-          <label for="utm_content">Content</label>
-          <.input field={@form[:utm_content]} phx-debounce="blur" />
-          <label for="utm_term">Term</label>
-          <.input field={@form[:utm_term]} phx-debounce="blur" />
+          <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus label="URL:" />
+          <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4" />
+          <.input field={@form[:utm_medium]} phx-debounce="blur" label="Medium:" class="mt-4" />
+          <.input field={@form[:utm_campaign]} phx-debounce="blur" label="Campaign:" class="mt-4" />
+          <.input field={@form[:utm_content]} phx-debounce="blur" label="Content:" class="mt-4" />
+          <.input field={@form[:utm_term]} phx-debounce="blur" label="Term" class="mt-4" />
           <.button class="mt-5" phx-disable-with="Concatenating...">
             Save
           </.button>

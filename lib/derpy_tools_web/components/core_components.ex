@@ -240,8 +240,8 @@ defmodule DerpyToolsWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "btn mt-5 w-full bg-primary hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90",
+        "text-sm font-medium leading-6 text-white active:text-white/80",
         @class
       ]}
       {@rest}
@@ -378,7 +378,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class="w-full relative">
+    <div phx-feedback-for={@name} class={["w-full relative", @class]}>
       <.label for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -390,15 +390,14 @@ defmodule DerpyToolsWeb.CoreComponents do
           @errors == [] &&
             "border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent",
           @errors != [] && "!border-rose-400 focus:ring-rose-400",
-          @icon != [] && "pl-9",
-          @class
+          @icon != [] && "pl-9"
         ]}
         {@rest}
       />
       <span
         :if={@icon}
         class={[
-          "pointer-events-none absolute top-3 flex w-10 items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
+          "pointer-events-none absolute top-[35px] flex w-10 items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
           @errors == [] &&
             "peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400",
           @errors != [] && "text-rose-600"
@@ -419,7 +418,7 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="block text-sm leading-6">
       <%= render_slot(@inner_block) %>
     </label>
     """
