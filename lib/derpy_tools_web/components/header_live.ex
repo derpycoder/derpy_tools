@@ -17,11 +17,11 @@ defmodule DerpyToolsWeb.HeaderLive do
         <div class="flex w-full items-center justify-between">
           <.link
             navigate={~p"/"}
-            class="flex p-4 text-2xl font-semibold text-center text-slate-700 dark:text-slate-200"
+            class="font-sponge-bob flex p-4 text-center text-slate-700 dark:text-slate-200"
           >
-            Derpy
-            <span class="ml-2 before:h-10 before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-              <span class="relative text-white">Tools</span>
+            <span class="text-3xl">DerPy</span>
+            <span class="ml-2 before:h-10 text-2xl before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+              <span class="relative text-white">toOLS</span>
             </span>
           </.link>
           <!-- Left: Sidebar Toggle Button -->
