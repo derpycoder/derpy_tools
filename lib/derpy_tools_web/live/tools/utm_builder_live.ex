@@ -89,6 +89,49 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
     ~H"""
     <div class="p-28 flex items-center justify-center">
       <div class="relative w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
+        <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
+          <ol role="list" class="flex items-center space-x-4">
+            <li>
+              <div>
+                <.link navigate={~p"/"} class="text-gray-400 hover:text-gray-500">
+                  <svg
+                    class="h-5 w-5 flex-shrink-0"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span class="sr-only">Home</span>
+                </.link>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg
+                  class="h-5 w-5 flex-shrink-0 text-gray-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default">
+                  UTM Builder
+                </span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
         <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
         <.form
           for={@form}
@@ -123,12 +166,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           <span class="pointer-events-none absolute top-[38px] r-0 flex w-10 items-center justify-center peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400">
             <.icon class="hero-link" />
           </span>
-          <button
-            class="copy-btn"
-            id="copy-utm-url"
-            phx-hook="Clipboard"
-            data-target="utm-url"
-          >
+          <button class="copy-btn" id="copy-utm-url" phx-hook="Clipboard" data-target="utm-url">
             <span class="tooltip">Copied!</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
