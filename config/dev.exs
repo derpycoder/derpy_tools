@@ -19,7 +19,7 @@ config :derpy_tools, DerpyToolsWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
-  debug_errors: false,
+  debug_errors: true,
   secret_key_base: "7cBf+eDGKcco2AIaudKhN5szaYo8Dxm3vHBta4WM6YD7wDHZ8C3oXjp4X601+SF2",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
