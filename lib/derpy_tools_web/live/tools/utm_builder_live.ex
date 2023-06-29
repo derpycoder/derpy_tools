@@ -88,7 +88,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
   def render(assigns) do
     ~H"""
     <div class="p-28 flex items-center justify-center">
-      <div class="relative w-[25svw]">
+      <div class="relative w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
         <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
         <.form
           for={@form}
