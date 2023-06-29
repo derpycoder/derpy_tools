@@ -25,6 +25,7 @@ import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
 import CommandPallete from "./command_pallete";
+import SpongeBobText from "./sponge_bob_text";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -44,6 +45,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     DarkModeToggle,
     Ping,
     CommandPallete,
+    SpongeBobText,
   },
 });
 
