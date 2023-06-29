@@ -88,7 +88,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
   def render(assigns) do
     ~H"""
     <div class="p-28 flex items-center justify-center">
-      <div class="w-60 relative">
+      <div class="relative w-[25svw]">
         <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
         <.form
           for={@form}
@@ -96,6 +96,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           phx-submit="generate-utm"
           phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
           phx-key="/"
+          class="card mt-5 rounded-lg p-5 lg:p-7"
         >
           <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus label="URL:" />
           <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4" />
@@ -103,20 +104,21 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           <.input field={@form[:utm_campaign]} phx-debounce="blur" label="Campaign:" class="mt-4" />
           <.input field={@form[:utm_content]} phx-debounce="blur" label="Content:" class="mt-4" />
           <.input field={@form[:utm_term]} phx-debounce="blur" label="Term" class="mt-4" />
-          <.button class="mt-5" phx-disable-with="Concatenating...">
-            Save
+          <.button class="btn" phx-disable-with="Concatenating..." type="submit">
+            <.icon class="hero-arrow-path w-5.5 h-5.5 mr-2" phx-update="ignore" /> Generate
           </.button>
         </.form>
 
-        <button phx-click={JS.dispatch("phx:copy", to: "#utm-url")}>
-          📋
-        </button>
+        <div :if={@output} id="utm-url" class="card mt-5 rounded-lg p-5 lg:p-7">
+          <%= @output %>
+          <.button class="btn" phx-click={JS.dispatch("phx:copy", to: "#utm-url") |> JS.push("copied_notification")}>
+            <.icon class="hero-clipboard w-5.5 h-5.5 mr-2" /> Copy to Clipboard
+          </.button>
+        </div>
 
-        <div id="utm-url"><%= @output %></div>
-
-        <a id="utm-clipboard" data-content={@output} phx-hook="Clipboard">
+        <%!-- <a id="utm-clipboard" data-content={@output} phx-hook="Clipboard">
           Copy Link
-        </a>
+        </a> --%>
       </div>
     </div>
     """
@@ -152,12 +154,15 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
         socket =
           socket
           |> assign(form: to_form(changeset), output: result)
-          |> put_flash(:info, "Yay!")
 
         {:noreply, socket}
 
       {:error, changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
+  end
+
+  def handle_event("copied_notification", _, socket) do
+    {:noreply, socket |> put_flash(:info, "Copied!")}
   end
 end
