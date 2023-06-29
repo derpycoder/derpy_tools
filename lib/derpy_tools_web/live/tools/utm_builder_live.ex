@@ -214,6 +214,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
         result =
           result.url
           |> URI.parse()
+          |> Map.replace(:query, nil)
           |> URI.append_query(query)
           |> URI.to_string()
 

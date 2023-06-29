@@ -283,7 +283,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
               misc: fetch_misc(head)
             }
           )
-          |> put_flash(:info, "Yay!")
+          |> put_flash(:info, "Done!")
 
         {:noreply, socket}
 
