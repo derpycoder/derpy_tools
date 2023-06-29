@@ -49,6 +49,11 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      height: {
+        screen: ["100vh", "100dvh"],
+        "screen-sm": ["100vh", "100svh"],
+        "screen-lg": ["100vh", "100lvh"],
+      },
       fontFamily: {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
         inter: ["Inter", ...defaultTheme.fontFamily.sans],
