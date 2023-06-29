@@ -20,7 +20,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   import DerpyToolsWeb.Gettext
 
   attr :visible, :boolean, default: false
-  attr :clas, :string
+  attr :class, :string
 
   def loading_indicator(assigns) do
     ~H"""
