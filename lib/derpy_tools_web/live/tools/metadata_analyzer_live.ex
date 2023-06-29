@@ -174,7 +174,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   def render(assigns) do
     ~H"""
     <div class="p-28 flex items-center justify-center">
-      <div class="items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
+      <div class="relative items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
         <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
             <li>
@@ -239,7 +239,11 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
               <.icon class="hero-link" />
             </:icon>
           </.input>
-          <.button class="mt-5 disabled:bg-primary/80" disabled={@loading} phx-disable-with="Loading...">
+          <.button
+            class="mt-5 disabled:bg-primary/80"
+            disabled={@loading}
+            phx-disable-with="Loading..."
+          >
             <span :if={@loading}>
               Loading...
             </span>
