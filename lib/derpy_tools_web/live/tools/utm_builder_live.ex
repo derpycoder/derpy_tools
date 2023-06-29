@@ -162,6 +162,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             type="text"
             value={@output}
             class="w-full form-input transition-colors duration-300 peer rounded-lg border bg-transparent px-9 py-2 text-ellipsis placeholder:text-slate-400/70 hover:z-10 autofill:!text-black autofill:!bg-yellow-300 border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent"
+            readonly
           />
           <span class="pointer-events-none absolute top-[38px] r-0 flex w-10 items-center justify-center peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400">
             <.icon class="hero-link" />

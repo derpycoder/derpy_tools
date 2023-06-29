@@ -19,6 +19,20 @@ defmodule DerpyToolsWeb.CoreComponents do
   alias Phoenix.LiveView.JS
   import DerpyToolsWeb.Gettext
 
+  attr :visible, :boolean, default: false
+  attr :clas, :string
+
+  def loading_indicator(assigns) do
+    ~H"""
+    <div
+      :if={@visible}
+      class={["app-preloader bg-slate-50 dark:bg-navy-900 flex justify-center items-center", @class]}
+    >
+      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+    </div>
+    """
+  end
+
   def inspector(assigns) do
     ~H"""
     <div class="absolute -top-10 flex justify-end w-full">

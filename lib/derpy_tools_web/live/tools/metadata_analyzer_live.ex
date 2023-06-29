@@ -164,7 +164,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
       socket
       |> assign(
         form: to_form(changeset),
-        output: nil
+        output: nil,
+        loading: false
       )
 
     {:ok, socket}
@@ -232,18 +233,32 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             autofocus
             label="URL:"
             placeholder="Enter your URL"
+            readonly={@loading}
           >
             <:icon>
               <.icon class="hero-link" />
             </:icon>
           </.input>
-          <.button class="mt-5" phx-disable-with="Loading...">
-            Fetch Metadata
+          <.button
+            class="mt-5 disabled:bg-primary/80"
+            phx-disable-with="Requesting..."
+            disabled={@loading}
+          >
+            <%= if @loading do %>
+              <div class="spinner is-elastic h-5 w-5 animate-spin rounded-full border-[3px] border-primary/30 border-r-primary dark:border-accent/30 dark:border-r-accent mr-3">
+              </div>
+              Loading
+            <% else %>
+              Check Meta data
+            <% end %>
           </.button>
         </.form>
-        <pre :if={@output} class="overflow-scroll max-h-96 card mt-5 rounded-lg p-5 lg:p-7">
+        <div :if={@loading || @output} class="overflow-scroll h-96 card mt-5 rounded-lg">
+          <.loading_indicator visible={@loading} class="h-96" />
+          <pre :if={@output} class="p-5 lg:p-7">
     <%= inspect(@output, pretty: true) %>
-        </pre>
+          </pre>
+        </div>
       </div>
     </div>
     """
@@ -265,31 +280,37 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
       {:ok, %{id: _, url: url}} ->
         changeset = MetadataParams.change_metadata(%MetadataParams{}, params)
 
-        res =
-          Req.new()
-          |> FetchExtraMetadata.attach(fetch_redirects: true)
-          |> Req.get!(url: url)
-
-        {:ok, parsed_doc} = res.body |> Floki.parse_document()
-        {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
-
-        socket =
-          socket
-          |> assign(
-            form: to_form(changeset),
-            output: %{
-              metas: fetch_meta(head),
-              redirects: res.private.redirects,
-              misc: fetch_misc(head)
-            }
-          )
-          |> put_flash(:info, "Done!")
-
+        send(self(), {:analyze_metadata, url})
+        socket = assign(socket, output: nil, loading: true, form: to_form(changeset))
         {:noreply, socket}
 
       {:error, changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
+  end
+
+  def handle_info({:analyze_metadata, url}, socket) do
+    res =
+      Req.new()
+      |> FetchExtraMetadata.attach(fetch_redirects: true)
+      |> Req.get!(url: url)
+
+    {:ok, parsed_doc} = res.body |> Floki.parse_document()
+    {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
+
+    socket =
+      socket
+      |> assign(
+        output: %{
+          metas: fetch_meta(head),
+          redirects: res.private.redirects,
+          misc: fetch_misc(head)
+        },
+        loading: false
+      )
+      |> put_flash(:info, "Done!")
+
+    {:noreply, socket}
   end
 
   def fetch_meta(head) do
