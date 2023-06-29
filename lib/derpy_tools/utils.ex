@@ -1,5 +1,5 @@
 defmodule DerpyTools.Utils do
-  def sponge_bob_mock(text) do
+  def sponge_bob_text(text) do
     text
     |> String.graphemes()
     |> Enum.map(fn ch ->

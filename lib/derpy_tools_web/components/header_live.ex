@@ -20,9 +20,9 @@ defmodule DerpyToolsWeb.HeaderLive do
             navigate={~p"/"}
             class="font-sponge-bob flex p-4 text-center text-slate-700 dark:text-slate-200"
           >
-            <span class="text-3xl"><%= Utils.sponge_bob_mock("Derpy") %></span>
+            <span class="text-3xl"><%= Utils.sponge_bob_text("Derpy") %></span>
             <span class="ml-2 before:h-10 text-2xl before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-              <span class="relative text-white"><%= Utils.sponge_bob_mock("Tools") %></span>
+              <span class="relative text-white"><%= Utils.sponge_bob_text("Tools") %></span>
             </span>
           </.link>
           <!-- Left: Sidebar Toggle Button -->
