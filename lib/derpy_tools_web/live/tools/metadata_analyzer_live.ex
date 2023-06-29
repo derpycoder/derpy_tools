@@ -239,18 +239,15 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
               <.icon class="hero-link" />
             </:icon>
           </.input>
-          <.button
-            class="mt-5 disabled:bg-primary/80"
-            phx-disable-with="Requesting..."
-            disabled={@loading}
-          >
-            <%= if @loading do %>
+          <.button class="mt-5 disabled:bg-primary/80" disabled={@loading} phx-disable-with="">
+            <div class={[!@loading && "hidden", "phx-submit-loading:flex items-center justify-center", @loading && "flex"]}>
               <div class="spinner is-elastic h-5 w-5 animate-spin rounded-full border-[3px] border-primary/30 border-r-primary dark:border-accent/30 dark:border-r-accent mr-3">
               </div>
               Loading
-            <% else %>
-              Check Meta data
-            <% end %>
+            </div>
+            <div :if={!@loading} class="phx-submit-loading:hidden">
+              Check Metadata
+            </div>
           </.button>
         </.form>
         <div :if={@loading || @output} class="overflow-scroll h-96 card mt-5 rounded-lg">
