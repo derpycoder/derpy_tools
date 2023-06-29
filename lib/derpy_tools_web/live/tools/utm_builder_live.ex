@@ -111,7 +111,10 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
 
         <div :if={@output} id="utm-url" class="card mt-5 rounded-lg p-5 lg:p-7">
           <%= @output %>
-          <.button class="btn" phx-click={JS.dispatch("phx:copy", to: "#utm-url") |> JS.push("copied_notification")}>
+          <.button
+            class="btn"
+            phx-click={JS.dispatch("phx:copy", to: "#utm-url") |> JS.push("copied_notification")}
+          >
             <.icon class="hero-clipboard w-5.5 h-5.5 mr-2" /> Copy to Clipboard
           </.button>
         </div>

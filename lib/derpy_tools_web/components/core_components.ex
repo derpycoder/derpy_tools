@@ -609,10 +609,11 @@ defmodule DerpyToolsWeb.CoreComponents do
       <.icon class="hero-arrow-path ml-1 w-3 h-3 animate-spin" />
   """
   attr :class, :string, default: nil
+  attr :rest, :global
 
   def icon(assigns) do
     ~H"""
-    <span class={@class} />
+    <span class={@class} {@rest} />
     """
   end
 

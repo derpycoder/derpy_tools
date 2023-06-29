@@ -25,7 +25,7 @@ defmodule DerpyToolsWeb.UserSettingsLive do
           phx-change="validate_email"
           class="card mt-5 rounded-lg p-5 lg:p-7"
         >
-          <.input field={@email_form[:email]} type="email" label="Email" required label="Email:">
+          <.input field={@email_form[:email]} type="email" required label="Email:">
             <:icon>
               <.icon class="hero-at-symbol h-5 w-5 transition-colors duration-200" />
             </:icon>
