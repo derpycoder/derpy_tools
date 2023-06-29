@@ -54,3 +54,79 @@ html.offline .ping-indicator {
 html.offline .ping-display {
   @apply hidden;
 }
+
+.copy-btn {
+  width: 36px;
+  height: 36px;
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  z-index: 100;
+  top: 30px;
+  right: 25px;
+}
+
+.copy-btn,
+.code-snippet svg {
+  stroke: #4dd4ae;
+}
+.code-snippet svg .highlight {
+  opacity: 0;
+}
+
+.copy-btn:hover svg,
+.copy-btn.active svg {
+  stroke: #60fed2;
+  transform: rotate(-4deg);
+}
+
+.copy-btn.active svg .highlight {
+  opacity: 1;
+}
+
+/* Tooltip */
+
+.copy-btn .tooltip {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  background: #1e1e2e;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.copy-btn .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #1e1e2e;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.copy-btn.active .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.copy-btn .highlight {
+  opacity: 0;
+}
+.copy-btn.active .highlight {
+  opacity: 1;
+}

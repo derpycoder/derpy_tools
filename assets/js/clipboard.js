@@ -1,16 +1,23 @@
 const Clipboard = {
+  tooltipTimeout: null,
   mounted() {
-    const initialInnerHTML = this.el.innerHTML;
-
     this.el.addEventListener("click", () => {
-      const { content } = this.el.dataset;
-      navigator.clipboard.writeText(content);
+      let { target } = this.el.dataset;
 
-      this.el.innerHTML = "Copied!";
+      target = document.getElementById(target);
+      if (!target) return;
 
-      setTimeout(() => {
-        this.el.innerHTML = initialInnerHTML;
-      }, 2000);
+      target.focus();
+
+      navigator.clipboard.writeText(target.value);
+      this.el.classList.add("active");
+
+      if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
+
+      this.tooltipTimeout = setTimeout(
+        () => this.el.classList.remove("active"),
+        1000
+      );
     });
   },
 };

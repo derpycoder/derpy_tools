@@ -98,7 +98,11 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           phx-key="/"
           class="card mt-5 rounded-lg p-5 lg:p-7"
         >
-          <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus label="URL:" />
+          <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus label="URL:">
+            <:icon>
+              <.icon class="hero-link" />
+            </:icon>
+          </.input>
           <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4" />
           <.input field={@form[:utm_medium]} phx-debounce="blur" label="Medium:" class="mt-4" />
           <.input field={@form[:utm_campaign]} phx-debounce="blur" label="Campaign:" class="mt-4" />
@@ -109,19 +113,40 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           </.button>
         </.form>
 
-        <div :if={@output} id="utm-url" class="card mt-5 rounded-lg p-5 lg:p-7">
-          <%= @output %>
-          <.button
-            class="btn"
-            phx-click={JS.dispatch("phx:copy", to: "#utm-url") |> JS.push("copied_notification")}
+        <div :if={@output} class="card mt-5 rounded-lg p-5 lg:p-7">
+          <input
+            id="utm-url"
+            type="text"
+            value={@output}
+            class="w-full form-input transition-colors duration-300 peer rounded-lg border bg-transparent px-9 py-2 text-ellipsis placeholder:text-slate-400/70 hover:z-10 autofill:!text-black autofill:!bg-yellow-300 border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent"
+          />
+          <span class="pointer-events-none absolute top-[38px] r-0 flex w-10 items-center justify-center peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400">
+            <.icon class="hero-link" />
+          </span>
+          <button
+            class="copy-btn"
+            id="copy-utm-url"
+            phx-hook="Clipboard"
+            data-target="utm-url"
           >
-            <.icon class="hero-clipboard w-5.5 h-5.5 mr-2" /> Copy to Clipboard
-          </.button>
+            <span class="tooltip">Copied!</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 32 32"
+              width="32"
+              height="32"
+              class="stroke-primary"
+            >
+              <path d="M12.998 10.75h-1.25a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h8.5a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-2-2h-1.25" />
+              <path d="M17.997 12.25h-4a1 1 0 0 1-1-1v-1.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1Zm-4.249 4h4.5m-4.5 3h4.5" />
+              <path d="M15.998 6V4M19.997 6l1-1M11.998 6l-1-1" class="highlight" />
+            </svg>
+          </button>
         </div>
-
-        <%!-- <a id="utm-clipboard" data-content={@output} phx-hook="Clipboard">
-          Copy Link
-        </a> --%>
       </div>
     </div>
     """
