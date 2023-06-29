@@ -172,8 +172,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-28 w-full">
-      <div class="relative max-w-full">
+    <div class="p-28 flex items-center justify-center">
+      <div class="items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
         <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
         <.form
           for={@form}
@@ -181,14 +181,18 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
           phx-submit="save"
           phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
           phx-key="/"
+          class="card mt-5 rounded-lg p-5 lg:p-7"
         >
-          <label for="url">URL</label>
-          <.input field={@form[:url]} phx-debounce="1000" id="url" autofocus />
+          <.input field={@form[:url]} phx-debounce="1000" id="url" autofocus label="URL:" placeholder="Enter your URL">
+          <:icon>
+              <.icon class="hero-link" />
+            </:icon>
+          </.input>
           <.button class="mt-5" phx-disable-with="Loading...">
             Fetch Metadata
           </.button>
         </.form>
-        <pre class="overflow-scroll max-h-96">
+        <pre :if={@output} class="overflow-scroll max-h-96 card mt-5 rounded-lg p-5 lg:p-7">
     <%= inspect(@output, pretty: true) %>
         </pre>
       </div>
