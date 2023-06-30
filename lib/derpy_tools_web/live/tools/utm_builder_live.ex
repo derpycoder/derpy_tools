@@ -87,7 +87,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-28 flex items-center justify-center">
+    <div class="p-10 flex items-center justify-center">
       <div class="relative w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
         <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
@@ -113,7 +113,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             <li>
               <div class="flex items-center">
                 <svg
-                  class="h-5 w-5 flex-shrink-0 text-gray-400"
+                  class="h-5 w-5 flex-shrink-0 text-gray-400 dark:text-slate-100"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-hidden="true"
@@ -124,7 +124,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default">
+                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default dark:text-slate-100">
                   UTM Builder
                 </span>
               </div>
@@ -145,12 +145,25 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             <:icon>
               <.icon class="hero-link" />
             </:icon>
+            <:hint>
+              The full URL of the page to which the traffic is sent, including the protocol (https).
+            </:hint>
           </.input>
-          <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4" />
-          <.input field={@form[:utm_medium]} phx-debounce="blur" label="Medium:" class="mt-4" />
-          <.input field={@form[:utm_campaign]} phx-debounce="blur" label="Campaign:" class="mt-4" />
-          <.input field={@form[:utm_content]} phx-debounce="blur" label="Content:" class="mt-4" />
-          <.input field={@form[:utm_term]} phx-debounce="blur" label="Term" class="mt-4" />
+          <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4">
+            <:hint>The source for the campaign, such as social media, Twitter.</:hint>
+          </.input>
+          <.input field={@form[:utm_medium]} phx-debounce="blur" label="Medium:" class="mt-4">
+            <:hint>The medium of the campaign, such as email, mobile.</:hint>
+          </.input>
+          <.input field={@form[:utm_campaign]} phx-debounce="blur" label="Campaign:" class="mt-4">
+            <:hint>The name of the campaign, such as Summer Sale, Promo Code.</:hint>
+          </.input>
+          <.input field={@form[:utm_content]} phx-debounce="blur" label="Content:" class="mt-4">
+            <:hint>Used for more accurate tracking or A/B testing, such as header, footer.</:hint>
+          </.input>
+          <.input field={@form[:utm_term]} phx-debounce="blur" label="Term" class="mt-4">
+            <:hint>Used for (paid) search terms, such as shoe store, privacy analytics.</:hint>
+          </.input>
           <.button class="btn" phx-disable-with="Concatenating..." type="submit">
             <.icon class="hero-arrow-path w-5.5 h-5.5 mr-2" phx-update="ignore" /> Generate
           </.button>

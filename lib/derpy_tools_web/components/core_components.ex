@@ -316,6 +316,7 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   slot :inner_block
   slot :icon
+  slot :hint
 
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
@@ -419,6 +420,9 @@ defmodule DerpyToolsWeb.CoreComponents do
       >
         <%= render_slot(@icon) %>
       </span>
+      <span :if={@hint && @errors == []} class="text-tiny+ text-slate-400 dark:text-navy-300">
+        <%= render_slot(@hint) %>
+      </span>
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -445,8 +449,8 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden">
-      <.icon class="hero-exclamation-circle-mini mt-0.5 h-5 w-5 flex-none" />
+    <p class="flex items-center gap-3 text-tiny+ text-rose-600 leading-6 phx-no-feedback:hidden">
+      <.icon class="hero-exclamation-circle-mini mt-0.5 h-4 w-4 flex-none" />
       <%= render_slot(@inner_block) %>
     </p>
     """

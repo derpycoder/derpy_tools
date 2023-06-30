@@ -173,7 +173,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-28 flex items-center justify-center">
+    <div class="p-10 flex items-center justify-center">
       <div class="relative items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
         <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
@@ -199,7 +199,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             <li>
               <div class="flex items-center">
                 <svg
-                  class="h-5 w-5 flex-shrink-0 text-gray-400"
+                  class="h-5 w-5 flex-shrink-0 text-gray-400 dark:text-slate-100"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-hidden="true"
@@ -210,7 +210,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default">
+                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default dark:text-slate-100">
                   Metadata Analyzer
                 </span>
               </div>
@@ -238,6 +238,9 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             <:icon>
               <.icon class="hero-link" />
             </:icon>
+            <:hint>
+              The full URL of the page to which the traffic is sent, including the protocol (https).
+            </:hint>
           </.input>
           <.button
             class="mt-5 disabled:bg-primary/80"
