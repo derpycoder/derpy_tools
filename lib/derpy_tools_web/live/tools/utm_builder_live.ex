@@ -141,13 +141,23 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           phx-key="/"
           class="card mt-5 rounded-lg p-5 lg:p-7"
         >
-          <.input id="url" field={@form[:url]} phx-debounce="1000" autofocus label="URL:">
+          <.input
+            id="url"
+            field={@form[:url]}
+            phx-debounce="1000"
+            autofocus
+            label="URL:"
+            class="relative"
+          >
             <:icon>
               <.icon class="hero-link" />
             </:icon>
             <:hint>
               The full URL of the page to which the traffic is sent, including the protocol (https).
             </:hint>
+            <:shortcut>
+              <kbd class="text-[16px] font-bold">/</kbd>
+            </:shortcut>
           </.input>
           <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4">
             <:hint>The source for the campaign, such as social media, Twitter.</:hint>

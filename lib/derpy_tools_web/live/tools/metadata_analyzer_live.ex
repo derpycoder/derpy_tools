@@ -241,6 +241,9 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             <:hint>
               The full URL of the page to which the traffic is sent, including the protocol (https).
             </:hint>
+            <:shortcut>
+              <kbd class="text-[16px] font-bold">/</kbd>
+            </:shortcut>
           </.input>
           <.button
             class="mt-5 disabled:bg-primary/80"

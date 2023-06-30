@@ -317,6 +317,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   slot :inner_block
   slot :icon
   slot :hint
+  slot :shortcut
 
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     assigns
@@ -422,6 +423,12 @@ defmodule DerpyToolsWeb.CoreComponents do
       </span>
       <span :if={@hint && @errors == []} class="text-tiny+ text-slate-400 dark:text-navy-300">
         <%= render_slot(@hint) %>
+      </span>
+      <span
+        :if={@shortcut}
+        class="pointer-events-none absolute right-3 flex top-[30px] items-center justify-center cursor-pointer"
+      >
+        <%= render_slot(@shortcut) %>
       </span>
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
