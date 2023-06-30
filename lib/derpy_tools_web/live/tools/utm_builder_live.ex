@@ -210,14 +210,26 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           params
           |> Map.delete("url")
           |> Enum.filter(fn {_, v} -> v != "" end)
-          |> URI.encode_query()
+          |> Enum.into(%{}, fn {k, v} -> {k, v} end)
 
         result =
           result.url
           |> URI.parse()
-          |> Map.replace(:query, nil)
-          |> URI.append_query(query)
-          |> URI.to_string()
+          |> Map.get_and_update(
+            :query,
+            fn
+              q when is_nil(q) ->
+                {nil, query |> URI.encode_query()}
+
+              q ->
+                {q,
+                 q
+                 |> URI.decode_query()
+                 |> Map.merge(query, fn _k, _v1, v2 -> v2 end)
+                 |> URI.encode_query()}
+            end
+          )
+          |> then(fn {_, result} -> URI.to_string(result) end)
 
         socket =
           socket
