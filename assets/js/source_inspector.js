@@ -14,8 +14,7 @@ const SourceInspector = {
     const inspectSourceBtn = tooltip.querySelector("#source-btn");
     const arrowElement = tooltip.querySelector("#arrow");
 
-    this.el.addEventListener("mouseover", (e) => {
-      e.stopPropagation();
+    this.el.addEventListener("mouseenter", (e) => {
       const { file, line } = this.el.dataset;
 
       this.el.appendChild(tooltip);
@@ -35,7 +34,7 @@ const SourceInspector = {
       inspectSourceBtn.setAttribute("phx-value-file", file);
       inspectSourceBtn.setAttribute("phx-value-line", line);
     });
-    this.el.addEventListener("mouseout", (e) => {
+    this.el.addEventListener("mouseleave", (e) => {
       handleMouseLeave(this.el, tooltip);
     });
   },
