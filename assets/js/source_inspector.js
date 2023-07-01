@@ -1,10 +1,4 @@
-import {
-  computePosition,
-  autoPlacement,
-  flip,
-  offset,
-  arrow,
-} from "../vendor/floating-ui";
+import { computePosition, flip, offset, arrow } from "../vendor/floating-ui";
 
 const SourceInspector = {
   mounted() {
@@ -62,11 +56,6 @@ function placeTooltip(target, tooltip, arrowElement) {
   computePosition(target, tooltip, {
     placement: "top",
     middleware: [
-      //   autoPlacement({
-      //     crossAxis: true,
-      //     allowedPlacements: ["top", "bottom"],
-      //     padding: 5,
-      //   }),
       flip(),
       offset(8),
       arrow({
