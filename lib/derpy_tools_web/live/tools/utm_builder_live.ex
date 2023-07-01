@@ -173,7 +173,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           <.input field={@form[:utm_term]} phx-debounce="blur" label="Term" class="mt-4">
             <:hint>Used for (paid) search terms, such as shoe store, privacy analytics.</:hint>
           </.input>
-          <.button class="btn" phx-disable-with="Concatenating..." type="submit">
+          <.button class="btn" phx-disable-with="Concatenating...">
             <.icon class="hero-arrow-path w-5.5 h-5.5 mr-2" /> Generate
           </.button>
         </.form>

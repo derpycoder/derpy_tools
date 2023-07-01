@@ -253,7 +253,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
               Loading...
             </span>
             <span :if={!@loading} class="phx-submit-loading:hidden">
-              Check Metadata
+              <.icon class="hero-arrow-path w-5.5 h-5.5 mr-2" /> Check Metadata
             </span>
           </.button>
         </.form>
