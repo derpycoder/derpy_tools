@@ -73,11 +73,11 @@ defmodule DerpyToolsWeb.HeaderLive do
             <span><%= @timezone %></span>
             <!-- Main Searchbar -->
             <div
-              class="group relative mr-4 flex h-8"
               id="command-palette-search-bar"
               data-file={__ENV__.file}
               data-line={__ENV__.line}
               phx-hook={Mix.env() == :dev && "SourceInspector"}
+              class="group relative mr-4 flex h-8"
             >
               <input
                 id="search-box"
@@ -223,11 +223,11 @@ defmodule DerpyToolsWeb.HeaderLive do
   def heartbeat(assigns) do
     ~H"""
     <button
-      class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
       id="heartbeat"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
       phx-hook={Mix.env() == :dev && "SourceInspector"}
+      class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
     >
       <.icon class="online-indicator hero-wifi-solid w-5.5 h-5.5 bg-lime-500" />
 
