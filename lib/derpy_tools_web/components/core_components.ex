@@ -35,7 +35,7 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   def inspector(assigns) do
     ~H"""
-    <div class="absolute -top-10 flex justify-end w-full">
+    <div class="absolute -top-8 flex justify-end w-full">
       <%!-- To link directly to the storybook page! --%>
       <button class="rounded-tl-lg rounded-bl-lg py-1 px-2 bg-slate-100 m-0" title="Show in Catalog">
         <.icon class="hero-eye-solid h-4 w-4 text-gray-500" />
