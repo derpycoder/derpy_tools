@@ -12,6 +12,18 @@ defmodule DerpyToolsWeb.Nav do
      |> attach_hook(:inspect_source, :handle_event, &handle_event/3)}
   end
 
+  def on_mount(:assign_browser_info, _params, _session, socket) do
+    socket =
+      if connected?(socket) do
+        %{"timezone" => timezone, "locale" => locale} = get_connect_params(socket)
+        assign(socket, timezone: timezone, locale: locale)
+      else
+        assign(socket, timezone: nil, locale: nil)
+      end
+
+    {:cont, socket}
+  end
+
   defp handle_event("inspect-source", %{"file" => file, "line" => line}, socket) do
     System.cmd("code", ["--goto", "#{file}:#{line}"])
 

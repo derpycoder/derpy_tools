@@ -30,8 +30,15 @@ import SpongeBobText from "./sponge_bob_text";
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
+
+const browserInfo = Intl.DateTimeFormat().resolvedOptions();
+
 let liveSocket = new LiveSocket("/live", Socket, {
-  params: { _csrf_token: csrfToken },
+  params: {
+    _csrf_token: csrfToken,
+    locale: browserInfo.locale,
+    timezone: browserInfo.timeZone,
+  },
   metadata: {
     keydown: (e, el) => {
       return {

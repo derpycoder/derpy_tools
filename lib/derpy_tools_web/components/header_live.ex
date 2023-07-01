@@ -5,6 +5,14 @@ defmodule DerpyToolsWeb.HeaderLive do
   on_mount {DerpyToolsWeb.Permit, :anyone}
 
   def mount(_params, _session, socket) do
+    socket =
+      if connected?(socket) do
+        %{"timezone" => timezone, "locale" => locale} = get_connect_params(socket)
+        assign(socket, timezone: timezone, locale: locale)
+      else
+        assign(socket, timezone: nil, locale: nil)
+      end
+
     {:ok, socket, layout: false}
   end
 
@@ -60,6 +68,9 @@ defmodule DerpyToolsWeb.HeaderLive do
                 />
               </svg>
             </button>
+
+            <span><%= @locale %></span>
+            <span><%= @timezone %></span>
             <!-- Main Searchbar -->
             <div class="group relative mr-4 flex h-8">
               <input

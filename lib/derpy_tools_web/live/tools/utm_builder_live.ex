@@ -174,7 +174,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             <:hint>Used for (paid) search terms, such as shoe store, privacy analytics.</:hint>
           </.input>
           <.button class="btn" phx-disable-with="Concatenating..." type="submit">
-            <.icon class="hero-arrow-path w-5.5 h-5.5 mr-2" phx-update="ignore" /> Generate
+            <.icon class="hero-arrow-path w-5.5 h-5.5 mr-2" /> Generate
           </.button>
         </.form>
 
@@ -185,6 +185,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             value={@output}
             class="w-full form-input transition-colors duration-300 peer rounded-lg border bg-transparent px-9 py-2 text-ellipsis placeholder:text-slate-400/70 hover:z-10 autofill:!text-black autofill:!bg-yellow-300 border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent"
             readonly
+            autofocus
           />
           <span class="pointer-events-none absolute top-[38px] r-0 flex w-10 items-center justify-center peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400">
             <.icon class="hero-link" />
@@ -256,6 +257,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
         socket =
           socket
           |> assign(form: to_form(changeset), output: result)
+          |> put_flash(:info, "Done, scroll down to see the final URL!")
 
         {:noreply, socket}
 
