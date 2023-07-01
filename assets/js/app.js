@@ -24,7 +24,7 @@ import topbar from "../vendor/topbar";
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
-import { CommandPalette, PrimaryInput } from "./keyboard_bindings";
+import { CommandPalette, PrimaryInput } from "./keyboard_shortcuts";
 import SpongeBobText from "./sponge_bob_text";
 
 let csrfToken = document
