@@ -70,7 +70,7 @@ defmodule DerpyToolsWeb.HeaderLive do
                 @focus="isShowPopper= true"
                 type="text"
                 x-ref="popperRef"
-                phx-hook="CommandPallete"
+                phx-hook="CommandPalette"
               />
               <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                 <svg

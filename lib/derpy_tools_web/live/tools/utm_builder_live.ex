@@ -137,8 +137,6 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           for={@form}
           phx-change="validate"
           phx-submit="generate-utm"
-          phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
-          phx-key="/"
           class="card mt-5 rounded-lg p-5 lg:p-7"
         >
           <.input
@@ -148,6 +146,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             autofocus
             label="URL:"
             class="relative"
+            phx-hook="PrimaryInput"
           >
             <:icon>
               <.icon class="hero-link" />

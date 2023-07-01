@@ -24,7 +24,7 @@ import topbar from "../vendor/topbar";
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
-import CommandPallete from "./command_pallete";
+import { CommandPalette, PrimaryInput } from "./keyboard_bindings";
 import SpongeBobText from "./sponge_bob_text";
 
 let csrfToken = document
@@ -44,7 +44,8 @@ let liveSocket = new LiveSocket("/live", Socket, {
     Clipboard,
     DarkModeToggle,
     Ping,
-    CommandPallete,
+    CommandPalette,
+    PrimaryInput,
     SpongeBobText,
   },
 });

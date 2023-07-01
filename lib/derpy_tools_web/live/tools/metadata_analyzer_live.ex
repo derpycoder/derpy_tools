@@ -222,8 +222,6 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
           for={@form}
           phx-change="validate"
           phx-submit="save"
-          phx-window-keyup={JS.dispatch("phx:focus", to: "#url")}
-          phx-key="/"
           class="card mt-5 rounded-lg p-5 lg:p-7"
         >
           <.input
@@ -234,6 +232,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             label="URL:"
             placeholder="Enter your URL"
             readonly={@loading}
+            phx-hook="PrimaryInput"
           >
             <:icon>
               <.icon class="hero-link" />
