@@ -267,7 +267,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
         {:noreply, socket}
 
       {:error, changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
+        {:noreply, assign(socket, form: to_form(changeset), output: nil)}
     end
   end
 
