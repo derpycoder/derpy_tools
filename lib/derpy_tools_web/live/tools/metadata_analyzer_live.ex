@@ -174,7 +174,13 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   def render(assigns) do
     ~H"""
     <div class="p-10 flex items-center justify-center">
-      <div class="relative items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]">
+      <div
+        class="relative items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
+        id="metadata-analyzer"
+        data-file={__ENV__.file}
+        data-line={__ENV__.line}
+        phx-hook={Mix.env() == :dev && "SourceInspector"}
+      >
         <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
             <li>
@@ -217,7 +223,6 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             </li>
           </ol>
         </nav>
-        <.inspector :if={Mix.env() == :dev} file={__ENV__.file} line={__ENV__.line} />
         <.form
           for={@form}
           phx-change="validate"

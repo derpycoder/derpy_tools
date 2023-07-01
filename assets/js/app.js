@@ -27,6 +27,7 @@ import Ping from "./ping";
 import { CommandPalette, PrimaryInput } from "./keyboard_shortcuts";
 import SpongeBobText from "./sponge_bob_text";
 import ScrollIntoView from "./scroll_into_view";
+import SourceInspector from "./source_inspector";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -56,6 +57,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     PrimaryInput,
     SpongeBobText,
     ScrollIntoView,
+    SourceInspector,
   },
 });
 
