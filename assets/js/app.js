@@ -26,6 +26,7 @@ import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
 import { CommandPalette, PrimaryInput } from "./keyboard_shortcuts";
 import SpongeBobText from "./sponge_bob_text";
+import ScrollIntoView from "./scroll_into_view";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
@@ -54,6 +55,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     CommandPalette,
     PrimaryInput,
     SpongeBobText,
+    ScrollIntoView,
   },
 });
 

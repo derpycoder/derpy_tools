@@ -178,7 +178,12 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
           </.button>
         </.form>
 
-        <div :if={@output} class="card mt-5 rounded-lg p-5 lg:p-7">
+        <div
+          :if={@output}
+          class="card mt-5 rounded-lg p-5 lg:p-7"
+          phx-hook="ScrollIntoView"
+          id="output"
+        >
           <input
             id="utm-url"
             type="text"
