@@ -6,9 +6,19 @@ defmodule DerpyToolsWeb.UserSettingsLive do
   def render(assigns) do
     ~H"""
     <div class="grid w-full h-screen-sm grow grid-cols-1 place-items-center">
-      <div class="w-full max-w-[26rem] p-4 sm:px-5">
+      <div
+        class="w-full max-w-[26rem] p-4 sm:px-5"
+        id="user-settings"
+        data-file={__ENV__.file}
+        data-line={__ENV__.line}
+        phx-hook={Mix.env() == :dev && "SourceInspector"}
+      >
         <div class="flex flex-col items-center">
-          <.icon class="hero-user-solid w-20 h-20" />
+          <div class="avatar h-18 w-18">
+            <div class="is-initial rounded-full bg-secondary text-4xl uppercase text-white">
+              jd
+            </div>
+          </div>
         </div>
         <div class="mt-4 text-center">
           <h2 class="text-2xl font-semibold text-slate-600 dark:text-navy-100">

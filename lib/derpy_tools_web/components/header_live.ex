@@ -24,19 +24,26 @@ defmodule DerpyToolsWeb.HeaderLive do
       <div class="header-container supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-750/80 relative flex w-full bg-white dark:bg-navy-750 print:hidden">
         <!-- Header Items -->
         <div class="flex w-full items-center justify-between">
-          <.link
-            navigate={~p"/"}
-            class="font-sponge-bob flex p-4 text-center text-slate-700 dark:text-slate-200"
+          <span
+            id="logo"
+            data-file={__ENV__.file}
+            data-line={__ENV__.line}
+            phx-hook={Mix.env() == :dev && "SourceInspector"}
           >
-            <span class="text-3xl" id="mock-derpy" phx-hook="SpongeBobText">
-              <%= Utils.sponge_bob_text("Derpy") %>
-            </span>
-            <span class="ml-2 before:h-10 text-2xl before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
-              <span class="relative text-white" id="mock-tools" phx-hook="SpongeBobText">
-                <%= Utils.sponge_bob_text("Tools") %>
+            <.link
+              navigate={~p"/"}
+              class="font-sponge-bob flex text-center text-slate-700 dark:text-slate-200"
+            >
+              <span class="text-3xl" id="mock-derpy" phx-hook="SpongeBobText">
+                <%= Utils.sponge_bob_text("Derpy") %>
               </span>
-            </span>
-          </.link>
+              <span class="ml-2 before:h-10 text-2xl before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+                <span class="relative text-white" id="mock-tools" phx-hook="SpongeBobText">
+                  <%= Utils.sponge_bob_text("Tools") %>
+                </span>
+              </span>
+            </.link>
+          </span>
           <!-- Left: Sidebar Toggle Button -->
           <%!-- <div class="h-7 w-7">
             <button

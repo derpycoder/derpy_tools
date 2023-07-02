@@ -6,7 +6,13 @@ defmodule DerpyToolsWeb.UserConfirmationLive do
   def render(%{live_action: :edit} = assigns) do
     ~H"""
     <div class="grid w-full grow grid-cols-1 place-items-center h-[75vh]">
-      <div class="w-full max-w-[26rem] p-4 sm:px-5">
+      <div
+        class="w-full max-w-[26rem] p-4 sm:px-5"
+        id="user-confirmation"
+        data-file={__ENV__.file}
+        data-line={__ENV__.line}
+        phx-hook={Mix.env() == :dev && "SourceInspector"}
+      >
         <div class="text-center">
           <img
             class="mx-auto"

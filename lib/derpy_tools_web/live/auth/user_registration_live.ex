@@ -8,7 +8,13 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
   def render(assigns) do
     ~H"""
     <div class="grid w-full h-full grow grid-cols-1 place-items-center">
-      <div class="w-full max-w-[26rem] p-4 sm:px-5">
+      <div
+        class="w-full max-w-[26rem] p-4 sm:px-5"
+        id="user-registration"
+        data-file={__ENV__.file}
+        data-line={__ENV__.line}
+        phx-hook={Mix.env() == :dev && "SourceInspector"}
+      >
         <div class="text-center">
           <img
             class="mx-auto"

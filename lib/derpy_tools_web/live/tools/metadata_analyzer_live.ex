@@ -173,7 +173,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-10 flex items-center justify-center">
+    <div class="mt-10 p-10 flex items-center justify-center">
       <div
         id="metadata-analyzer"
         data-file={__ENV__.file}
