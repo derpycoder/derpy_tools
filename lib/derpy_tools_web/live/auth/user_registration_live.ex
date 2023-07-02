@@ -7,7 +7,7 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
 
   def render(assigns) do
     ~H"""
-    <div class="grid w-full h-full grow grid-cols-1 place-items-center">
+    <div class="grid w-full h-[100svh] grow grid-cols-1 place-items-center">
       <div
         class="w-full max-w-[26rem] p-4 sm:px-5"
         id="user-registration"
