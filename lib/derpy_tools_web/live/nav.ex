@@ -9,7 +9,12 @@ defmodule DerpyToolsWeb.Nav do
      socket
      #  |> subscribe_ping(session)
      #  |> attach_hook(:ping, :handle_event, &handle_event/3)
-     |> attach_hook(:inspect_source, :handle_event, &handle_event/3)}
+     |> attach_hook(:inspect_source, :handle_event, &handle_event/3)
+     |> attach_hook(
+       :put_path_in_socket,
+       :handle_params,
+       &put_path_in_socket/3
+     )}
   end
 
   def on_mount(:assign_browser_info, _params, _session, socket) do
@@ -31,6 +36,9 @@ defmodule DerpyToolsWeb.Nav do
   end
 
   defp handle_event(_, _, socket), do: {:cont, socket}
+
+  defp put_path_in_socket(_params, url, socket),
+    do: {:cont, Phoenix.Component.assign(socket, :current_path, URI.parse(url).path)}
 
   # ==============================================================================
   # Subscribe & Broadcast to a Team the user belongs to,
