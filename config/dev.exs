@@ -1,7 +1,7 @@
 import Config
 
 config :derpy_tools,
-  env: :prod,
+  env: Mix.env(),
   show_inspector?: true
 
 # Configure your database
