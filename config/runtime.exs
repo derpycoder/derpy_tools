@@ -37,11 +37,11 @@ if config_env() == :prod do
   # variable instead.
   secret_key_base = env!("SECRET_KEY_BASE", :string)
 
-  host = env!("PHX_HOST", :string, "example.com")
-  port = env!("PORT", :string, "4000")
+  host = env!("RENDER_EXTERNAL_HOSTNAME", :string, "localhost")
+  port = env!("PORT", :string, "80")
 
   config :derpy_tools, DerpyToolsWeb.Endpoint,
-    url: [host: host, port: 443, scheme: "https"],
+    url: [host: host, port: port, scheme: "https"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
@@ -50,7 +50,8 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    cache_static_manifest: "priv/static/cache_manifest.json"
 
   # ## SSL Support
   #
