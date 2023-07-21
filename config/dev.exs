@@ -1,5 +1,9 @@
 import Config
 
+config :derpy_tools,
+  env: :prod,
+  show_inspector?: true
+
 # Configure your database
 config :derpy_tools, DerpyTools.Repo,
   database: Path.expand("../derpy_tools_dev.db", Path.dirname(__ENV__.file)),

@@ -178,7 +178,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
         id="metadata-analyzer"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
-        phx-hook={Mix.env() == :dev && "SourceInspector"}
+        phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
         class="relative items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
       >
         <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">

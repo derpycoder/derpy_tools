@@ -28,7 +28,7 @@ defmodule DerpyToolsWeb.HeaderLive do
             id="logo"
             data-file={__ENV__.file}
             data-line={__ENV__.line}
-            phx-hook={Mix.env() == :dev && "SourceInspector"}
+            phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
           >
             <.link
               navigate={~p"/"}
@@ -83,7 +83,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               id="command-palette-search-bar"
               data-file={__ENV__.file}
               data-line={__ENV__.line}
-              phx-hook={Mix.env() == :dev && "SourceInspector"}
+              phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
               class="group relative mr-4 flex h-8"
             >
               <input
@@ -233,7 +233,7 @@ defmodule DerpyToolsWeb.HeaderLive do
       id="heartbeat"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
-      phx-hook={Mix.env() == :dev && "SourceInspector"}
+      phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
       class="btn relative h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
     >
       <.icon class="online-indicator hero-wifi-solid w-5.5 h-5.5 bg-lime-500" />

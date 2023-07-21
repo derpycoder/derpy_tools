@@ -13,7 +13,7 @@ defmodule DerpyToolsWeb.UserRegistrationLive do
         id="user-registration"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
-        phx-hook={Mix.env() == :dev && "SourceInspector"}
+        phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
       >
         <div class="text-center">
           <img

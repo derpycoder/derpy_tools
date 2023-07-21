@@ -11,7 +11,7 @@ defmodule DerpyToolsWeb.UserSettingsLive do
         id="user-settings"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
-        phx-hook={Mix.env() == :dev && "SourceInspector"}
+        phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
       >
         <div class="flex flex-col items-center">
           <div class="avatar h-18 w-18">

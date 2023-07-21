@@ -8,7 +8,7 @@ defmodule DerpyToolsWeb.HomePageLive do
       id="homepage"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
-      phx-hook={Mix.env() == :dev && "SourceInspector"}
+      phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
     >
       <div class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
         <h2 class="font-semibold tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 lg:text-base">
