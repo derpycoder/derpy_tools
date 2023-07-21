@@ -1,7 +1,7 @@
 import Config
 
 config :derpy_tools,
-  env: :prod,
+  env: Mix.env(),
   show_inspector?: false
 
 # Note we also include the path to a cache manifest
