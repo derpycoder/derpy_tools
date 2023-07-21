@@ -7,7 +7,7 @@ mix deps.get --only prod
 MIX_ENV=prod mix compile
 
 # Compile assets
-mix assets.deploy
+MIX_ENV=prod mix assets.deploy
 
 # Build the release and overwrite the existing release directory
 MIX_ENV=prod mix release --overwrite
