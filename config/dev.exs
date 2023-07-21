@@ -6,7 +6,7 @@ config :derpy_tools,
 
 # Configure your database
 config :derpy_tools, DerpyTools.Repo,
-  database: Path.expand("../derpy_tools_dev.db", Path.dirname(__ENV__.file)),
+  database: Path.expand("../data/derpy_tools_dev.db", Path.dirname(__ENV__.file)),
   pool_size: 5,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
