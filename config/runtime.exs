@@ -50,8 +50,7 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    secret_key_base: secret_key_base,
-    cache_static_manifest: "priv/static/cache_manifest.json"
+    secret_key_base: secret_key_base
 
   # ## SSL Support
   #
