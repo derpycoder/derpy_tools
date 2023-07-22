@@ -1,3 +1,3 @@
 #!/bin/sh
 cd -P -- "$(dirname -- "$0")"
-exec ./migrate && exec ./server
+exec ./derpy_tools eval DerpyTools.Release.migrate && PHX_SERVER=true exec ./derpy_tools start
