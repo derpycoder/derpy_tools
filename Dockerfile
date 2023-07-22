@@ -88,4 +88,6 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/derpy_tools .
 
 USER nobody
 
-CMD ["/app/bin/server"]
+# CMD ["/app/bin/server"]
+# CMD ["sh", "-c", "/app/bin/migrate && /app/bin/server"]
+CMD ["/app/bin/entrypoint"]
