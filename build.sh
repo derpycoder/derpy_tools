@@ -2,6 +2,12 @@
 # exit on error
 set -o errexit
 
+mix local.hex --force
+mix local.rebar --force
+mix phx.digest.clean --all
+
+rm -rf _build
+
 # Initial setup
 mix deps.get --only prod
 MIX_ENV=prod mix compile

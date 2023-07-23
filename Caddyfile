@@ -1,0 +1,16 @@
+www.derpytools.site {
+	redir https://derpytools.site permanent
+}
+
+derpytools.site {
+	tls certs/caddy/cert.pem certs/caddy/key.pem
+	encode zstd gzip
+
+	reverse_proxy localhost:4001
+}
+
+netdata.derpytools.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:19999
+}

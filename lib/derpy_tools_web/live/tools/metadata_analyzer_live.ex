@@ -305,7 +305,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
       |> Req.get!(url: url)
 
     {:ok, parsed_doc} = res.body |> Floki.parse_document()
-    IO.inspect(parsed_doc, label: "parsed_doc")
+
     {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
 
     socket =

@@ -37,11 +37,12 @@ if config_env() == :prod do
   # variable instead.
   secret_key_base = env!("SECRET_KEY_BASE", :string)
 
-  host = env!("RENDER_EXTERNAL_HOSTNAME", :string, "localhost")
+  host = env!("HOSTNAME", :string, "localhost")
   port = env!("PORT", :string, "80")
 
   config :derpy_tools, DerpyToolsWeb.Endpoint,
     url: [host: host, port: port, scheme: "https"],
+    check_origin: ["localhost", "https://derpytools.site", "https://derpytools.com"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
