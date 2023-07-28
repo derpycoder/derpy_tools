@@ -13,6 +13,7 @@ config :derpy_tools,
 
 # Configures the endpoint
 config :derpy_tools, DerpyToolsWeb.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   render_errors: [
     formats: [html: DerpyToolsWeb.ErrorHTML, json: DerpyToolsWeb.ErrorJSON],

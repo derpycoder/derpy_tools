@@ -198,7 +198,8 @@ dbs:
 - multipass set local.north-blue.memory=2G
 
 <!-- - scp -rp ../derpy_tools/. north-blue:derpy_tools -->
-- rsync -rtuPlhS --stats --exclude=_build ../derpy_tools/ east-blue:derpy_tools
+<!-- Ignore deps, data -->
+- rsync -rtuPlhS --stats --exclude=_build --exclude=deps --exclude=data ../derpy_tools/ east-blue:derpy_tools
 - bash harden.sh
 - bash setup.sh
 - source ~/.bashrc
