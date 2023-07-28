@@ -199,7 +199,7 @@ dbs:
 
 <!-- - scp -rp ../derpy_tools/. north-blue:derpy_tools -->
 <!-- Ignore deps, data -->
-- rsync -rtuPlhS --stats --exclude=_build --exclude=deps --exclude=data ../derpy_tools/ east-blue:derpy_tools
+- rsync -ruPlhS --stats --exclude=_build --exclude=data --exclude=.git ../derpy_tools/ east-blue:derpy_tools
 - bash harden.sh
 - bash setup.sh
 - source ~/.bashrc
