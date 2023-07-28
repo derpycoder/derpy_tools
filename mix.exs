@@ -53,7 +53,8 @@ defmodule DerpyTools.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:req, "~> 0.3.0"},
-      {:dotenvy, "~> 0.8.0"}
+      {:dotenvy, "~> 0.8.0"},
+      {:prom_ex, "~> 1.8.0"}
     ]
   end
 

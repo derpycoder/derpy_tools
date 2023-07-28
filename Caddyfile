@@ -3,14 +3,33 @@ www.derpytools.site {
 }
 
 derpytools.site {
-	tls certs/caddy/cert.pem certs/caddy/key.pem
+	tls /certs/caddy/cert.pem /certs/caddy/key.pem
+	# tls /etc/caddy/certs/cert.pem /etc/caddy/certs/key.pem
 	encode zstd gzip
 
-	reverse_proxy localhost:4001
+	reverse_proxy localhost:4002
 }
 
 netdata.derpytools.site {
 	encode zstd gzip
 
 	reverse_proxy localhost:19999
+
+	basicauth * {
+		DerpyCoder $2b$05$4N/0p0i/fsNkiYHhNs9yruEMPbiOsQqxEfMkmrkan9w5hKNxSFRdK
+	}
+}
+
+canary.derpytools.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:4001
+
+	basicauth * {
+		DerpyCoder $2b$05$4N/0p0i/fsNkiYHhNs9yruEMPbiOsQqxEfMkmrkan9w5hKNxSFRdK
+	}
+}
+
+metrics.derpytools.site {
+	metrics
 }

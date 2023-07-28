@@ -42,7 +42,7 @@ if config_env() == :prod do
 
   config :derpy_tools, DerpyToolsWeb.Endpoint,
     url: [host: host, port: port, scheme: "https"],
-    check_origin: ["localhost", "https://derpytools.site", "https://derpytools.com"],
+    # check_origin: ["http://localhost", "https://derpytools.site", "https://derpytools.com"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.

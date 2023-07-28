@@ -1,0 +1,20 @@
+[Unit]
+Description=Derpy Tools
+ConditionPathExists=/home/derpycoder/run.blue.sh
+After=local-fs.target network.target
+
+[Service]
+Type=simple
+User=derpycoder
+Group=derpycoder
+Restart=always
+RemainAfterExit=yes
+RestartSec=5
+SyslogIdentifier=derpy_tools
+WorkingDirectory=/home/derpycoder/
+ExecStart=bash /home/derpycoder/run.blue.sh
+ExecStop=/home/derpycoder/prod_build_blue/bin/derpy_tools stop
+EnvironmentFile=/home/derpycoder/derpy_tools/config/.env.blue.prod
+
+[Install]
+WantedBy=multi-user.target

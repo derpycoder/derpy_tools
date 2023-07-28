@@ -38,12 +38,17 @@ npm-debug.log
 # Database files
 *.db
 *.db-*
+/data
 
 # Useless MacOS files
 .DS_Store
 
-# Ignore Prod Env File
+# Ignore Env Files
+.env.stg
 .env.prod
+.env.canary
+.env.*.stg
+.env.*.prod
 
 # Ignore Mix Digested Files
 /priv/static/**/*.gz
