@@ -18,3 +18,6 @@ sudo apt update
 sudo apt install caddy
 
 wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh && sh /tmp/netdata-kickstart.sh --stable-channel --disable-telemetry
+
+wget https://github.com/benbjohnson/litestream/releases/download/v0.3.9/litestream-v0.3.9-linux-arm64.deb
+sudo dpkg -i litestream-v0.3.9-linux-arm64.deb

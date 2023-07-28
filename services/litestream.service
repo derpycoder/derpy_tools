@@ -1,0 +1,13 @@
+[Unit]
+Description=Litestream
+
+[Service]
+Type=simple
+Restart=always
+RemainAfterExit=yes
+RestartSec=5
+ExecStart=/usr/bin/litestream replicate
+EnvironmentFile=/home/derpycoder/derpy_tools/config/.env.prod
+
+[Install]
+WantedBy=multi-user.target

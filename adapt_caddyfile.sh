@@ -14,5 +14,7 @@ elif [ "$is_green" = "active" ]; then
 
     echo "green"
 else
+    sudo systemctl start caddy
+
     echo "neither"
 fi

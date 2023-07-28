@@ -2,6 +2,10 @@
 # exit on error
 set -o errexit
 
+rm -rf ../data/derpy_tools_canary.db
+rm -rf ../data/derpy_tools_canary.db-shm
+rm -rf ../data/derpy_tools_canary.db-wal
+
 # Initial setup
 mix deps.get --only prod
 MIX_ENV=prod mix compile
