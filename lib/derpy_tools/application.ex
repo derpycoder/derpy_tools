@@ -17,7 +17,9 @@ defmodule DerpyTools.Application do
       # Start Finch
       {Finch, name: DerpyTools.Finch},
       # Start the Endpoint (http/https)
-      DerpyToolsWeb.Endpoint
+      DerpyToolsWeb.Endpoint,
+      # PromEx should be started after the Endpoint, to avoid unnecessary error messages
+      DerpyTools.PromEx
       # Start a worker by calling: DerpyTools.Worker.start_link(arg)
       # {DerpyTools.Worker, arg}
     ]
