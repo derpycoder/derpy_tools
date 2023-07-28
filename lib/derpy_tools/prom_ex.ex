@@ -63,7 +63,7 @@ defmodule DerpyTools.PromEx do
       Plugins.Application,
       Plugins.Beam,
       {Plugins.Phoenix, router: DerpyToolsWeb.Router, endpoint: DerpyToolsWeb.Endpoint},
-      {PromEx.Plugins.Ecto, otp_app: :derpy_tols, repos: [DerpyTools.Repo]},
+      {PromEx.Plugins.Ecto, otp_app: :derpy_tools, repos: [DerpyTools.Repo]},
       # Plugins.Oban,
       Plugins.PhoenixLiveView,
       {PromEx.Plugins.PlugCowboy, routers: [DerpyToolsWeb.Router]}

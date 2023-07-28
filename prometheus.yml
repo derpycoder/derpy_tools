@@ -29,5 +29,6 @@ scrape_configs:
       - targets: ["localhost:4000", "derpytools.site"]
 
   - job_name: caddy
+    metrics_path: "/"
     static_configs:
-      - targets: ["caddy.derpytools.site"]
+      - targets: ["metrics.derpytools.site"]
