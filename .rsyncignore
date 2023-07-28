@@ -4,9 +4,6 @@
 # If you run "mix test --cover", coverage assets end up here.
 /cover/
 
-# The directory Mix downloads your dependencies sources to.
-/deps/
-
 # Where 3rd-party dependencies like ExDoc output generated docs.
 /doc/
 
@@ -43,12 +40,16 @@ npm-debug.log
 # Useless MacOS files
 .DS_Store
 
-# Ignore Env Files
-.env.stg
-.env.prod
-.env.canary
-.env.*.stg
-.env.*.prod
+# Ignore Git
+.git
+.gitignore
+
+# Ignore Elixir LS
+.elixir_ls
+
+# Ignore Docker
+.dockerignore
+Dockerfile
 
 # Ignore Mix Digested Files
 /priv/static/**/*.gz
@@ -56,9 +57,5 @@ npm-debug.log
 /priv/static/**/*-????????????????????????????????.*
 /priv/static/cache_manifest.json
 
-# Keys & Certs
-keys
-certs
-
-# Elixir LS
-.elixir_ls
+# Misc
+.formatter.exs
