@@ -231,3 +231,13 @@ https://systemd.io/CREDENTIALS/
 https://csp-evaluator.withgoogle.com
 
 - arch (Command to know the architecture of the server)
+
+## Security Audit
+- sudo apt-get install lynis
+- sudo lynis audit system
+- sudo apt-get autoremove && sudo apt-get autoclean
+
+https://sureshjoshi.com/development/vpn-life-servers-keep-hard
+
+## Fail2Ban
+https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
