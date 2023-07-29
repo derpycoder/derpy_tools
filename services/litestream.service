@@ -3,11 +3,49 @@ Description=Litestream
 
 [Service]
 Type=simple
+User=derpycoder
+Group=derpycoder
 Restart=always
 RemainAfterExit=yes
 RestartSec=5
 ExecStart=/usr/bin/litestream replicate
 EnvironmentFile=/home/derpycoder/derpy_tools/config/.env.prod
+
+# Sandboxing features
+NoNewPrivileges=true
+
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+
+PrivateTmp=yes
+
+RestrictNamespaces=uts ipc pid user cgroup
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectKernelLogs=true
+
+CapabilityBoundingSet=~CAP_LINUX_IMMUTABLE CAP_IPC_LOCK CAP_SYS_CHROOT CAP_BLOCK_SUSPEND CAP_LEASE
+CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_SYS_BOOT CAP_SYS_PACCT CAP_SYS_PTRACE CAP_SYS_RAWIO CAP_SYS_TIME CAP_SYS_TTY_CONFIG
+
+SystemCallFilter=~@clock
+SystemCallFilter=~@debug
+SystemCallFilter=~@module
+SystemCallFilter=~@mount
+SystemCallFilter=~@raw-io
+SystemCallFilter=~@reboot
+SystemCallFilter=~@swap
+SystemCallFilter=~@resources
 
 [Install]
 WantedBy=multi-user.target

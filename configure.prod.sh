@@ -4,6 +4,7 @@ set -eux
 sudo cp services/prod-blue.service /usr/lib/systemd/system/derpy-tools-blue.service
 sudo cp services/prod-green.service /usr/lib/systemd/system/derpy-tools-green.service
 sudo cp services/litestream.service /lib/systemd/system/litestream.service
+sudo cp services/caddy.service /lib/systemd/system/caddy.service
 sudo cp Caddyfile /etc/caddy/Caddyfile
 sudo cp litestream.yml /etc/litestream.yml
 

@@ -209,3 +209,25 @@ dbs:
 
 - bash swap_builds.sh
 - bash build_canary.sh
+
+## Encryption
+- multipass launch -c 1 -m 1G -d 10G -n west-blue lunar --cloud-init cloud-init.yaml (latest ubuntu has latest systemd with encryption feature)
+- sudo dmesg | grep TPM
+- systemd-creds has-tpm2
+- sudo dmesg | grep Secure
+- sudo systemd-creds setup
+
+https://blog.sergeantbiggs.net/posts/credential-management-with-systemd/
+https://systemd.io/CREDENTIALS/
+
+
+## Security
+- systemd-analyze security --no-pager
+- systemd-analyze security --no-pager derpy-tools-green
+
+- chmod 0400 .env (Better thn a=r, not all should be able to read these)
+
+## CSP
+https://csp-evaluator.withgoogle.com
+
+- arch (Command to know the architecture of the server)
