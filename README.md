@@ -241,3 +241,14 @@ https://sureshjoshi.com/development/vpn-life-servers-keep-hard
 
 ## Fail2Ban
 https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04
+
+## Linux Directories
+
+/opt - To install self made software, even Homebrew installs here
+/etc - Et cetera folder, system wide configs
+/proc - Every running app exits in this folder, so: cat /proc/cpuinfo, cat /proc/uptime
+/root - Root folder
+/srv - Publicly accessible files kept here
+/tmp - To store temporary files, which get deleted on Reboots. (The whole thing can be deleted to reclaim space)
+/usr - Used by user. /usr/local is used to store packages installed using source code.
+/var - Variable, to hold info that is variable sized. Like logs, crash logs.
