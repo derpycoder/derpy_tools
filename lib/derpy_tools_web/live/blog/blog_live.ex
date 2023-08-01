@@ -11,7 +11,7 @@ defmodule DerpyToolsWeb.BlogLive do
       case Posts.fetch_post_by_slug(post_slug) do
         nil ->
           socket
-          |> push_navigate(to: "/blog/#{post_slug}/404")
+          |> push_navigate(to: "/404")
 
         post ->
           socket
