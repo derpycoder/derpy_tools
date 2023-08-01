@@ -54,7 +54,9 @@ defmodule DerpyTools.MixProject do
       {:req, "~> 0.3.0"},
       {:dotenvy, "~> 0.8.0"},
       {:prom_ex, "~> 1.8.0"},
-      {:bandit, "~> 1.0-pre"}
+      {:bandit, "~> 1.0-pre"},
+      {:redirect, "~> 0.4.0"},
+      {:timex, "~> 3.7"}
     ]
   end
 

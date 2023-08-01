@@ -1,5 +1,6 @@
 defmodule DerpyToolsWeb.Router do
   use DerpyToolsWeb, :router
+  import Redirect
 
   import DerpyToolsWeb.UserAuth
 
@@ -28,8 +29,18 @@ defmodule DerpyToolsWeb.Router do
       live "/", HomePageLive
       live "/utm-builder", UtmBuilderLive
       live "/metadata-analyzer", MetadataAnalyzerLive
+
+      # For Live View Blog Posts, with more interactivity requirements
+      # live "/blog/taskfile-a-sensible-makefile-and-shell-script-alternative", TaskfileLive
+      live "/blog/:post_slug", BlogLive
     end
   end
+
+  redirect(
+    "/taskfile-a-sensible-makefile-and-shell-script-alternative",
+    "/blog/taskfile-a-sensible-makefile-and-shell-script-alternative",
+    :permanent
+  )
 
   # Other scopes may use custom stacks.
   # scope "/api", DerpyToolsWeb do

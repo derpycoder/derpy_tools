@@ -1,0 +1,261 @@
+<article>
+  <header>
+    <a href="https://www.derpytools.com/tag/best-of-the-best/">
+      <%= inspect(@post.tags) %>
+    </a>
+
+    <h1>
+      <%= @post.title %>
+    </h1>
+
+    <aside>
+      <div>
+        <%!-- Use Author Image Carousel --%>
+        <a href="/author/derpycoder/">
+          <img
+            src="https://www.derpytools.com/content/images/2023/01/profile-pic.webp"
+            alt="Derpy Coder"
+          />
+        </a>
+      </div>
+
+      <.intersperse :let={author} enum={@post.authors}>
+        <:separator>
+          <span>•</span>
+        </:separator>
+        <a href={"/author/#{author.slug}/"}>
+          <%= author.name %>
+        </a>
+      </.intersperse>
+
+      <span>|</span>
+
+      <time datetime={@post.created}>
+        <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
+      </time>
+      <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
+    </aside>
+
+    <p>
+      Taskfile is here to make your life easier and cheatsheets obsolete. It&#x27;s a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.
+    </p>
+
+    <figure>
+      <img
+        srcset="https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;300 300w,
+                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;720 720w,
+                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;960 960w,
+                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;1200 1200w,
+                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;2000 2000w"
+        sizes="(max-width: 1200px) 100vw, 1200px"
+        src="https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;1200"
+        alt="Taskfile: A Sensible Makefile and Shell Script Alternative"
+      />
+      <figcaption>
+        Photo by
+        <a href="https://unsplash.com/fr/@mindspacestudio?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">
+          Mindspace Studio
+        </a>
+        /
+        <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">
+          Unsplash
+        </a>
+      </figcaption>
+    </figure>
+  </header>
+
+  <section>
+    <!--kg-card-begin: html-->
+    <div>
+      <b>Disclosure:</b>
+      I only endorse tools I've personally used. If you buy anything I mention using my referral links, I may get a small commission at no additional cost to you. Here's the list of
+      <a href="https://www.derpytools.com/partners" title="Partners Disclosure">partners</a>
+      and
+      <a href="https://www.derpytools.com/affiliate-disclosure/" title="Affiliate Disclosure">
+        here's how I make money.
+      </a>
+    </div>
+    <!--kg-card-end: html-->
+    <p>
+      Taskfile is here to make your life easier and cheatsheets obsolete. It's a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.
+    </p>
+    <p>
+      I mean it doesn't make sense to use a Turing complete language, to just create aliases to your frequently used commands.
+    </p>
+    <p>
+      Developers like to Bash on Bash Scripting and Make doesn't make the cut either, when it comes to simplicity and ease of use.
+    </p>
+    <p>
+      Just a look at the syntax made me shudder. We have enough on our plates already. I don't want to write tests for my shell scripts as well, do you?
+    </p>
+    <p>
+      Taskfile keeps it simple and perhaps tries to alleviate the pain points we encounter with other tools.
+    </p>
+    <p>
+      As my search for an alternative to Makefile came to an end, I thought I would write about how Taskfile helped me, and how it can help you.
+    </p>
+    <h2 id="installation">Installation</h2>
+    <p>
+      It can be installed on any system, see: <a href="https://taskfile.dev/installation/?ref=derpytools.com">Installation</a>. I am using Mac, so HomeBrew is my go-to method.
+    </p>
+    <!--kg-card-begin: html-->
+    <figure>
+      <button onclick="copySourceCode(this, 'install-go-task')">
+        <span>Copied!</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          viewbox="0 0 32 32"
+          width="32"
+          height="32"
+        >
+          <path d="M12.998 10.75h-1.25a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h8.5a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-2-2h-1.25" />
+          <path d="M17.997 12.25h-4a1 1 0 0 1-1-1v-1.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1Zm-4.249 4h4.5m-4.5 3h4.5" />
+          <path d="M15.998 6V4m3.999 2 1-1m-8.999 1-1-1" />
+        </svg>
+        <path d="M15.998 6V4M19.997 6l1-1M11.998 6l-1-1"></path>
+      </button>
+
+      <div>bash</div>
+
+      <pre style="color:#f5a97f;background-color:#24273a;"><code><span style="display:flex;">$ <span id="install-go-task"><span style="color:#c6a0f6">brew</span> <span style="color:#a6da95">install</span> <span style="color:#a6da95">go-task</span>
+</span></span></code></pre>
+
+      <figcaption>Install Task using HomeBrew</figcaption>
+    </figure>
+    <!--kg-card-end: html-->
+    <p>
+      In this post we are going to organize the image manipulation commands, I wrote about in a recent post, into a much more succinct format.
+    </p>
+    <p>
+      Which we can use as a cheat sheet for reference, as well as a task runner, to save some keystrokes.
+    </p>
+    <figure>
+      <a href="https://www.derpytools.com/how-to-crop-resize-compress-images-before-publishing-them-on-your-blog/">
+        <div>
+          <div>
+            How to Crop, Resize &amp; Compress Images before publishing them on your Blog
+          </div>
+          <div>
+            With this one command, you can crop, resize &amp; compress all the images inside a folder, ready to be published on your blog!
+          </div>
+          <div>
+            <img
+              src="https://www.derpytools.com/content/images/size/w256h256/format/png/2023/01/thinking_face.gif"
+              alt
+            /><span>Derpy Coder</span>
+          </div>
+        </div>
+        <div>
+          <img
+            src="https://www.derpytools.com/content/images/2023/01/png-vs-webp-compression-comparison-1.png"
+            alt
+          />
+        </div>
+      </a>
+      <figcaption>
+        How to Crop, Resize &amp; Compress Images before publishing them on your Blog
+      </figcaption>
+    </figure>
+    <h2 id="1-simple-task">1. Simple Task</h2>
+    <!--kg-card-begin: html-->
+    <figure>
+      <button onclick="copySourceCode(this, 'simple-task')">
+        <span>Copied!</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          viewbox="0 0 32 32"
+          width="32"
+          height="32"
+        >
+          <path d="M12.998 10.75h-1.25a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h8.5a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-2-2h-1.25" />
+          <path d="M17.997 12.25h-4a1 1 0 0 1-1-1v-1.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1Zm-4.249 4h4.5m-4.5 3h4.5" />
+          <path d="M15.998 6V4m3.999 2 1-1m-8.999 1-1-1" />
+        </svg>
+        <path d="M15.998 6V4M19.997 6l1-1M11.998 6l-1-1"></path>
+      </button>
+
+      <div>Taskfile.yaml</div>
+
+      <pre id="simple-task" style="color:#f5a97f;background-color:#24273a;"><code><span style="display:flex;"><span><span style="color:#eed49f">---</span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f"></span><span style="color:#c6a0f6">version</span><span style="color:#cad3f5">:</span><span style="color:#363a4f"> </span><span style="color:#a6da95">"3"</span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f"></span><span style="color:#c6a0f6">tasks</span><span style="color:#cad3f5">:</span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">  </span><span style="color:#c6a0f6">setup</span><span style="color:#cad3f5">:</span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">    </span><span style="color:#c6a0f6">desc</span><span style="color:#cad3f5">:</span><span style="color:#363a4f"> </span>Install all dependencies using HomeBrew<span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">    </span><span style="color:#c6a0f6">summary</span><span style="color:#cad3f5">:</span><span style="color:#363a4f"> </span><span style="color:#cad3f5">|</span><span style="color:#a6da95">
+</span></span></span><span style="display:flex;"><span><span style="color:#a6da95">      Must have Task installed (brew install go-task)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6da95">      task setup</span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">    </span><span style="color:#c6a0f6">cmds</span><span style="color:#cad3f5">:</span><span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">      </span>- brew install ffmpeg<span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">      </span>- brew install imagemagick<span style="color:#363a4f">
+</span></span></span><span style="display:flex;"><span><span style="color:#363a4f">      </span>- brew install webp</span></span></code></pre>
+
+      <figcaption>Defines one setup task, to install all dependencies</figcaption>
+    </figure>
+    <!--kg-card-end: html-->
+    <p>It prevents me from fumbling through my notepad, hope it does the same for you.</p>
+    <h3 id="heres-your-taskfile-in-its-full-glory">
+      Here's your Taskfile in its full glory.
+    </h3>
+    <p>
+      I have put all the commands into the Taskfile, feel free to augment it to your own specification.
+    </p>
+    <p>I will keep updating it as and when I discover something awesome.</p>
+    <!--kg-card-begin: html-->
+    <nav>
+      <a
+        href="https://www.derpytools.com/porkbun-probably-the-best-domain-registrar-i-have-ever-used/"
+        title="Porkbun: Probably the Best Domain Registrar I have Ever Used"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          width="24"
+          height="24"
+          viewbox="0 0 24 24"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <div>Previous post</div>
+        <div>
+          Porkbun: Probably the Best Domain Registrar I have Ever Used
+        </div>
+      </a>
+      <a
+        href="https://www.derpytools.com/5-ways-to-embed-code-snippets-compared-github-gists-vs-prismjs-vs-screenshots-vs-codepen-vs-chroma/"
+        title="5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma"
+      >
+        <div>Next post</div>
+        <div>
+          5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          width="24"
+          height="24"
+          viewbox="0 0 24 24"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </a>
+    </nav>
+    <!--kg-card-end: html-->
+  </section>
+</article>
