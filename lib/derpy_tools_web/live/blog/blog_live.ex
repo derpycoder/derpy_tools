@@ -15,7 +15,7 @@ defmodule DerpyToolsWeb.BlogLive do
 
         post ->
           socket
-          |> assign(post: post)
+          |> assign(post: post, page_title: post.title)
       end
 
     {:ok, socket}
@@ -51,7 +51,7 @@ defmodule DerpyToolsWeb.BlogLive do
 
           <.intersperse :let={author} enum={@post.authors}>
             <:separator>
-              <span>•</span>
+              <span>·</span>
             </:separator>
             <a href={"/author/#{author.slug}/"}>
               <%= author.name %>
@@ -72,24 +72,17 @@ defmodule DerpyToolsWeb.BlogLive do
 
         <figure>
           <img
-            srcset="https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;300 300w,
-                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;720 720w,
-                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;960 960w,
-                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;1200 1200w,
-                    https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;2000 2000w"
+            srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
+                     #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(720, 720) |> to_string()} 720w,
+                     #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(960, 960) |> to_string()} 960w,
+                     #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(1200, 1200) |> to_string()} 1200w,
+                     #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(2000, 2000) |> to_string()} 2000w"}
             sizes="(max-width: 1200px) 100vw, 1200px"
-            src="https://images.unsplash.com/photo-1581007871115-f14bc016e0a4?crop&#x3D;entropy&amp;cs&#x3D;tinysrgb&amp;fit&#x3D;max&amp;fm&#x3D;jpg&amp;ixid&#x3D;MnwxMTc3M3wwfDF8c2VhcmNofDl8fHBvc3QlMjBpdHxlbnwwfHx8fDE2NzQ4Mzc1MDM&amp;ixlib&#x3D;rb-4.0.3&amp;q&#x3D;80&amp;w&#x3D;1200"
+            src={"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> to_string()}
             alt="Taskfile: A Sensible Makefile and Shell Script Alternative"
           />
           <figcaption>
-            Photo by
-            <a href="https://unsplash.com/fr/@mindspacestudio?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">
-              Mindspace Studio
-            </a>
-            /
-            <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">
-              Unsplash
-            </a>
+            Taskfile in Action
           </figcaption>
         </figure>
       </header>

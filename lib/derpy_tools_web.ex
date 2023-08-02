@@ -17,7 +17,19 @@ defmodule DerpyToolsWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+  def static_paths,
+    do: ~w(
+        fonts
+        assets
+        images
+        robots.txt
+        favicon.ico
+        site.webmanifest
+        favicon-16x16.png
+        favicon-32x32.png
+        apple-icon-180x180.png
+        android-icon-192x192.png
+      )
 
   def router do
     quote do

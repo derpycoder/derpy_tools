@@ -2,11 +2,21 @@
 <html lang="en" class="[scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-icon-180x180.png" type="image/png" sizes="180x180" />
+    <link rel="icon" href="/android-icon-192x192.png" type="image/png" sizes="192x192" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#9b39c6" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "DerpyTools" %>
+    <.live_title>
+      <%= assigns[:page_title] || "Home Page" %> · DerpyTools
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
