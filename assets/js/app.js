@@ -29,8 +29,9 @@ import { CommandPalette, PrimaryInput } from "./keyboard_shortcuts";
 import SpongeBobText from "./sponge_bob_text";
 import ScrollIntoView from "./scroll_into_view";
 import SourceInspector from "./source_inspector";
+import LozadObserver from "./lozad_observer";
 
-const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+window.observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
 
 let csrfToken = document
@@ -62,6 +63,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     SpongeBobText,
     ScrollIntoView,
     SourceInspector,
+    LozadObserver,
   },
 });
 

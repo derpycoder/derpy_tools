@@ -61,6 +61,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :phoenix,
+  static_compressors: [
+    PhoenixBakery.Gzip,
+    PhoenixBakery.Brotli
+    # PhoenixBakery.Zstd
+  ]
+
 config :derpy_tools, DerpyTools.PromEx,
   grafana: [
     host: "http://localhost:3000",

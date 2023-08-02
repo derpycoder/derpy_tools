@@ -20,9 +20,11 @@ defmodule DerpyToolsWeb.Endpoint do
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug Plug.Static,
+    encodings: [{"zstd", ".zstd"}],
+    gzip: true,
+    brotli: true,
     at: "/",
     from: :derpy_tools,
-    gzip: false,
     only: DerpyToolsWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the

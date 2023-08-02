@@ -7,13 +7,13 @@ derpytools.site {
 	# tls /etc/caddy/certs/cert.pem /etc/caddy/certs/key.pem
 	encode zstd gzip
 
-	# reverse_proxy localhost:4000 # Directly reverse proxy to Phoenix
-	reverse_proxy localhost:3080 # Proxy to Varnish Cache
+	reverse_proxy localhost:4000 # Directly reverse proxy to Phoenix
+	# reverse_proxy localhost:3080 # Proxy to Varnish Cache (Only use with production builds)
 }
 
 img.derpytools.site {
-	# reverse_proxy localhost:9080 # Directly reverse proxy to imgproxy
-	reverse_proxy localhost:3080 # Reverse proxy to Varnish cache instead
+	reverse_proxy localhost:9080 # Directly reverse proxy to imgproxy
+	# reverse_proxy localhost:3080 # Reverse proxy to Varnish cache instead (Only use with production builds)
 }
 
 netdata.derpytools.site {

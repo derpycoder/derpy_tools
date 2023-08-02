@@ -95,7 +95,12 @@ sub vcl_recv {
         return (pass);
     }
 
-    if (req.url ~ "^[^?]*\.(7z|avi|avif|bmp|bz2|css|csv|doc|docx|eot|flac|flv|gif|gz|ico|jpeg|jpg|js|less|mka|mkv|mov|mp3|mp4|mpeg|mpg|odt|ogg|ogm|opus|otf|pdf|png|ppt|pptx|rar|rtf|svg|svgz|swf|tar|tbz|tgz|ttf|txt|txz|wav|webm|webp|woff|woff2|xls|xlsx|xml|xz|zip)(\?.*)?$") {
+    if(req.http.Accept-Encoding ~ "br" && req.url !~
+            "\.(jpg|png|gif|gz|mp3|mov|avi|mpg|mp4|swf|wmf)") {
+        set req.http.X-brotli = "true";
+    }
+
+    if (req.url ~ "^[^?]*\.(7z|avi|avif|bmp|bz2|css|csv|doc|docx|eot|flac|flv|gif|gz|ico|jpeg|jpg|js|less|mka|mkv|mov|mp3|mp4|mpeg|mpg|odt|ogg|ogm|opus|otf|pdf|png|ppt|pptx|rar|rtf|svg|svgz|swf|tar|tbz|tgz|ttf|txt|txz|wav|webm|webp|woff|woff2|xls|xlsx|xml|xz|zip)(\?.*)?") {
         unset req.http.Cookie;
         set req.backend_hint = phoenix;
         return(hash);
@@ -115,6 +120,10 @@ sub vcl_recv {
 
 sub vcl_hash {
     hash_data(req.http.X-Forwarded-Proto);
+
+    if(req.http.X-brotli == "true" && req.http.X-brotli-unhash != "true") {
+        hash_data("brotli");
+    }
 }
 
 sub vcl_pipe {
@@ -124,8 +133,16 @@ sub vcl_pipe {
     }
 }
 
+sub vcl_backend_fetch
+{
+    if(bereq.http.X-brotli == "true") {
+        set bereq.http.Accept-Encoding = "br";
+        unset bereq.http.X-brotli;
+    }
+}
+
 sub vcl_backend_response {
-    if (bereq.url ~ "^[^?]*\.(7z|avi|avif|bmp|bz2|css|csv|doc|docx|eot|flac|flv|gif|gz|ico|jpeg|jpg|js|less|mka|mkv|mov|mp3|mp4|mpeg|mpg|odt|ogg|ogm|opus|otf|pdf|png|ppt|pptx|rar|rtf|svg|svgz|swf|tar|tbz|tgz|ttf|txt|txz|wav|webm|webp|woff|woff2|xls|xlsx|xml|xz|zip)(\?.*)?$") {
+    if (bereq.url ~ "^[^?]*\.(7z|avi|avif|bmp|bz2|css|csv|doc|docx|eot|flac|flv|gif|gz|ico|jpeg|jpg|js|less|mka|mkv|mov|mp3|mp4|mpeg|mpg|odt|ogg|ogm|opus|otf|pdf|png|ppt|pptx|rar|rtf|svg|svgz|swf|tar|tbz|tgz|ttf|txt|txz|wav|webm|webp|woff|woff2|xls|xlsx|xml|xz|zip)(\?.*)?") {
         unset beresp.http.Set-Cookie;
         set beresp.ttl = 1d;
     }
@@ -141,5 +158,27 @@ sub vcl_backend_response {
         set beresp.do_esi = true;
     }
 
+    if (bereq.http.X-brotli == "true") {
+        set bereq.http.Accept-Encoding = "br";
+        unset bereq.http.X-brotli;
+    }
+
     set beresp.grace = 6h;
+}
+
+sub vcl_purge {
+    # repeat purge for brotli or gzip object
+    # (force hash/no hash on "brotli" while doing another purge)
+    # set Accept-Encoding: gzip so that we don't get brotli-encoded response upon purge
+    if (req.url !~ "\.(jpg|png|gif|gz|mp3|mov|avi|mpg|mp4|swf|wmf)$" &&
+            !req.http.X-brotli-unhash) {
+        if (req.http.X-brotli == "true") {
+            set req.http.X-brotli-unhash = "true";
+            set req.http.Accept-Encoding = "gzip";
+        } else {
+            set req.http.X-brotli-unhash = "false";
+            set req.http.Accept-Encoding = "br";
+        }
+        return (restart);
+    }
 }

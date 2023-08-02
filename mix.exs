@@ -57,7 +57,9 @@ defmodule DerpyTools.MixProject do
       {:bandit, "~> 1.0-pre"},
       {:redirect, "~> 0.4.0"},
       {:timex, "~> 3.7"},
-      {:imgproxy, "~> 3.0"}
+      {:imgproxy, "~> 3.0"},
+      {:phoenix_bakery, "~> 0.1.2", runtime: false},
+      {:brotli, "~> 0.3.2", runtime: false}
     ]
   end
 
