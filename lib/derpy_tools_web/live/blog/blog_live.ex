@@ -38,7 +38,12 @@ defmodule DerpyToolsWeb.BlogLive do
             <%!-- Use Author Image Carousel --%>
             <a href="/author/derpycoder/">
               <img
-                src="https://www.derpytools.com/content/images/2023/01/profile-pic.webp"
+                src={
+                  "local:///images/profile/profile-pic.webp"
+                  |> Imgproxy.new()
+                  |> Imgproxy.resize(100, 100)
+                  |> to_string()
+                }
                 alt="Derpy Coder"
               />
             </a>

@@ -11,7 +11,8 @@ derpytools.site {
 }
 
 img.derpytools.site {
-	reverse_proxy localhost:9080
+	reverse_proxy localhost:9080 # Directly reverse proxy to imgproxy
+	# reverse_proxy localhost:3080 # Reverse proxy to Varnish cache instead
 }
 
 netdata.derpytools.site {
