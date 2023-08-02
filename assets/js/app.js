@@ -21,6 +21,7 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
+import lozad from "../vendor/lozad";
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
@@ -28,6 +29,9 @@ import { CommandPalette, PrimaryInput } from "./keyboard_shortcuts";
 import SpongeBobText from "./sponge_bob_text";
 import ScrollIntoView from "./scroll_into_view";
 import SourceInspector from "./source_inspector";
+
+const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
