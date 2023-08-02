@@ -85,7 +85,12 @@
       </div>
       <div>
         <img
-          src="https://www.derpytools.com/content/images/2023/01/png-vs-webp-compression-comparison-1.png"
+          src={
+            "local:///images/png-vs-webp-compression-comparison.png"
+            |> Imgproxy.new()
+            |> Imgproxy.resize(1500, 1500)
+            |> to_string()
+          }
           alt
         />
       </div>
