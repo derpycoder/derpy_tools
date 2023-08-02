@@ -252,3 +252,10 @@ https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ba
 /tmp - To store temporary files, which get deleted on Reboots. (The whole thing can be deleted to reclaim space)
 /usr - Used by user. /usr/local is used to store packages installed using source code.
 /var - Variable, to hold info that is variable sized. Like logs, crash logs.
+
+## Caddy, Varnish, Imgproxy, Mkcert
+
+- brew install caddy
+- brew install varnish
+- brew install imgproxy
+- brew install mkcert

@@ -3,11 +3,11 @@ www.derpytools.site {
 }
 
 derpytools.site {
-	tls /certs/caddy/cert.pem /certs/caddy/key.pem
+	tls certs/caddy/cert.pem certs/caddy/key.pem
 	# tls /etc/caddy/certs/cert.pem /etc/caddy/certs/key.pem
 	encode zstd gzip
 
-	reverse_proxy localhost:4002
+	reverse_proxy localhost:4000
 }
 
 netdata.derpytools.site {
