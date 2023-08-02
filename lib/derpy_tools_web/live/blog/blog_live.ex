@@ -38,13 +38,16 @@ defmodule DerpyToolsWeb.BlogLive do
             <%!-- Use Author Image Carousel --%>
             <a href="/author/derpycoder/">
               <img
-                src={
+                data-src={
                   "local:///images/profile/profile-pic.webp"
                   |> Imgproxy.new()
                   |> Imgproxy.resize(100, 100)
                   |> to_string()
                 }
+                class="lozad"
                 alt="Derpy Coder"
+                id="author"
+                phx-update="ignore"
               />
             </a>
           </div>
@@ -72,13 +75,16 @@ defmodule DerpyToolsWeb.BlogLive do
 
         <figure>
           <img
-            srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
+            data-srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
                           #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(720, 720) |> to_string()} 720w,
                           #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(960, 960) |> to_string()} 960w,
                           #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(1200, 1200) |> to_string()} 1200w,
                           #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(2000, 2000) |> to_string()} 2000w"}
             sizes="(max-width: 1200px) 100vw, 1200px"
+            class="lozad"
             alt="Taskfile in Action"
+            id="taskfile-in-action"
+            phx-update="ignore"
           />
           <figcaption>
             Taskfile in Action
