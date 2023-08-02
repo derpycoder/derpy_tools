@@ -56,7 +56,8 @@ defmodule DerpyTools.MixProject do
       {:prom_ex, "~> 1.8.0"},
       {:bandit, "~> 1.0-pre"},
       {:redirect, "~> 0.4.0"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:imgproxy, "~> 3.0"}
     ]
   end
 

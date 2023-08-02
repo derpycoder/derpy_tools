@@ -10,6 +10,10 @@ derpytools.site {
 	reverse_proxy localhost:4000
 }
 
+img.derpytools.site {
+	reverse_proxy localhost:9080
+}
+
 netdata.derpytools.site {
 	encode zstd gzip
 

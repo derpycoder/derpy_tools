@@ -259,3 +259,23 @@ https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ba
 - brew install varnish
 - brew install imgproxy
 - brew install mkcert
+
+## Imgproxy working as expected (Works with local, remote & S3 images)
+
+```elixir
+"local:///images/profile/profile-pic.png"
+|> Imgproxy.new()
+|> Imgproxy.resize(123, 321, type: "fill")
+|> to_string()
+```
+
+- https://img.derpytools.site/brM01UhVJBxNNxv4NVft_Sg6GBisx1O4IIFfvU9-spE/rs:fill:123:321:false/bG9jYWw6Ly8vaW1hZ2VzL3Byb2ZpbGUvcHJvZmlsZS1waWMucG5n
+
+```elixir
+"https://placekitten.com/200/300"
+|> Imgproxy.new()
+|> Imgproxy.resize(123, 321, type: "fill")
+|> to_string()
+```
+
+- "https://img.derpytools.site/ppS2R3ED0R3M6VQwnhhCDSBFq50M2l_7uhHe2ptabcQ/rs:fill:123:321:false/aHR0cHM6Ly9wbGFjZWtpdHRlbi5jb20vMjAwLzMwMA"

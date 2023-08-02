@@ -1,0 +1,26 @@
+---
+version: "3"
+
+tasks:
+  start:imgproxy:
+    desc: Starts Imgproxy server
+    summary: |
+      - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
+      - https://img.derpycoder.site/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
+      - http://localhost:9080/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
+    cmds:
+      - imgproxy
+    env:
+      IMGPROXY_BIND: :9080
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: ./priv/static/
+      IMGPROXY_KEY: 943dba783daf474a38beee580326cb28a90c48de7a504f23de7c8f5689d96426eccdafc3e8280c8747a82d39a332ebc14611079689d7ac1938623a909adfa273
+      IMGPROXY_SALT: acd0087624cc841a557be9b82002cbcb818e2b024cbdf7e32fabd2ed22655da5724d40e729ed79e1c12c53960c400bad9a3ee7a5d1fd930887104119d83672e3
+  start:varnish:
+    desc: Starts Varnish Cache
+    cmds:
+      - sudo varnishd -s file,/tmp,100M -a 127.0.0.1:3080 -f `realpath ./varnish/varnish.vcl`
+
+  reload:caddy:
+    desc: Reloads Caddy Config
+    cmds:
+      - caddy reload
