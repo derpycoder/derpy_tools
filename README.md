@@ -288,3 +288,6 @@ https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ba
 - brew install chroma
 - chroma --lexer="Caddy" --formatter="html" --style="monokai" Taskfile.yaml > test.html.heex
 - Create a mix task (Maybe)
+
+## SQLITE Viewer
+brew install --cask db-browser-for-sqlite
