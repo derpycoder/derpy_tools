@@ -29,6 +29,14 @@ defmodule DerpyToolsWeb.Nav do
     {:cont, socket}
   end
 
+  def on_mount(:assign_nonce, _params, session, socket) do
+    %{"script_nonce" => script_nonce, "style_nonce" => style_nonce} = session
+
+    socket = assign(socket, script_nonce: script_nonce, style_nonce: style_nonce)
+
+    {:cont, socket}
+  end
+
   defp handle_event("inspect-source", %{"file" => file, "line" => line}, socket) do
     System.cmd("code", ["--goto", "#{file}:#{line}"])
 

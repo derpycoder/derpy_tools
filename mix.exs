@@ -59,7 +59,8 @@ defmodule DerpyTools.MixProject do
       {:timex, "~> 3.7"},
       {:imgproxy, "~> 3.0"},
       {:phoenix_bakery, "~> 0.1.2", runtime: false},
-      {:brotli, "~> 0.3.2", runtime: false}
+      {:brotli, "~> 0.3.2", runtime: false},
+      {:sobelow, "~> 0.12.2", only: [:dev, :test], runtime: false}
     ]
   end
 

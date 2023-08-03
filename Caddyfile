@@ -1,3 +1,11 @@
+(common) {
+	header /* {
+		-server
+		-X-Powered-By
+		-via
+	}
+}
+
 www.derpytools.site {
 	redir https://derpytools.site permanent
 }
@@ -9,11 +17,15 @@ derpytools.site {
 
 	reverse_proxy localhost:4000 # Directly reverse proxy to Phoenix
 	# reverse_proxy localhost:3080 # Proxy to Varnish Cache (Only use with production builds)
+
+	import common
 }
 
 img.derpytools.site {
 	reverse_proxy localhost:9080 # Directly reverse proxy to imgproxy
 	# reverse_proxy localhost:3080 # Reverse proxy to Varnish cache instead (Only use with production builds)
+
+	import common
 }
 
 netdata.derpytools.site {
@@ -24,6 +36,8 @@ netdata.derpytools.site {
 	basicauth * {
 		DerpyCoder $2b$05$4N/0p0i/fsNkiYHhNs9yruEMPbiOsQqxEfMkmrkan9w5hKNxSFRdK
 	}
+
+	import common
 }
 
 canary.derpytools.site {
@@ -34,8 +48,12 @@ canary.derpytools.site {
 	basicauth * {
 		DerpyCoder $2b$05$4N/0p0i/fsNkiYHhNs9yruEMPbiOsQqxEfMkmrkan9w5hKNxSFRdK
 	}
+
+	import common
 }
 
 metrics.derpytools.site {
 	metrics
+
+	import common
 }
