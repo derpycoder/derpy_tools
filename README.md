@@ -279,3 +279,9 @@ https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ba
 ```
 
 - "https://img.derpytools.site/ppS2R3ED0R3M6VQwnhhCDSBFq50M2l_7uhHe2ptabcQ/rs:fill:123:321:false/aHR0cHM6Ly9wbGFjZWtpdHRlbi5jb20vMjAwLzMwMA"
+
+
+## Source Code Highlighter
+- brew install chroma
+- chroma --lexer="Caddy" --formatter="html" --style="monokai" Taskfile.yaml > test.html.heex
+- Create a mix task

@@ -28,16 +28,17 @@ defmodule DerpyToolsWeb.Plugs.CustomSecureBrowserHeaders do
   end
 
   defp content_security_policy(style_nonce, script_nonce) do
+    # upgrade-insecure-requests;
     """
     base-uri 'self';
-    font-src 'self';
     object-src 'none';
     worker-src 'none';
     connect-src 'self';
     form-action 'self';
     default-src 'none';
+    manifest-src 'self';
+    font-src 'self' data:;
     frame-ancestors 'none';
-    upgrade-insecure-requests;
     img-src 'self' data: https:;
     style-src 'self' 'nonce-#{style_nonce}';
     script-src 'self' 'nonce-#{script_nonce}';
