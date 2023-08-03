@@ -282,6 +282,9 @@ https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ba
 
 
 ## Source Code Highlighter
+- https://www.thegeekdiary.com/chroma-chroma-is-a-general-purpose-syntax-highlighting-library-and-corresponding-command-for-go/
+- https://linuxcommandlibrary.com/man/chroma
+- https://swapoff.org/chroma/playground/
 - brew install chroma
 - chroma --lexer="Caddy" --formatter="html" --style="monokai" Taskfile.yaml > test.html.heex
-- Create a mix task
+- Create a mix task (Maybe)

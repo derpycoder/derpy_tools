@@ -49,23 +49,19 @@ defmodule DerpyToolsWeb.Plugs.CustomSecureBrowserHeaders do
 
   defp permissions_policy() do
     """
-    vr=(),
     usb=(),
     midi=(),
     camera=(),
     payment=(),
-    speaker=(),
     autoplay=(),
     gyroscope=(),
     microphone=(),
     geolocation=(),
     magnetometer=(),
     accelerometer=(),
-    interest-cohort=(),
     encrypted-media=(),
-    ambient-light-sensor=(),
     picture-in-picture=(self),
-    fullscreen=(self https://youtube-nocookie.com),
+    fullscreen=(self "https://youtube-nocookie.com")
     """
     |> String.replace("\n", " ")
   end
