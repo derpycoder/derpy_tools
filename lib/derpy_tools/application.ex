@@ -19,9 +19,10 @@ defmodule DerpyTools.Application do
       # Start the Endpoint (http/https)
       DerpyToolsWeb.Endpoint,
       # PromEx should be started after the Endpoint, to avoid unnecessary error messages
-      DerpyTools.PromEx
+      DerpyTools.PromEx,
       # Start a worker by calling: DerpyTools.Worker.start_link(arg)
       # {DerpyTools.Worker, arg}
+      DerpyToolsWeb.Heartbeat
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -36,5 +37,14 @@ defmodule DerpyTools.Application do
   def config_change(changed, _new, removed) do
     DerpyToolsWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  def uptime() do
+    {uptime, _} =
+      :erlang.statistics(:wall_clock)
+
+    uptime
+    |> Timex.Duration.from_milliseconds()
+    |> Timex.Format.Duration.Formatter.format(:humanized)
   end
 end

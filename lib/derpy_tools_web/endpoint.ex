@@ -1,6 +1,14 @@
 defmodule DerpyToolsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :derpy_tools
 
+  alias DerpyToolsWeb.Plugs.{HealthCheck, ReleaseCheck, VersionCheck, StatsCheck}
+
+  # Put the health check here, before anything else
+  plug HealthCheck
+  plug ReleaseCheck
+  plug VersionCheck
+  plug StatsCheck
+
   plug PromEx.Plug, prom_ex_module: DerpyTools.PromEx
 
   # The session will be stored in the cookie and signed,
@@ -44,7 +52,10 @@ defmodule DerpyToolsWeb.Endpoint do
     cookie_key: "request_logger"
 
   plug Plug.RequestId
-  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
+
+  plug Unplug,
+    if: {Unplug.Predicates.RequestPathNotIn, ["/metrics", "/stats", "/health", "release"]},
+    do: {Plug.Telemetry, event_prefix: [:phoenix, :endpoint]}
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],

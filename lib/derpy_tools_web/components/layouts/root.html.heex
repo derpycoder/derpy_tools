@@ -25,25 +25,6 @@
     </script>
   </head>
   <body class="bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-900 dark:text-navy-200 dark:[color-scheme:dark]">
-    <%!-- <header class="px-3 absolute top-0 left-0 w-full">
-      <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
-        <div class="flex items-center gap-4">
-          <a href="/">
-            <img src={~p"/images/logo.svg"} width="36" />
-          </a>
-          <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
-            v<%= Application.spec(:phoenix, :vsn) %>
-          </p>
-        </div>
-      </div>
-      <h1>Derpy Tools</h1>
-    </header> --%>
-    <!-- App preloader-->
-    <%!-- <div
-      class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900"
-    >
-      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
-    </div> --%>
     <%= @inner_content %>
 
     <div id="inspector-tooltip" class="hidden absolute z-20 px-5">

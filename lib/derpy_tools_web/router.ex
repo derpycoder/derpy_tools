@@ -3,7 +3,7 @@ defmodule DerpyToolsWeb.Router do
   import Redirect
 
   import DerpyToolsWeb.UserAuth
-  alias DerpyToolsWeb.Plugs.CustomSecureBrowserHeaders
+  alias DerpyToolsWeb.Plugs.CustomBrowserHeaders
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -15,7 +15,7 @@ defmodule DerpyToolsWeb.Router do
     plug :fetch_current_user
     plug PromEx.Plug, prom_ex_module: DerpyTools.PromEx, path: "/metrics"
     plug Plug.Telemetry, event_prefix: [:webapp, :router]
-    plug CustomSecureBrowserHeaders
+    plug CustomBrowserHeaders
   end
 
   pipeline :api do

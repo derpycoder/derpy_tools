@@ -4,8 +4,8 @@ defmodule DerpyTools.MixProject do
   def project do
     [
       app: :derpy_tools,
-      version: "0.1.0",
-      elixir: "~> 1.14",
+      version: "0.1.1",
+      elixir: "~> 1.15.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -60,7 +60,8 @@ defmodule DerpyTools.MixProject do
       {:imgproxy, "~> 3.0"},
       {:phoenix_bakery, "~> 0.1.2", runtime: false},
       {:brotli, "~> 0.3.2", runtime: false},
-      {:sobelow, "~> 0.12.2", only: [:dev, :test], runtime: false}
+      {:sobelow, "~> 0.12.2", only: [:dev, :test], runtime: false},
+      {:unplug, "~> 1.0"}
     ]
   end
 

@@ -23,6 +23,9 @@ if env!("PHX_SERVER", :boolean, false) do
   config :derpy_tools, DerpyToolsWeb.Endpoint, server: true
 end
 
+config :derpy_tools,
+  release_name: env!("RELEASE_NAME", :string, "purple")
+
 config :imgproxy,
   prefix: "https://img.derpytools.site",
   key: env!("IMGPROXY_KEY", :string),

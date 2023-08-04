@@ -1,4 +1,4 @@
-defmodule DerpyToolsWeb.Plugs.CustomSecureBrowserHeaders do
+defmodule DerpyToolsWeb.Plugs.CustomBrowserHeaders do
   @moduledoc """
   Taken from https://francis.chabouis.fr/posts/csp-nonce-with-phoenix/
   """
@@ -20,6 +20,7 @@ defmodule DerpyToolsWeb.Plugs.CustomSecureBrowserHeaders do
 
   defp secure_browser_headers(style_nonce, script_nonce) do
     %{
+      "Release-Name" => Application.fetch_env!(:derpy_tools, :release_name),
       "Strict-Transport-Security" => "max-age=63072000; includeSubDomains; preload",
       "X-XSS-Protection" => "1; mode=block",
       "Permissions-Policy" => permissions_policy(),
