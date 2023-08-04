@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.Plugs.HealthCheck do
+  @moduledoc """
+  Taken from https://blog.jola.dev/health-checks-for-plug-and-phoenix
+  """
   import Plug.Conn
 
   def init(opts), do: opts

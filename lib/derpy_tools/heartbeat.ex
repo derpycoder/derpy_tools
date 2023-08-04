@@ -1,4 +1,8 @@
 defmodule DerpyToolsWeb.Heartbeat do
+  @moduledoc """
+  Taken from https://gist.github.com/kevbuchanan/b30561a2ae0b0262f0ddb321d8c98404
+  By: Kevin Buchanan
+  """
   @shutdown_delay 20_000
 
   use GenServer, shutdown: @shutdown_delay + 10
