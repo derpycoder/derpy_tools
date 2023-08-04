@@ -80,10 +80,9 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
     {_, build_info} =
       System.build_info()
       |> Map.get_and_update!(:date, fn date ->
-        {:ok, date, _} = DateTime.from_iso8601(date)
-
         updated_date =
           date
+          |> Timex.parse!("{RFC3339z}")
           |> Timex.format!("{WDshort}, {Mshort} {D}, {YYYY} at {h12}:{m} {am}")
 
         {date, updated_date}
@@ -93,7 +92,7 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
   end
 
   defp git_info() do
-    {git_info, _} = System.cmd("git", ["show", "--pretty=format:%h|%cn|%ce|%ct|%cr|%s|"])
+    {git_info, _} = System.cmd("git", ["show", "--pretty=format:%h|%cn|%ce|%cI|%cr|%s|"])
 
     git_info =
       git_info
@@ -109,8 +108,7 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
       |> Map.get_and_update!(:date, fn date ->
         updated_date =
           date
-          |> String.to_integer()
-          |> Timex.from_unix()
+          |> Timex.parse!("{RFC3339}")
           |> Timex.format!("{WDshort}, {Mshort} {D}, {YYYY} at {h12}:{m} {am}")
 
         {date, updated_date}
