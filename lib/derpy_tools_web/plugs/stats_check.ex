@@ -3,6 +3,7 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
 
   @version Mix.Project.config()[:version]
   @deps Mix.Project.config()[:deps]
+  @app :derpy_tools
 
   def init(opts), do: opts
 
@@ -17,8 +18,8 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
             "app" => %{
               "message" => "Application is running.",
               "success" => true,
-              "release" => Application.fetch_env!(:derpy_tools, :release_name),
-              "env" => Application.fetch_env!(:derpy_tools, :env),
+              "release" => Application.fetch_env!(@app, :release_name),
+              "env" => Application.fetch_env!(@app, :env),
               "uptime" => DerpyTools.Application.uptime(),
               "version" => @version,
               "git_info" => git_info()
@@ -32,6 +33,7 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
               "nodes" => Node.list()
             },
             "system" => %{
+              "os_info" => os_info(),
               "build_info" => build_info(),
               "system_info" => %{
                 "phoenix_vsn" => Application.spec(:phoenix, :vsn) |> to_string(),
@@ -132,4 +134,30 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
     end)
     |> Enum.into(%{})
   end
+
+  defp os_info do
+    %{
+      bits: get_uname("-m") |> get_bits(),
+      arch: get_uname("-p"),
+      name: get_uname("-s"),
+      version: get_uname("-v"),
+      user: get_uname("-n"),
+      release: get_uname("-r")
+    }
+  end
+
+  defp get_uname(flag) do
+    case System.cmd("uname", [flag]) do
+      {result, 0} -> result |> String.trim_trailing()
+      _ -> "---"
+    end
+  end
+
+  defp get_bits("arm64"), do: 64
+  defp get_bits("amd64"), do: 64
+  defp get_bits("x86_64"), do: 64
+  defp get_bits("i386"), do: 32
+  defp get_bits("i586"), do: 32
+  defp get_bits("i686"), do: 32
+  defp get_bits(_), do: "---"
 end
