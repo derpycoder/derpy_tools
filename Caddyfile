@@ -21,7 +21,9 @@ derpytools.site {
 	encode zstd gzip
 
 	# Directly reverse proxy to Phoenix
-	reverse_proxy localhost:4000
+	reverse_proxy localhost:4000 {
+		health_uri "/health"
+	}
 
 	# Proxy to Varnish Cache (Only use with production builds)
 	# reverse_proxy localhost:3080
