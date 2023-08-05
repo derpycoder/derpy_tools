@@ -9,6 +9,22 @@
 		path *.ico *.css *.js *.gif *.webp *.avif *.jpg *.jpeg *.png *.svg *.woff *.woff2
 	}
 	header @static cache-control "max-age=0; must-revalidate; public;"
+
+	handle_errors {
+		@404-410 expression `{err.status_code} in [404, 410]`
+		handle @404-410 {
+			respond "It's a 404 or 410 error!"
+		}
+
+		@5xx expression `{err.status_code} >= 500 && {err.status_code} < 600`
+		handle @5xx {
+			respond "🚧 Deployment in Progress! 🚧"
+		}
+
+		handle {
+			respond "It's another error"
+		}
+	}
 }
 
 www.derpytools.site {
@@ -21,9 +37,7 @@ derpytools.site {
 	encode zstd gzip
 
 	# Directly reverse proxy to Phoenix
-	reverse_proxy localhost:4000 {
-		health_uri "/health"
-	}
+	reverse_proxy localhost:4000
 
 	# Proxy to Varnish Cache (Only use with production builds)
 	# reverse_proxy localhost:3080
