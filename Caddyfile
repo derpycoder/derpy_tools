@@ -11,19 +11,12 @@
 	header @static cache-control "max-age=0; must-revalidate; public;"
 
 	handle_errors {
-		@404-410 expression `{err.status_code} in [404, 410]`
-		handle @404-410 {
-			respond "It's a 404 or 410 error!"
+		@custom_err file /errors/{err.status_code}.html /errors/error.html
+		handle @custom_err {
+			rewrite * {file_match.relative}
+			file_server
 		}
-
-		@5xx expression `{err.status_code} >= 500 && {err.status_code} < 600`
-		handle @5xx {
-			respond "🚧 Deployment in Progress! 🚧"
-		}
-
-		handle {
-			respond "It's another error"
-		}
+		respond "{err.status_code} {err.status_text}"
 	}
 }
 
