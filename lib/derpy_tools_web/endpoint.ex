@@ -33,10 +33,7 @@ defmodule DerpyToolsWeb.Endpoint do
     brotli: true,
     at: "/",
     from: :derpy_tools,
-    only: DerpyToolsWeb.static_paths(),
-    headers: [
-      {"cache-control", "max-age=0, public, must-revalidate"}
-    ]
+    only: DerpyToolsWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
