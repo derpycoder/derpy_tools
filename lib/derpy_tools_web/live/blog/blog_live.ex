@@ -3,6 +3,7 @@ defmodule DerpyToolsWeb.BlogLive do
   use DerpyToolsWeb, :live_view
 
   alias DerpyTools.Posts
+  alias DerpyToolsWeb.{BlogPosts}
 
   def mount(%{"post_slug" => post_slug}, _session, socket) do
     IO.inspect(post_slug, label: "post_slug")
@@ -23,76 +24,12 @@ defmodule DerpyToolsWeb.BlogLive do
 
   def render(assigns) do
     ~H"""
-    <article phx-hook="LozadObserver" id="article">
-      <header>
-        <a href="https://www.derpytools.com/tag/best-of-the-best/">
-          <%= inspect(@post.tags) %>
-        </a>
-
-        <h1>
-          <%= @post.title %>
-        </h1>
-
-        <aside>
-          <div>
-            <%!-- Use Author Image Carousel --%>
-            <a href="/author/derpycoder/">
-              <img
-                data-src={
-                  "local:///images/profile/profile-pic.webp"
-                  |> Imgproxy.new()
-                  |> Imgproxy.resize(100, 100)
-                  |> to_string()
-                }
-                class="lozad"
-                alt="Derpy Coder"
-                id="author"
-                phx-update="ignore"
-              />
-            </a>
-          </div>
-
-          <.intersperse :let={author} enum={@post.authors}>
-            <:separator>
-              <span>·</span>
-            </:separator>
-            <a href={"/author/#{author.slug}/"}>
-              <%= author.name %>
-            </a>
-          </.intersperse>
-
-          <span>|</span>
-
-          <time datetime={@post.created}>
-            <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
-          </time>
-          <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
-        </aside>
-
-        <p>
-          Taskfile is here to make your life easier and cheatsheets obsolete. It&#x27;s a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.
-        </p>
-
-        <figure>
-          <img
-            data-srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(720, 720) |> to_string()} 720w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(960, 960) |> to_string()} 960w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(1200, 1200) |> to_string()} 1200w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(2000, 2000) |> to_string()} 2000w"}
-            sizes="(max-width: 1200px) 100vw, 1200px"
-            class="lozad"
-            alt="Taskfile in Action"
-            id="taskfile-in-action"
-            phx-update="ignore"
-          />
-          <figcaption>
-            Taskfile in Action
-          </figcaption>
-        </figure>
-      </header>
-      <%= apply(DerpyToolsWeb.Posts, @post.body, [assigns]) %>
-    </article>
+    <section phx-hook="LozadObserver" id="blog-post">
+      <BlogPosts.table_of_contents post={@post} />
+      <BlogPosts.header post={@post} />
+      <BlogPosts.body post={@post} style_nonce={@style_nonce} />
+      <BlogPosts.footer />
+    </section>
     """
   end
 end

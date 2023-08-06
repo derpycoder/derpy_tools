@@ -1,76 +1,4 @@
-<style nonce={@style_nonce}>
-  .bg { color: #f5a97f; background-color: #24273a; }
-  .chroma { color: #f5a97f; background-color: #24273a; }
-  .chroma .err { color: #ed8796 }
-  .chroma .lnlinks { outline: none; text-decoration: none; color: inherit }
-  .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
-  .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
-  .chroma .hl { background-color: #393c4d }
-  .chroma .lnt { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7a543f }
-  .chroma .ln { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7a543f }
-  .chroma .line { display: flex; }
-  .chroma .k { color: #c6a0f6 }
-  .chroma .kc { color: #c6a0f6; font-style: italic }
-  .chroma .kd { color: #c6a0f6 }
-  .chroma .kn { color: #c6a0f6 }
-  .chroma .kp { color: #c6a0f6; font-weight: bold }
-  .chroma .kr { color: #c6a0f6 }
-  .chroma .kt { color: #eed49f }
-  .chroma .n { color: #b7bdf8 }
-  .chroma .na { color: #eed49f }
-  .chroma .nb { font-style: italic }
-  .chroma .bp { color: #b7bdf8 }
-  .chroma .nc { color: #eed49f }
-  .chroma .no { color: #eed49f }
-  .chroma .nd { color: #f5bde6 }
-  .chroma .ni { color: #f5bde6 }
-  .chroma .ne { color: #ee99a0 }
-  .chroma .nf { color: #91d7e3 }
-  .chroma .fm { color: #b7bdf8 }
-  .chroma .nl { color: #eed49f }
-  .chroma .nn { color: #eed49f }
-  .chroma .py { color: #b7bdf8 }
-  .chroma .nt { color: #c6a0f6 }
-  .chroma .vc { color: #b7bdf8 }
-  .chroma .vg { color: #b7bdf8 }
-  .chroma .vi { color: #b7bdf8 }
-  .chroma .vm { color: #b7bdf8 }
-  .chroma .s { color: #a6da95 }
-  .chroma .sa { color: #a6da95 }
-  .chroma .sb { color: #a6da95 }
-  .chroma .sc { color: #a6da95 }
-  .chroma .dl { color: #a6da95 }
-  .chroma .sd { color: #a6da95 }
-  .chroma .s2 { color: #a6da95 }
-  .chroma .se { color: #8aadf4 }
-  .chroma .sh { color: #a6da95 }
-  .chroma .si { color: #a6da95 }
-  .chroma .sx { color: #a6da95 }
-  .chroma .sr { color: #8aadf4 }
-  .chroma .s1 { color: #a6da95 }
-  .chroma .ss { color: #a6da95 }
-  .chroma .o { color: #91d7e3 }
-  .chroma .ow { color: #91d7e3; font-weight: bold }
-  .chroma .p { color: #cad3f5 }
-  .chroma .c { color: #5b6078; font-style: italic }
-  .chroma .ch { color: #5b6078; font-style: italic }
-  .chroma .cm { color: #5b6078; font-style: italic }
-  .chroma .c1 { color: #5b6078; font-style: italic }
-  .chroma .cs { color: #5b6078; font-style: italic }
-  .chroma .cp { color: #8aadf4; font-style: italic }
-  .chroma .cpf { color: #8aadf4; font-style: italic }
-  .chroma .gd { color: #ee99a0 }
-  .chroma .ge { font-style: italic }
-  .chroma .gr { color: #ee99a0 }
-  .chroma .gh { color: #91d7e3; font-weight: bold }
-  .chroma .gi { color: #a6da95 }
-  .chroma .gp { color: #6e738d; font-weight: bold }
-  .chroma .gs { font-weight: bold }
-  .chroma .gu { color: #91d7e3; font-weight: bold }
-  .chroma .gt { color: #ee99a0 }
-  .chroma .w { color: #363a4f }
-</style>
-<section>
+<article>
   <!--kg-card-begin: html-->
   <div>
     <b>Disclosure:</b>
@@ -82,6 +10,7 @@
     </a>
   </div>
   <!--kg-card-end: html-->
+  <DerpyToolsWeb.CodeSnippets.render snippet={:caddyfile} style_nonce={@style_nonce} />
   <p>
     Taskfile is here to make your life easier and cheatsheets obsolete. It's a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.
   </p>
@@ -101,6 +30,9 @@
     As my search for an alternative to Makefile came to an end, I thought I would write about how Taskfile helped me, and how it can help you.
   </p>
   <h2 id="installation">Installation</h2>
+  <h3 id="mew">Mew</h3>
+  <h3 id="mau">Mau</h3>
+
   <p>
     It can be installed on any system, see: <a href="https://taskfile.dev/installation/?ref=derpytools.com">Installation</a>. I am using Mac, so HomeBrew is my go-to method.
   </p>
@@ -126,11 +58,6 @@
     </button>
 
     <div>bash</div>
-
-    <div class="bg">
-      <pre class="chroma"><code><span class="line">$ <span class="cl"><span class="k">brew</span> <span class="s">install</span> <span class="s">go-task</span>
-</span></span></code></pre>
-    </div>
 
     <figcaption>Install Task using HomeBrew</figcaption>
   </figure>
@@ -181,6 +108,8 @@
     </figcaption>
   </figure>
   <h2 id="1-simple-task">1. Simple Task</h2>
+  <h3 id="foo">Foo</h3>
+  <h3 id="bar">Bar</h3>
   <!--kg-card-begin: html-->
   <figure>
     <button>
@@ -222,59 +151,16 @@
   </figure>
   <!--kg-card-end: html-->
   <p>It prevents me from fumbling through my notepad, hope it does the same for you.</p>
-  <h3 id="heres-your-taskfile-in-its-full-glory">
+  <h2 data-attr="heh" id="heres-your-taskfile-in-its-full-glory">
     Here's your Taskfile in its full glory.
-  </h3>
+  </h2>
+  <h3 id="wow">Wow</h3>
+  <h4 id="unbelievable">Unble</h4>
+  <h3 id="so cool">So cool</h3>
+  <h4 id="wubaluba">Wubaluba</h4>
+  <h4 id="hakuna">Hakuna</h4>
   <p>
     I have put all the commands into the Taskfile, feel free to augment it to your own specification.
   </p>
   <p>I will keep updating it as and when I discover something awesome.</p>
-  <!--kg-card-begin: html-->
-  <nav>
-    <a
-      href="https://www.derpytools.com/porkbun-probably-the-best-domain-registrar-i-have-ever-used/"
-      title="Porkbun: Probably the Best Domain Registrar I have Ever Used"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        width="24"
-        height="24"
-        viewbox="0 0 24 24"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0z"
-          clip-rule="evenodd"
-        />
-      </svg>
-      <div>Previous post</div>
-      <div>
-        Porkbun: Probably the Best Domain Registrar I have Ever Used
-      </div>
-    </a>
-    <a
-      href="https://www.derpytools.com/5-ways-to-embed-code-snippets-compared-github-gists-vs-prismjs-vs-screenshots-vs-codepen-vs-chroma/"
-      title="5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma"
-    >
-      <div>Next post</div>
-      <div>
-        5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma
-      </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        width="24"
-        height="24"
-        viewbox="0 0 24 24"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </a>
-  </nav>
-  <!--kg-card-end: html-->
-</section>
+</article>

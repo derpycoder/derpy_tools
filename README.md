@@ -291,3 +291,14 @@ https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ba
 
 ## SQLITE Viewer
 brew install --cask db-browser-for-sqlite
+
+## Scroll behavior
+scroll-margin-top: 80px;
+scroll-snap-margin-top: 80px;
+
+scroll-mt-10 (Tailwind)
+
+## Chroma
+chroma --lexer="Caddy" --formatter="html" --style="monokai" --html-prefix="cad-" --html-lines --html-lines-style="#fff" --html-highlight=10:25 --html-highlight-style="noinherit underline bold italic #a61717 bg:#fff" --html-base-line=10 --html-linkable-lines --html-tab-width=8 Caddyfile > test.html.heex
+
+chroma --lexer="Caddy" --formatter="html" --style="catppuccin-macchiato" --html-prefix="cad-" --html-lines --html-lines-style="#f5a97f" --html-highlight=10:15 --html-linkable-lines Caddyfile > test.html.heex

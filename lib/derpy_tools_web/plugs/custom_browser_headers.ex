@@ -20,11 +20,11 @@ defmodule DerpyToolsWeb.Plugs.CustomBrowserHeaders do
 
   defp secure_browser_headers(style_nonce, script_nonce) do
     %{
-      "Release-Name" => Application.fetch_env!(:derpy_tools, :release_name),
-      "Strict-Transport-Security" => "max-age=63072000; includeSubDomains; preload",
-      "X-XSS-Protection" => "1; mode=block",
-      "Permissions-Policy" => permissions_policy(),
-      "Content-Security-Policy" => content_security_policy(style_nonce, script_nonce)
+      "release-name" => Application.fetch_env!(:derpy_tools, :release_name),
+      "strict-transport-security" => "max-age=63072000; includeSubDomains; preload",
+      "x-xss-protection" => "1; mode=block",
+      "permissions-policy" => permissions_policy(),
+      "content-security-policy" => content_security_policy(style_nonce, script_nonce)
     }
   end
 
