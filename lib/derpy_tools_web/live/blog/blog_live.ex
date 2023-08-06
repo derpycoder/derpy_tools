@@ -46,8 +46,8 @@ defmodule DerpyToolsWeb.BlogLive do
           Taskfile in Action
         </figcaption>
       </figure>
-      <div class="flex justify-center">
-        <div>
+      <div class="flex justify-around">
+        <div class="basis-1/4 flex-none">
           <aside>
             <div>
               <%!-- Use Author Image Carousel --%>
@@ -75,22 +75,20 @@ defmodule DerpyToolsWeb.BlogLive do
                 <%= author.name %>
               </a>
             </.intersperse>
-
-            <span>|</span>
-
+            <br />
             <time datetime={@post.created}>
               <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
             </time>
             <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
           </aside>
-          <BlogPosts.table_of_contents post={@post} class="basis-1/4" />
+          <BlogPosts.table_of_contents post={@post} />
         </div>
         <BlogPosts.body
           post={@post}
           style_nonce={@style_nonce}
-          class="basis-2/4 prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
+          class="basis-2/4 flex-none prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
         />
-        <div class="basis-1/4">
+        <div class="basis-1/4 flex-none">
           Tag Cloud
         </div>
       </div>

@@ -17,7 +17,10 @@ defmodule DerpyToolsWeb.BlogPosts do
       |> assign(headers: headers)
 
     ~H"""
-    <ul class={["space-y-1 font-inter font-medium list-none not-prose", @class]}>
+    <ul class={[
+      "space-y-1 font-inter font-medium list-none not-prose sticky top-[var(--header-height)]",
+      @class
+    ]}>
       <li :for={{header, id, title} <- @headers} class="not-prose">
         <a
           key={id}
@@ -26,9 +29,9 @@ defmodule DerpyToolsWeb.BlogPosts do
           class={[
             "flex cursor-pointer items-center space-x-1.5 rounded px-2 py-1 tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100",
             case header do
-              "h2" -> "pl-4"
-              "h3" -> "pl-16"
-              "h4" -> "pl-24"
+              "h2" -> ""
+              "h3" -> "pl-8"
+              "h4" -> "pl-16"
             end
           ]}
         >
