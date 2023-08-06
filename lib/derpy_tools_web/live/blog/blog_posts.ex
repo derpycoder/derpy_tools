@@ -4,6 +4,7 @@ defmodule DerpyToolsWeb.BlogPosts do
   embed_templates "posts/*"
 
   attr :post, :map
+  attr :class, :string, default: nil
 
   def table_of_contents(assigns) do
     headers =
@@ -16,8 +17,8 @@ defmodule DerpyToolsWeb.BlogPosts do
       |> assign(headers: headers)
 
     ~H"""
-    <ul class="space-y-1 font-inter font-medium">
-      <li :for={{header, id, title} <- @headers}>
+    <ul class={["space-y-1 font-inter font-medium list-none not-prose", @class]}>
+      <li :for={{header, id, title} <- @headers} class="not-prose">
         <a
           key={id}
           href={"##{id}"}
@@ -39,10 +40,11 @@ defmodule DerpyToolsWeb.BlogPosts do
   end
 
   attr :post, :map
+  attr :class, :string, default: nil
 
   def header(assigns) do
     ~H"""
-    <header>
+    <header class={@class}>
       <a href="https://www.derpytools.com/tag/best-of-the-best/">
         <%= inspect(@post.tags) %>
       </a>
@@ -51,75 +53,23 @@ defmodule DerpyToolsWeb.BlogPosts do
         <%= @post.title %>
       </h1>
 
-      <aside>
-        <div>
-          <%!-- Use Author Image Carousel --%>
-          <a href="/author/derpycoder/">
-            <img
-              data-src={
-                "local:///images/profile/profile-pic.webp"
-                |> Imgproxy.new()
-                |> Imgproxy.resize(100, 100)
-                |> to_string()
-              }
-              class="lozad"
-              alt="Derpy Coder"
-              id="author"
-              phx-update="ignore"
-            />
-          </a>
-        </div>
-
-        <.intersperse :let={author} enum={@post.authors}>
-          <:separator>
-            <span>·</span>
-          </:separator>
-          <a href={"/author/#{author.slug}/"}>
-            <%= author.name %>
-          </a>
-        </.intersperse>
-
-        <span>|</span>
-
-        <time datetime={@post.created}>
-          <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
-        </time>
-        <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
-      </aside>
-
       <p>
         Taskfile is here to make your life easier and cheatsheets obsolete. It&#x27;s a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.
       </p>
-
-      <figure>
-        <img
-          data-srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(720, 720) |> to_string()} 720w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(960, 960) |> to_string()} 960w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(1200, 1200) |> to_string()} 1200w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(2000, 2000) |> to_string()} 2000w"}
-          sizes="(max-width: 1200px) 100vw, 1200px"
-          class="lozad"
-          alt="Taskfile in Action"
-          id="taskfile-in-action"
-          phx-update="ignore"
-        />
-        <figcaption>
-          Taskfile in Action
-        </figcaption>
-      </figure>
     </header>
     """
   end
 
   attr :post, :map
   attr :style_nonce, :string
+  attr :class, :string, default: nil
 
   def body(assigns) do
     ~H"""
-    <aside>
+    <div class={@class}>
       <%= apply(__MODULE__, @post.body, [assigns]) %>
-    </aside>
+      <.footer />
+    </div>
     """
   end
 
