@@ -9,10 +9,12 @@ const SourceInspector = {
 
     const globalTooltip = document.querySelector("#inspector-tooltip");
 
-    let tooltip = globalTooltip.cloneNode(true);
+    const tooltip = globalTooltip.cloneNode(true);
     tooltip.setAttribute("id", `inspect-${this.el.id}`);
     const inspectSourceBtn = tooltip.querySelector("#source-btn");
+    inspectSourceBtn.setAttribute("id", `source-${this.el.id}`);
     const arrowElement = tooltip.querySelector("#arrow");
+    arrowElement.setAttribute("id", `arrow-${this.el.id}`);
 
     this.el.addEventListener("mouseenter", (e) => {
       const { file, line } = this.el.dataset;
