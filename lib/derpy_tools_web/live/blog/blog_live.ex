@@ -29,7 +29,7 @@ defmodule DerpyToolsWeb.BlogLive do
         post={@post}
         class="col-span-main w-full prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
       />
-      <.icon class="hero-chevron-up w-5.5 h-5.5 text-slate-500 dark:text-navy-100" />
+
       <%!-- <BlogPosts.banner class="col-span-full" /> --%>
       <BlogPosts.banner class="col-span-wide" />
 
