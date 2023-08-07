@@ -39,7 +39,7 @@ defmodule DerpyToolsWeb.BlogLive do
         style_nonce={@style_nonce}
         class="col-span-main prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
       />
-      <BlogPosts.right_nav class="col-span-main xl:col-span-main-wide" />
+      <BlogPosts.right_nav class="col-span-main xl:col-span-main-wide sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height)))]" />
     </section>
     """
   end

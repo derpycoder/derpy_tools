@@ -13,10 +13,16 @@ defmodule DerpyToolsWeb.BlogPosts do
     ~H"""
     <div
       id="table-of-contents"
-      class="sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height)))] overflow-auto px-5 py-1"
-      phx-hook="TableOfContents"
+      class="sticky top-[calc(var(--header-height))] px-5 py-1"
+      data-file={__ENV__.file}
+      data-line={__ENV__.line}
+      phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
     >
-      <h5 class="text-slate-900 font-semibold mb-2 text-sm leading-6 dark:text-slate-100">
+      <h5
+        id="toc"
+        class="text-slate-900 font-semibold mb-2 text-sm leading-6 dark:text-slate-100"
+        phx-hook="TableOfContents"
+      >
         On this page
       </h5>
       <a
@@ -26,7 +32,10 @@ defmodule DerpyToolsWeb.BlogPosts do
         <i class="hero-chevron-up w-5.5 h-5.5 text-slate-500 dark:text-navy-100" /> Top
       </a>
 
-      <.nested_header headers={@headers} />
+      <.nested_header
+        headers={@headers}
+        class="max-h-[calc(100svh-(var(--header-height)))] overflow-auto"
+      />
     </div>
     """
   end
@@ -118,7 +127,13 @@ defmodule DerpyToolsWeb.BlogPosts do
 
     ~H"""
     <aside class={["flex flex-col", @class]}>
-      <div class="mb-10">
+      <div
+        class="mb-10 py-1 px-5"
+        id="authors"
+        data-file={__ENV__.file}
+        data-line={__ENV__.line}
+        phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+      >
         <div>
           <%!-- Use Author Image Carousel --%>
           <a href="/author/derpycoder/">

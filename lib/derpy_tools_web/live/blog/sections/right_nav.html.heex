@@ -1,3 +1,9 @@
-<div class={[@class]}>
+<div
+  class={[@class]}
+  id="recent-articles"
+  data-file={__ENV__.file}
+  data-line={__ENV__.line}
+  phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+>
   Tag Cloud
 </div>
