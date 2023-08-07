@@ -114,7 +114,7 @@
       How to Crop, Resize &amp; Compress Images before publishing them on your Blog
     </figcaption>
   </figure>
-  <h2 id="1-simple-task">1. Simple Task</h2>
+  <h2 id="simple-task">Simple Task</h2>
   <h3 id="foo">Foo</h3>
   <h3 id="bar">Bar</h3>
   <!--kg-card-begin: html-->
@@ -156,7 +156,7 @@
 
     <figcaption>Defines one setup task, to install all dependencies</figcaption>
   </figure>
-  <h2 id="2-calling-another-task">2. Calling another Task</h2>
+  <h2 id="calling-another-task">Calling another Task</h2>
   <p>
     Here's a basic <code>Taskfile.yaml</code>, which starts as all <code>yaml</code>
     files do, with 3 dashes, and then <code>version: "3"</code>.
@@ -180,7 +180,7 @@
   <p>
     It's as easy as just mentioning the task we want to call internally, and it will get called at the exact position it was mentioned.
   </p>
-  <h2 id="3-task-chaining">3. Task Chaining</h2>
+  <h2 id="task-chaining">Task Chaining</h2>
   <p>
     Implicitly calling another Task is great when it's given that the other task needs to be called before proceeding.
   </p>
@@ -190,7 +190,7 @@
   <p>
     Tasks can be run one after the other, for instance, converting APNG to Gif and then scaling that down to a smaller size, which can be 2 different commands:
   </p>
-  <h2 id="4-importing-taskfiles">4. Importing Taskfiles</h2>
+  <h2 id="importing-taskfiles">Importing Taskfiles</h2>
   <p>It prevents me from fumbling through my notepad, hope it does the same for you.</p>
   <p>If we keep adding all the commands in one file, it will get crowded eventually.</p>
   <p>
@@ -205,7 +205,7 @@
   <p>
     In that case, we can use a variable <code>{{OS}}</code>, while importing files, and the OS-Specific version of the file will be included.
   </p>
-  <h2 id="5-os-specific-taskfiles">5. OS Specific Taskfiles</h2>
+  <h2 id="os-specific-taskfiles">OS Specific Taskfiles</h2>
   <p>
     For instance, you can have <code>Taskfile.linux.yaml</code>
     for Linux users, and <code>Taskfile.windows.yaml</code>
@@ -215,7 +215,7 @@
   <p>
     Just create your own Tasks in your native OS, and then later perhaps your team can add to it, for their own OS.
   </p>
-  <h2 id="6-forwarding-cli-arguments-to-commands">6. Forwarding CLI arguments to commands</h2>
+  <h2 id="forwarding-cli-arguments-to-commands">Forwarding CLI arguments to commands</h2>
   <p>It would be a shame if the Tasks are rigid and cannot mold to the user's changing needs.</p>
   <p>
     For instance, specifying the varying amounts of quality to our WebP compression command Or using different scales for image resizing.
@@ -223,8 +223,8 @@
   <p>
     The task written above just creates a Taskfile with a specific middle extension. I just made it, because I kept forgetting the syntax.
   </p>
-  <h2 id="7-variables">
-    7. Variables <a href="https://12factor.net/?ref=derpytools.com">12-factor application</a>
+  <h2 id="variables">
+    Variables <a href="https://12factor.net/?ref=derpytools.com">12-factor application</a>
   </h2>
   <p>
     Environment variables are one of the most important aspects of a <a href="https://12factor.net/?ref=derpytools.com">12-factor application</a>. (Basically, you should store the app config in an environment variable, so you can modify the behavior of the application without restarting.)
@@ -247,8 +247,8 @@
     is being used to change the value of the variable <code>QUALITY</code>. Which makes it quite handy, as we will see later.
   </p>
   <p>We can run the above command in 2 ways:</p>
-  <h2 id="8-prevent-unnecessary-work%E2%80%8B">
-    8. Prevent Unnecessary Work
+  <h2 id="prevent-unnecessary-work%E2%80%8B">
+    Prevent Unnecessary Work
   </h2>
   <p>
     When I was manually typing, i.e. copy-pasting, the image manipulation commands. The command was needlessly doing the image manipulation on all the images.
@@ -275,7 +275,7 @@
     keys.
   </p>
   <p>If everything works, then you get a message notifying you that the task is up to date:</p>
-  <h2 id="9-doing-task-cleanup-with-defer">9. Doing task cleanup with <code>:defer</code></h2>
+  <h2 id="doing-task-cleanup-with-defer">Doing task cleanup with <code>:defer</code></h2>
   <p>
     Of course, the Taskfile has a <code>defer</code>, keyword to take care of the cleanup tasks.
   </p>
@@ -283,7 +283,7 @@
     Imagine if we want to delete some intermediary files that gets generated in the process of doing a task.
   </p>
   <p>Or in our case, moving the generated compressed files into their respective folders.</p>
-  <h2 id="10-running-from-a-subdirectory">10. Running from a subdirectory</h2>
+  <h2 id="running-from-a-subdirectory">Running from a subdirectory</h2>
   <p>This is one of the most important features that we can't do without.</p>
   <p>
     Imagine having to copy those Taskfiles around to different folders, before being able to manipulate the images within. It would be a pain in the butt.
@@ -295,7 +295,7 @@
   <p>
     So you can just place all your Taskfiles at the root of your Blog folder, and you can visit any subfolder, and run any of the tasks from within!
   </p>
-  <h2 id="11-task-aliases">11. Task aliases</h2>
+  <h2 id="task-aliases">Task aliases</h2>
   <p>Just what my lazy ass needed, more tricks to shorten already short task names. 😅</p>
   <p>
     Personally, I believe, that it's better to be explicit, instead of naming our tasks like programmers.

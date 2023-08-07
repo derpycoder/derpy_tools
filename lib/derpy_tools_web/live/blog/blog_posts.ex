@@ -1,5 +1,6 @@
 defmodule DerpyToolsWeb.BlogPosts do
   use Phoenix.Component
+  alias Phoenix.LiveView.JS
 
   @wpm 225
 
@@ -30,13 +31,14 @@ defmodule DerpyToolsWeb.BlogPosts do
     """
   end
 
+  attr :id, :string, default: nil
   attr :headers, :list
   attr :class, :string, default: nil
   attr :parent, :list, default: []
 
   def nested_header(assigns) do
     ~H"""
-    <ul class={["space-y-1 font-inter font-medium list-none not-prose", @class]}>
+    <ul id={@id} class={["space-y-1 font-inter font-medium list-none not-prose", @class]}>
       <li
         :for={%{header: header, id: id, title: title, children: children} <- @headers}
         class="not-prose"
@@ -55,14 +57,17 @@ defmodule DerpyToolsWeb.BlogPosts do
               "h4" -> "font-normal"
             end
           ]}
+          phx-click={JS.toggle(to: "##{id}-container")}
         >
           <i :if={header in ~w{h3 h4}} class="hero-chevron-right-mini" />
           <span><%= title %></span>
         </a>
+
         <.nested_header
           :if={children}
+          id={"#{id}-container"}
           headers={children |> Enum.reverse()}
-          class="pl-4"
+          class="pl-4 hidden"
           parent={[id, @parent]}
         />
       </li>

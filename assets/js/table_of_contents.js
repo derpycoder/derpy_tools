@@ -75,6 +75,12 @@ function highlightNav(hash, remove, add) {
           parent.classList.remove(...remove);
           parent.classList.add(...add);
         }
+
+        const parentContainer = document.getElementById(
+          `${parentId}-container`
+        );
+
+        parentContainer && parentContainer.classList.remove("hidden");
       });
     }
   }
