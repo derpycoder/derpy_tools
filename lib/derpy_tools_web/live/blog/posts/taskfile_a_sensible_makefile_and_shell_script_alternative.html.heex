@@ -154,16 +154,159 @@
 
     <figcaption>Defines one setup task, to install all dependencies</figcaption>
   </figure>
-  <!--kg-card-end: html-->
+  <h2 id="2-calling-another-task">2. Calling another Task</h2>
+  <p>
+    Here's a basic <code>Taskfile.yaml</code>, which starts as all <code>yaml</code>
+    files do, with 3 dashes, and then <code>version: "3"</code>.
+  </p>
+  <p>
+    Tasks are populated under the <code>tasks</code>
+    key, with each task consisting of several keys like <code>desc</code>, <code>summary</code>,
+    <code>cmds</code>
+    etc.
+  </p>
+  <p>
+    We can totally skip adding descriptions, and summaries to our commands, but it does improve our quality of life. For instance, our Taskfile can act as Cheatsheet.
+  </p>
+  <p>
+    As you can probably notice, the above Taskfile will save us the headache of searching for what packages to install and from where. And instead, we can just type one command, and voila, our image manipulation workbench will be ready.
+  </p>
+  <p>Sometimes a task has a dependency on another.</p>
+  <p>
+    For instance, before the installation of new tools can happen, we want to update our repository.
+  </p>
+  <p>
+    It's as easy as just mentioning the task we want to call internally, and it will get called at the exact position it was mentioned.
+  </p>
+  <h2 id="3-task-chaining">3. Task Chaining</h2>
+  <p>
+    Implicitly calling another Task is great when it's given that the other task needs to be called before proceeding.
+  </p>
+  <p>
+    But what if we want an option? What if we optionally run the first task, and then the second, or not even run the first task at all?
+  </p>
+  <p>
+    Tasks can be run one after the other, for instance, converting APNG to Gif and then scaling that down to a smaller size, which can be 2 different commands:
+  </p>
+  <h2 id="4-importing-taskfiles">4. Importing Taskfiles</h2>
   <p>It prevents me from fumbling through my notepad, hope it does the same for you.</p>
+  <p>If we keep adding all the commands in one file, it will get crowded eventually.</p>
+  <p>
+    So we can split the commands into different files, and then include them at the top, before defining our global tasks.
+  </p>
+  <p>
+    And to run the commands present inside those files, all we have to do is to use the name of the included file followed by a colon <code>:</code>. e.g.:
+  </p>
+  <p>
+    The next challenge we might face, is different team members have different operating systems, with different command patterns that might not be cross-platform.
+  </p>
+  <p>
+    In that case, we can use a variable <code>{{OS}}</code>, while importing files, and the OS-Specific version of the file will be included.
+  </p>
+  <h2 id="5-os-specific-taskfiles">5. OS Specific Taskfiles</h2>
+  <p>
+    For instance, you can have <code>Taskfile.linux.yaml</code>
+    for Linux users, and <code>Taskfile.windows.yaml</code>
+    for windows users.
+  </p>
+  <p>Don't let your preference for a specific operating system keep you from using Taskfile.</p>
+  <p>
+    Just create your own Tasks in your native OS, and then later perhaps your team can add to it, for their own OS.
+  </p>
+  <h2 id="6-forwarding-cli-arguments-to-commands">6. Forwarding CLI arguments to commands</h2>
+  <p>It would be a shame if the Tasks are rigid and cannot mold to the user's changing needs.</p>
+  <p>
+    For instance, specifying the varying amounts of quality to our WebP compression command Or using different scales for image resizing.
+  </p>
+  <p>
+    The task written above just creates a Taskfile with a specific middle extension. I just made it, because I kept forgetting the syntax.
+  </p>
+  <h2 id="7-variables">
+    7. Variables <a href="https://12factor.net/?ref=derpytools.com">12-factor application</a>
+  </h2>
+  <p>
+    Environment variables are one of the most important aspects of a <a href="https://12factor.net/?ref=derpytools.com">12-factor application</a>. (Basically, you should store the app config in an environment variable, so you can modify the behavior of the application without restarting.)
+  </p>
+  <p>
+    We can pass environment variables to applications by exporting before running a command. For instance:
+  </p>
+  <p>
+    Now it's fine and dandy to type that out a few times, but having to pass those variables, every time, that way is just insane.
+  </p>
+  <p>
+    Instead, we can define global environment variables before the task definition and those environment variables will be available to all the tasks at runtime.
+  </p>
+  <p>Apart from Environment variables, we can even use plain simple variables.</p>
+  <p>
+    Which can be read simply by using <code>{{.VAR_NAME}}</code>, and the value gets injected when we use the command.
+  </p>
+  <p>
+    In the above example, you can see that <code>{{.CLI_ARGS}}</code>
+    is being used to change the value of the variable <code>QUALITY</code>. Which makes it quite handy, as we will see later.
+  </p>
+  <p>We can run the above command in 2 ways:</p>
+  <h2 id="8-prevent-unnecessary-work%E2%80%8B">
+    8. Prevent Unnecessary Work
+  </h2>
+  <p>
+    When I was manually typing, i.e. copy-pasting, the image manipulation commands. The command was needlessly doing the image manipulation on all the images.
+  </p>
+  <p>
+    Taskfile has the ability to fingerprint locally generated files and their sources so that the task won't run if the resultant files are already there!
+  </p>
+  <p>
+    If you went through my post on compressing images, you know that ImageOptim has a destructive workflow, meaning it overwrites the existing files.
+  </p>
+  <p>
+    And I wanted to avoid destroying the original images, and the only way to do that is to move the resulting images into another result folder.
+  </p>
+
+  <p>
+    So in the above script, I decided to create a folder named <code>webp</code>, and then after the compression was done, move all the images with the
+    <code>webp</code>
+    extension, to that folder.
+  </p>
+  <p>
+    Finally, the main ingredient of fingerprinting is to tell where the sources and results are, using
+    <code>sources</code>
+    and <code>generates</code>
+    keys.
+  </p>
+  <p>If everything works, then you get a message notifying you that the task is up to date:</p>
+  <h2 id="9-doing-task-cleanup-with-defer">9. Doing task cleanup with <code>:defer</code></h2>
+  <p>
+    Of course, the Taskfile has a <code>defer</code>, keyword to take care of the cleanup tasks.
+  </p>
+  <p>
+    Imagine if we want to delete some intermediary files that gets generated in the process of doing a task.
+  </p>
+  <p>Or in our case, moving the generated compressed files into their respective folders.</p>
+  <h2 id="10-running-from-a-subdirectory">10. Running from a subdirectory</h2>
+  <p>This is one of the most important features that we can't do without.</p>
+  <p>
+    Imagine having to copy those Taskfiles around to different folders, before being able to manipulate the images within. It would be a pain in the butt.
+  </p>
+  <p>
+    Instead, if we specify <code>"{{.USER_WORKING_DIR}}"</code>, we can just use the commands we have been using, directly inside the subfolders.
+  </p>
+  <p>Just cd into a subfolder, type the command, and it will work like a charm.</p>
+  <p>
+    So you can just place all your Taskfiles at the root of your Blog folder, and you can visit any subfolder, and run any of the tasks from within!
+  </p>
+  <h2 id="11-task-aliases">11. Task aliases</h2>
+  <p>Just what my lazy ass needed, more tricks to shorten already short task names. 😅</p>
+  <p>
+    Personally, I believe, that it's better to be explicit, instead of naming our tasks like programmers.
+  </p>
+  <p>
+    Hope I find some uses for aliasing in the future. The above alias shortens the command to:
+  </p>
+  <p>
+    Apart from running the tasks, we can list them, do a dry run, and show a summary, and as a bonus, you get a cheat sheet for free.
+  </p>
   <h2 data-attr="heh" id="heres-your-taskfile-in-its-full-glory">
     Here's your Taskfile in its full glory.
   </h2>
-  <h3 id="wow">Wow</h3>
-  <h4 id="unbelievable">Unble</h4>
-  <h3 id="so cool">So cool</h3>
-  <h4 id="wubaluba">Wubaluba</h4>
-  <h4 id="hakuna">Hakuna</h4>
   <p>
     I have put all the commands into the Taskfile, feel free to augment it to your own specification.
   </p>
