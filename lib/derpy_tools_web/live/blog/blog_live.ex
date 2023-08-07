@@ -24,21 +24,21 @@ defmodule DerpyToolsWeb.BlogLive do
 
   def render(assigns) do
     ~H"""
-    <section phx-hook="LozadObserver" id="blog-post" class="w-full flex flex-col items-center">
+    <section phx-hook="LozadObserver" id="blog-post" class="w-full grid grid-cols-blog py-18 gap-y-10">
       <BlogPosts.header
         post={@post}
-        class="w-full prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
+        class="col-span-main w-full prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
       />
-      <BlogPosts.banner />
-      <div class="flex justify-around flex-col xl:flex-row">
-        <BlogPosts.left_nav post={@post} class="basis-1/4 flex-none" />
-        <BlogPosts.body
-          post={@post}
-          style_nonce={@style_nonce}
-          class="basis-2/4 flex-none prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
-        />
-        <BlogPosts.right_nav class="basis-1/4 flex-none" />
-      </div>
+      <%!-- <BlogPosts.banner class="col-span-full" /> --%>
+      <BlogPosts.banner class="col-span-wide" />
+
+      <BlogPosts.left_nav post={@post} class="col-span-main xl:col-span-wide-main" />
+      <BlogPosts.body
+        post={@post}
+        style_nonce={@style_nonce}
+        class="col-span-main prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
+      />
+      <BlogPosts.right_nav class="col-span-main xl:col-span-main-wide" />
     </section>
     """
   end

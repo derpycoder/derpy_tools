@@ -10,7 +10,20 @@
     /* lg:[--main-sidebar-width:5rem] */
     lg:[--main-sidebar-width:0rem]
     lg:[--sidebar-panel-width:240px]
-    xl:[--margin-x:4rem];
+    xl:[--margin-x:4rem]
+    /* grid */
+    lg:[--gap:15%]
+    lg:[--container-width:1200px]
+    lg:[--content-width:720px]
+    md:[--gap:5%]
+    md:[--container-width:720px]
+    md:[--content-width:720px]
+    sm:[--container-width:90%]
+    sm:[--content-width:90%]
+    sm:[--gap:10px]
+    [--container-width:90%]
+    [--content-width:90%]
+    [--gap:5px];
 }
 
 .has-min-sidebar {
@@ -126,7 +139,7 @@ nav.header .header-container {
 }
 
 .is-header-blur nav.header .header-container {
-  @apply backdrop-blur supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-750/80;
+  @apply backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-750/80;
 }
 
 .is-header-not-sticky nav.header {

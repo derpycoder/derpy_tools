@@ -1,7 +1,7 @@
 <%= live_render(@socket, DerpyToolsWeb.HeaderLive, id: :header_nav, sticky: true) %>
 
 <main
-  class="w-full mt-[var(--header-height)] sm:px-6 lg:px-8 flex flex-col items-center"
+  class="w-full mt-[var(--header-height)] sm:px-6 lg:px-8"
   phx-disconnected={
     JS.add_class("is-monochrome", to: "body:not(.is-monochrome)")
     |> JS.add_class("offline", to: "html:not(.offline)")

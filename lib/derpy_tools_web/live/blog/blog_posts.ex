@@ -28,7 +28,7 @@ defmodule DerpyToolsWeb.BlogPosts do
           href={"##{id}"}
           tabindex="0"
           class={[
-            "flex cursor-pointer items-center space-x-1.5 rounded px-2 py-1 tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100",
+            "cursor-pointer items-center space-x-1.5 rounded px-2 py-1 tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100",
             case header do
               "h2" -> ""
               "h3" -> "pl-8"
@@ -47,6 +47,10 @@ defmodule DerpyToolsWeb.BlogPosts do
   attr :class, :string, default: nil
 
   def header(assigns)
+
+  attr :class, :string, default: nil
+
+  def banner(assigns)
 
   attr :post, :map
   attr :style_nonce, :string
