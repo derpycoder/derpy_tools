@@ -31,6 +31,7 @@ import ScrollIntoView from "./scroll_into_view";
 import SourceInspector from "./source_inspector";
 import LozadObserver from "./lozad_observer";
 import AutoRedirect from "./auto_redirect";
+import TableOfContents from "./table_of_contents";
 
 window.observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
@@ -66,6 +67,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     SourceInspector,
     LozadObserver,
     AutoRedirect,
+    TableOfContents,
   },
 });
 

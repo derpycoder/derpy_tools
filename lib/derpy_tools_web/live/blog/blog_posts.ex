@@ -11,7 +11,11 @@ defmodule DerpyToolsWeb.BlogPosts do
 
   def table_of_contents(assigns) do
     ~H"""
-    <div class="sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height)))] overflow-auto px-5 py-1">
+    <div
+      id="table-of-contents"
+      class="sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height)))] overflow-auto px-5 py-1"
+      phx-hook="TableOfContents"
+    >
       <h5 class="text-slate-900 font-semibold mb-4 text-sm leading-6 dark:text-slate-100">
         On this page
       </h5>
@@ -21,7 +25,7 @@ defmodule DerpyToolsWeb.BlogPosts do
       ]}>
         <li>
           <a
-            href="#blog-post"
+            href="#"
             class="block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
           >
             Top<i class="hero-chevron-up w-5.5 h-5.5 text-slate-500 dark:text-navy-100" />
@@ -29,6 +33,7 @@ defmodule DerpyToolsWeb.BlogPosts do
         </li>
         <li :for={{header, id, title} <- @headers} class="not-prose">
           <a
+            id={"#{id}-link"}
             key={id}
             href={"##{id}"}
             tabindex="0"
