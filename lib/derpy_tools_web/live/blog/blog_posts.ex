@@ -32,6 +32,7 @@ defmodule DerpyToolsWeb.BlogPosts do
 
   attr :headers, :list
   attr :class, :string, default: nil
+  attr :parent, :list, default: []
 
   def nested_header(assigns) do
     ~H"""
@@ -45,6 +46,7 @@ defmodule DerpyToolsWeb.BlogPosts do
           key={id}
           href={"##{id}"}
           tabindex="0"
+          data-parent={@parent |> Enum.reject(fn p -> p == "" end) |> Enum.join(">")}
           class={[
             "block py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
             case header do
@@ -57,7 +59,12 @@ defmodule DerpyToolsWeb.BlogPosts do
           <i :if={header in ~w{h3 h4}} class="hero-chevron-right-mini" />
           <span><%= title %></span>
         </a>
-        <.nested_header :if={children} headers={children |> Enum.reverse()} class="pl-4" />
+        <.nested_header
+          :if={children}
+          headers={children |> Enum.reverse()}
+          class="pl-4"
+          parent={[id, @parent]}
+        />
       </li>
     </ul>
     """
