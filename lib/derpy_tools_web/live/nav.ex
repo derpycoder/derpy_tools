@@ -9,6 +9,7 @@ defmodule DerpyToolsWeb.Nav do
      socket
      #  |> subscribe_ping(session)
      #  |> attach_hook(:ping, :handle_event, &handle_event/3)
+     |> attach_hook(:auto_redirect, :handle_event, &handle_event/3)
      |> attach_hook(:inspect_source, :handle_event, &handle_event/3)
      |> attach_hook(
        :put_path_in_socket,
@@ -41,6 +42,12 @@ defmodule DerpyToolsWeb.Nav do
     System.cmd("code", ["--goto", "#{file}:#{line}"])
 
     {:halt, socket}
+  end
+
+  defp handle_event("navigate", route, socket) do
+    {:halt,
+     socket
+     |> push_navigate(to: route)}
   end
 
   defp handle_event(_, _, socket), do: {:cont, socket}

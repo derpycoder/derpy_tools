@@ -3,6 +3,9 @@ defmodule DerpyToolsWeb.HomePageLive do
 
   def render(assigns) do
     ~H"""
+    <div id="auto-redirect" phx-hook="AutoRedirect">
+      Auto Redirecting in 3, 2, 1
+    </div>
     <div
       class="card mt-10"
       id="homepage"

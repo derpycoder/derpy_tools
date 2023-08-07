@@ -30,6 +30,7 @@ import SpongeBobText from "./sponge_bob_text";
 import ScrollIntoView from "./scroll_into_view";
 import SourceInspector from "./source_inspector";
 import LozadObserver from "./lozad_observer";
+import AutoRedirect from "./auto_redirect";
 
 window.observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
@@ -64,6 +65,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     ScrollIntoView,
     SourceInspector,
     LozadObserver,
+    AutoRedirect,
   },
 });
 
