@@ -51,11 +51,11 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         blog: `
-        [full-start]minmax(var(--gap),auto)
-        [wide-start] minmax(auto,calc((var(--container-width, 1200px) - var(--content-width, 720px))/2))
-        [main-start] min(var(--content-width,720px),calc(100% - var(--gap)*2))
-        [main-end] minmax(auto,calc((var(--container-width, 1200px) - var(--content-width, 720px))/2))
-        [wide-end] minmax(var(--gap),auto)
+        [full-start] minmax(var(--gap), auto)
+        [wide-start] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px)) / 2))
+        [main-start] min(var(--content-width, 720px), calc(100% - var(--gap) * 2))
+        [main-end] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px)) / 2))
+        [wide-end] minmax(var(--gap), auto)
         [full-end]`,
       },
       gridColumn: {
