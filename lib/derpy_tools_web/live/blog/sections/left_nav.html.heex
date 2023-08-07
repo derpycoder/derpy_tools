@@ -1,0 +1,36 @@
+<aside class={[@class]}>
+  <div>
+    <div>
+      <%!-- Use Author Image Carousel --%>
+      <a href="/author/derpycoder/">
+        <img
+          data-src={
+            "local:///images/profile/profile-pic.webp"
+            |> Imgproxy.new()
+            |> Imgproxy.resize(100, 100)
+            |> to_string()
+          }
+          class="lozad rounded-full aspect-square w-[64px]"
+          alt="Derpy Coder"
+          id="author"
+          phx-update="ignore"
+        />
+      </a>
+    </div>
+
+    <.intersperse :let={author} enum={@post.authors}>
+      <:separator>
+        <span>·</span>
+      </:separator>
+      <a href={"/author/#{author.slug}/"}>
+        <%= author.name %>
+      </a>
+    </.intersperse>
+    <br />
+    <time datetime={@post.created}>
+      <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
+    </time>
+    <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
+  </div>
+  <DerpyToolsWeb.BlogPosts.table_of_contents post={@post} />
+</aside>

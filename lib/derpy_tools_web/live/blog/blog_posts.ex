@@ -1,7 +1,8 @@
 defmodule DerpyToolsWeb.BlogPosts do
   use Phoenix.Component
 
-  embed_templates "posts/*"
+  embed_templates "posts/**/*"
+  embed_templates "sections/**/*"
 
   attr :post, :map
   attr :class, :string, default: nil
@@ -45,23 +46,7 @@ defmodule DerpyToolsWeb.BlogPosts do
   attr :post, :map
   attr :class, :string, default: nil
 
-  def header(assigns) do
-    ~H"""
-    <header class={@class}>
-      <a href="https://www.derpytools.com/tag/best-of-the-best/">
-        <%= inspect(@post.tags) %>
-      </a>
-
-      <h1>
-        <%= @post.title %>
-      </h1>
-
-      <p>
-        Taskfile is here to make your life easier and cheatsheets obsolete. It&#x27;s a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.
-      </p>
-    </header>
-    """
-  end
+  def header(assigns)
 
   attr :post, :map
   attr :style_nonce, :string
@@ -76,56 +61,15 @@ defmodule DerpyToolsWeb.BlogPosts do
     """
   end
 
-  def footer(assigns) do
-    ~H"""
-    <nav>
-      <a
-        href="https://www.derpytools.com/porkbun-probably-the-best-domain-registrar-i-have-ever-used/"
-        title="Porkbun: Probably the Best Domain Registrar I have Ever Used"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          width="24"
-          height="24"
-          viewbox="0 0 24 24"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        <div>Previous post</div>
-        <div>
-          Porkbun: Probably the Best Domain Registrar I have Ever Used
-        </div>
-      </a>
-      <a
-        href="https://www.derpytools.com/5-ways-to-embed-code-snippets-compared-github-gists-vs-prismjs-vs-screenshots-vs-codepen-vs-chroma/"
-        title="5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma"
-      >
-        <div>Next post</div>
-        <div>
-          5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          width="24"
-          height="24"
-          viewbox="0 0 24 24"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </a>
-    </nav>
-    """
-  end
+  attr :class, :string, default: nil
+  def footer(assigns)
+
+  attr :post, :map
+  attr :class, :string, default: nil
+  def left_nav(assigns)
+
+  attr :class, :string, default: nil
+  def right_nav(assigns)
 
   defp extract_headers(function_component) do
     function_component.static
