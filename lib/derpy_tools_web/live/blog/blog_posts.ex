@@ -11,36 +11,42 @@ defmodule DerpyToolsWeb.BlogPosts do
 
   def table_of_contents(assigns) do
     ~H"""
-    <ul class={[
-      "space-y-1 font-inter font-medium list-none not-prose sticky top-[calc(var(--header-height)+30px)]",
-      @class
-    ]}>
-      <li>
-        <a
-          href="#blog-post"
-          class="cursor-pointer items-center space-x-1.5 rounded px-2 py-1 tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
-        >
-          Top<i class="hero-chevron-up w-5.5 h-5.5 text-slate-500 dark:text-navy-100" />
-        </a>
-      </li>
-      <li :for={{header, id, title} <- @headers} class="not-prose">
-        <a
-          key={id}
-          href={"##{id}"}
-          tabindex="0"
-          class={[
-            "cursor-pointer items-center space-x-1.5 rounded px-2 py-1 tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100",
-            case header do
-              "h2" -> ""
-              "h3" -> "pl-8"
-              "h4" -> "pl-16"
-            end
-          ]}
-        >
-          <span><%= title %></span>
-        </a>
-      </li>
-    </ul>
+    <div class="sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height)))] overflow-auto px-5 py-1">
+      <h5 class="text-slate-900 font-semibold mb-4 text-sm leading-6 dark:text-slate-100">
+        On this page
+      </h5>
+      <ul class={[
+        "space-y-1 font-inter font-medium list-none not-prose",
+        @class
+      ]}>
+        <li>
+          <a
+            href="#blog-post"
+            class="block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
+          >
+            Top<i class="hero-chevron-up w-5.5 h-5.5 text-slate-500 dark:text-navy-100" />
+          </a>
+        </li>
+        <li :for={{header, id, title} <- @headers} class="not-prose">
+          <a
+            key={id}
+            href={"##{id}"}
+            tabindex="0"
+            class={[
+              "block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
+              case header do
+                "h2" -> ""
+                "h3" -> "pl-4"
+                "h4" -> "pl-8"
+              end
+            ]}
+          >
+            <i :if={header in ~w(h3 h4)} class="hero-chevron-right-mini" />
+            <span><%= title %></span>
+          </a>
+        </li>
+      </ul>
+    </div>
     """
   end
 
