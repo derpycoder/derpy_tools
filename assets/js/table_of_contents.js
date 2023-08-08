@@ -70,7 +70,6 @@ function highlightNav(hash, remove, add) {
     if (parent) {
       parent.split(">").forEach((parentId) => {
         const parent = document.getElementById(`${parentId}-link`);
-        let skipCollapsing = false;
 
         if (parent) {
           parent.classList.remove(...remove);
