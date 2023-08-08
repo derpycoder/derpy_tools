@@ -189,14 +189,14 @@ defmodule DerpyToolsWeb.BlogPosts do
       {header, meta, [{"a", _, [title | _]} | _rest]} ->
         {
           header,
-          meta |> Enum.find(&(elem(&1, 0) == "id")) |> elem(1),
+          meta |> Enum.find(&match?({attr, _val} when attr == "id", &1)) |> elem(1),
           title |> String.trim()
         }
 
       {header, meta, [title | _rest]} ->
         {
           header,
-          meta |> Enum.find(&(elem(&1, 0) == "id")) |> elem(1),
+          meta |> Enum.find(&match?({attr, _val} when attr == "id", &1)) |> elem(1),
           title |> String.trim()
         }
     end)
@@ -241,7 +241,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     |> String.replace(~r/@|#|\$|%|&|\^|:|_|!|,/u, " ")
     |> String.split()
     |> Enum.count()
-    |> Integer.floor_div(@wpm)
+    |> div(@wpm)
     |> Timex.Duration.from_minutes()
     |> Timex.Format.Duration.Formatter.format(:humanized)
   end
