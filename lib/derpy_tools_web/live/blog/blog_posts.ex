@@ -13,7 +13,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     ~H"""
     <div
       id="table-of-contents"
-      class="sticky top-[calc(var(--header-height))] px-5 py-1"
+      class="sticky top-[calc(var(--header-height))] py-1 pr-5"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
       phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
@@ -128,7 +128,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     ~H"""
     <aside class={["flex flex-col", @class]}>
       <div
-        class="mb-10 py-1 px-5"
+        class="mb-10 py-1 pr-5"
         id="authors"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
