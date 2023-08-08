@@ -1,5 +1,6 @@
 defmodule DerpyToolsWeb.BlogPosts do
   use Phoenix.Component
+  use Pathex
   alias Phoenix.LiveView.JS
 
   @wpm 225
@@ -57,18 +58,19 @@ defmodule DerpyToolsWeb.BlogPosts do
           key={id}
           href={"##{id}"}
           tabindex="0"
-          data-parent={@parent |> Enum.reject(fn p -> p == "" end) |> Enum.join(">")}
+          data-parent={@parent |> Enum.join(">")}
           class={[
             "block py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
             case header do
               "h2" -> "font-semibold"
               "h3" -> "font-medium"
               "h4" -> "font-normal"
+              "h5" -> "font-normal text-xs"
             end
           ]}
           phx-click={JS.toggle(to: "##{id}-container")}
         >
-          <i :if={header in ~w{h3 h4}} class="hero-chevron-right-mini" />
+          <i :if={header in ~w{h3 h4 h5}} class="hero-chevron-right-mini" />
           <span><%= title %></span>
         </a>
 
@@ -77,7 +79,7 @@ defmodule DerpyToolsWeb.BlogPosts do
           id={"#{id}-container"}
           headers={children |> Enum.reverse()}
           class="pl-4 hidden"
-          parent={[id, @parent]}
+          parent={[id, @parent |> Enum.join(">")]}
         />
       </li>
     </ul>
@@ -166,6 +168,8 @@ defmodule DerpyToolsWeb.BlogPosts do
         </time>
         <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
         <span><%= @reading_time %></span>
+        <br />
+        <span><%= @post.star_rating %></span>
       </div>
       <.table_of_contents headers={@headers} />
     </aside>
@@ -184,53 +188,40 @@ defmodule DerpyToolsWeb.BlogPosts do
   defp extract_headers([parsed_blog]) do
     parsed_blog
     |> Floki.children()
-    |> Enum.filter(&match?({name, _, _} when name in ~w(h2 h3 h4), &1))
+    |> Enum.filter(&match?({name, _, _} when name in ~w(h2 h3 h4 h5), &1))
     |> Enum.map(fn
       {header, meta, [{"a", _, [title | _]} | _rest]} ->
-        {
-          header,
-          meta |> Enum.find(&match?({attr, _val} when attr == "id", &1)) |> elem(1),
-          title |> String.trim()
-        }
+        {_, id} = Enum.find(meta, &match?({"id", _}, &1))
+        {header, id, title |> String.trim()}
 
       {header, meta, [title | _rest]} ->
-        {
-          header,
-          meta |> Enum.find(&match?({attr, _val} when attr == "id", &1)) |> elem(1),
-          title |> String.trim()
-        }
+        {_, id} = Enum.find(meta, &match?({"id", _}, &1))
+        {header, id, title |> String.trim()}
     end)
     |> Enum.reduce([], fn
       {"h2", id, title}, acc ->
         [%{header: "h2", id: id, title: title, children: []} | acc]
 
-      {"h3", id, title}, [head | tail] ->
-        [
-          %{
-            head
-            | children: [%{header: "h3", id: id, title: title, children: []} | head.children]
-          }
-          | tail
-        ]
+      {"h3", id, title}, acc ->
+        children = path(0 / :children)
 
-      {"h4", id, title}, [head | tail] ->
-        [child_head | child_tail] = head.children
+        Pathex.set!(acc, children, [
+          %{header: "h3", id: id, title: title, children: []} | Pathex.get(acc, children)
+        ])
 
-        [
-          %{
-            head
-            | children: [
-                %{
-                  child_head
-                  | children: [
-                      %{header: "h4", id: id, title: title, children: nil} | child_head.children
-                    ]
-                }
-                | child_tail
-              ]
-          }
-          | tail
-        ]
+      {"h4", id, title}, acc ->
+        children = path(0 / :children / 0 / :children)
+
+        Pathex.set!(acc, children, [
+          %{header: "h4", id: id, title: title, children: []} | Pathex.get(acc, children)
+        ])
+
+      {"h5", id, title}, acc ->
+        children = path(0 / :children / 0 / :children / 0 / :children)
+
+        Pathex.set!(acc, children, [
+          %{header: "h5", id: id, title: title, children: nil} | Pathex.get(acc, children)
+        ])
     end)
     |> Enum.reverse()
   end
