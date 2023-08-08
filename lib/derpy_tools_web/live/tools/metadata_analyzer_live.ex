@@ -325,9 +325,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def fetch_meta(head) do
     head
-    |> Enum.filter(&is_tuple/1)
-    |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
-    |> Enum.filter(fn {name, _, _} -> String.downcase(name) == "meta" end)
+    |> Enum.filter(&match?({name, _, _} when name == "meta", &1))
     |> Enum.map(fn {"meta", meta, _} -> meta end)
     |> Enum.filter(fn each -> Enum.count(each) == 2 end)
     |> Enum.map(fn
@@ -349,9 +347,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   def fetch_misc(head) do
     head =
       head
-      |> Enum.filter(&is_tuple/1)
-      |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
-      |> Enum.filter(fn {name, _, _} -> String.downcase(name) != "meta" end)
+      |> Enum.filter(&match?({name, _, _} when name != "meta", &1))
 
     %{
       title: fetch_title(head),

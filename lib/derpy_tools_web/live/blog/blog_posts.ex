@@ -181,26 +181,23 @@ defmodule DerpyToolsWeb.BlogPosts do
     |> Floki.find("article")
   end
 
-  defp extract_headers(parsed_blog) do
+  defp extract_headers([parsed_blog]) do
     parsed_blog
-    |> Enum.at(0)
     |> Floki.children()
-    |> Enum.filter(&is_tuple/1)
-    |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
-    |> Enum.filter(fn {name, _, _} -> name in ~w(h2 h3 h4) end)
+    |> Enum.filter(&match?({name, _, _} when name in ~w(h2 h3 h4), &1))
     |> Enum.map(fn
       {header, meta, [{"a", _, [title | _]} | _rest]} ->
         {
           header,
           meta |> Enum.find(&(elem(&1, 0) == "id")) |> elem(1),
-          title |> String.replace(~r"\n\s+", "")
+          title |> String.trim()
         }
 
       {header, meta, [title | _rest]} ->
         {
           header,
           meta |> Enum.find(&(elem(&1, 0) == "id")) |> elem(1),
-          title |> String.replace(~r"\n\s+", "")
+          title |> String.trim()
         }
     end)
     |> Enum.reduce([], fn
