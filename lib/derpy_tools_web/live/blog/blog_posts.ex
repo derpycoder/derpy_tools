@@ -189,6 +189,13 @@ defmodule DerpyToolsWeb.BlogPosts do
     |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
     |> Enum.filter(fn {name, _, _} -> name in ~w(h2 h3 h4) end)
     |> Enum.map(fn
+      {header, meta, [{"a", _, [title | _]} | _rest]} ->
+        {
+          header,
+          meta |> Enum.find(&(elem(&1, 0) == "id")) |> elem(1),
+          title |> String.replace(~r"\n\s+", "")
+        }
+
       {header, meta, [title | _rest]} ->
         {
           header,
