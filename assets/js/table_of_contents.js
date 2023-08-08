@@ -70,6 +70,7 @@ function highlightNav(hash, remove, add) {
     if (parent) {
       parent.split(">").forEach((parentId) => {
         const parent = document.getElementById(`${parentId}-link`);
+        let skipCollapsing = false;
 
         if (parent) {
           parent.classList.remove(...remove);
@@ -80,7 +81,10 @@ function highlightNav(hash, remove, add) {
           `${parentId}-container`
         );
 
-        parentContainer && parentContainer.classList.remove("hidden");
+        if (parentContainer) {
+          parentContainer.classList.remove("hidden");
+          if (location.hash == `#${hash}`) parentContainer.style.display = null;
+        }
       });
     }
   }
