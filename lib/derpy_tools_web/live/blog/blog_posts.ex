@@ -166,8 +166,9 @@ defmodule DerpyToolsWeb.BlogPosts do
         <time datetime={@post.created}>
           <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
         </time>
-        <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %>
-        <span><%= @reading_time %></span>
+        <br />
+        <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %> |
+        <span><%= @reading_time %> read</span>
         <br />
         <span><%= @post.star_rating %></span>
       </div>
@@ -225,9 +226,8 @@ defmodule DerpyToolsWeb.BlogPosts do
             <%= post.short %>
           </a>
           <br />
-          <%= Timex.Format.DateTime.Formatters.Relative.format!(post.created, "{relative}") %>
-          <br />
-          <span><%= @reading_time %></span>
+          <%= Timex.Format.DateTime.Formatters.Relative.format!(post.created, "{relative}") %> |
+          <span><%= @reading_time %> read</span>
           <br />
           <span><%= post.star_rating %></span>
         </li>
