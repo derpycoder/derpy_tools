@@ -1,6 +1,7 @@
 defmodule DerpyToolsWeb.BlogLive do
   require Phoenix.LiveViewTest
   use DerpyToolsWeb, :live_view
+  use Pathex
 
   alias DerpyTools.Posts
   alias DerpyToolsWeb.{BlogPosts}
@@ -18,6 +19,16 @@ defmodule DerpyToolsWeb.BlogLive do
           socket
           |> assign(post: post, page_title: post.title)
       end
+
+    IO.inspect(
+      Posts.fetch_posts_by_tag(
+        Pathex.get(
+          socket,
+          path(:assigns / :post / :tags / 0 / :slug)
+        ),
+        Pathex.get(socket, path(:assigns / :post / :slug))
+      )
+    )
 
     {:ok, socket}
   end

@@ -44,10 +44,6 @@ defmodule DerpyTools.Posts do
         %{
           slug: "best-of-the-best",
           label: "Best Of The Best"
-        },
-        %{
-          slug: "cli",
-          label: "Command Line Tools"
         }
       ],
       description: """
@@ -64,10 +60,6 @@ defmodule DerpyTools.Posts do
       id: "multipass",
       title: "Multipass: Instant Ubuntu Virtual Machines on your Computer",
       tags: [
-        %{
-          slug: "best-of-the-best",
-          label: "Best Of The Best"
-        },
         %{
           slug: "cli",
           label: "Command Line Tools"
@@ -93,5 +85,19 @@ defmodule DerpyTools.Posts do
   def fetch_post_by_slug(post_slug) do
     @posts
     |> Enum.find(fn %{slug: slug} -> slug == post_slug end)
+  end
+
+  def fetch_posts_by_tag(tag_slug, post_slug) do
+    @posts
+    |> Enum.filter(fn %{tags: t_tags, slug: t_post_slug} ->
+      t_tags
+      |> Enum.any?(fn %{slug: slug} -> slug == tag_slug && t_post_slug != post_slug end)
+    end)
+  end
+
+  def fetch_recent_posts() do
+  end
+
+  def fetch_tags() do
   end
 end
