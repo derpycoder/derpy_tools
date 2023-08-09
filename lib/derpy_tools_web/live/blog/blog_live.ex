@@ -20,16 +20,6 @@ defmodule DerpyToolsWeb.BlogLive do
           |> assign(post: post, page_title: post.title)
       end
 
-    IO.inspect(
-      Posts.fetch_posts_by_tag(
-        Pathex.get(
-          socket,
-          path(:assigns / :post / :tags / 0 / :slug)
-        ),
-        Pathex.get(socket, path(:assigns / :post / :slug))
-      )
-    )
-
     {:ok, socket}
   end
 
@@ -50,7 +40,10 @@ defmodule DerpyToolsWeb.BlogLive do
         style_nonce={@style_nonce}
         class="col-span-main prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
       />
-      <BlogPosts.right_nav class="col-span-main xl:col-span-main-wide sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height)))]" />
+      <BlogPosts.right_nav
+        class="col-span-main xl:col-span-main-wide sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height))-200px)]"
+        post={@post}
+      />
     </section>
     """
   end

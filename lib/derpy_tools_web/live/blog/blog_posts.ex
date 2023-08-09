@@ -176,8 +176,65 @@ defmodule DerpyToolsWeb.BlogPosts do
     """
   end
 
+  attr :post, :map
   attr :class, :string, default: nil
-  def right_nav(assigns)
+
+  def right_nav(assigns) do
+    parsed_blog =
+      __MODULE__
+      |> apply(assigns.post.body, [assigns])
+      |> parse_blog()
+
+    assigns =
+      assigns
+      |> assign(reading_time: reading_time(parsed_blog))
+
+    related_posts =
+      DerpyTools.Posts.fetch_posts_by_tag(
+        Pathex.get(
+          assigns,
+          path(:post / :tags / 0 / :slug)
+        ),
+        Pathex.get(assigns, path(:post / :slug))
+      )
+
+    assigns = assign(assigns, related_posts: related_posts)
+
+    ~H"""
+    <div
+      class={["py-1 pl-5", @class]}
+      id="recent-articles"
+      data-file={__ENV__.file}
+      data-line={__ENV__.line}
+      phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+    >
+      <h5
+        id="toc"
+        class="text-slate-900 font-semibold mb-2 text-sm leading-6 dark:text-slate-100"
+        phx-hook="TableOfContents"
+      >
+        Related Articles
+      </h5>
+      <ul>
+        <li :for={post <- @related_posts} class="pb-5 mb-5 border-b-2 border-dashed">
+          <a
+            href={post.slug}
+            alt={post.title}
+            class="hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 font-semibold text-md"
+          >
+            <%= post.short %>
+          </a>
+          <br />
+          <%= Timex.Format.DateTime.Formatters.Relative.format!(post.created, "{relative}") %>
+          <br />
+          <span><%= @reading_time %></span>
+          <br />
+          <span><%= post.star_rating %></span>
+        </li>
+      </ul>
+    </div>
+    """
+  end
 
   defp parse_blog(function_component) do
     function_component.static
