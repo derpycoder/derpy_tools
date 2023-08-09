@@ -44,7 +44,8 @@ img.derpytools.site {
 
 	# Reverse proxy to Varnish cache instead (Only use with production builds)
 	# reverse_proxy localhost:3080 {
-	# 	header_down Cache-Control "max-age=0; must-revalidate; public;"
+	# 	# header_down Cache-Control "max-age=0; must-revalidate; public;"
+	# 	# header_down Cache-Control "public; max-age=31536000; immutable;"
 	# }
 
 	import common
