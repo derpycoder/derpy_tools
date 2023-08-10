@@ -92,6 +92,7 @@ defmodule DerpyToolsWeb.BlogPosts do
   def header(assigns)
 
   attr :class, :string, default: nil
+  attr :banner, :string
 
   def banner(assigns)
 
@@ -292,5 +293,19 @@ defmodule DerpyToolsWeb.BlogPosts do
     |> div(@wpm)
     |> Timex.Duration.from_minutes()
     |> Timex.Format.Duration.Formatter.format(:humanized)
+  end
+
+  defp source_set(url, sizes) do
+    sizes
+    |> Enum.map(fn size ->
+      img_url =
+        "local:///images/#{url}"
+        |> Imgproxy.new()
+        |> Imgproxy.resize(size, size)
+        |> to_string()
+
+      "#{img_url} #{size}w"
+    end)
+    |> Enum.join(",\n\t")
   end
 end

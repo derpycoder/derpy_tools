@@ -32,7 +32,7 @@ defmodule DerpyToolsWeb.BlogLive do
       />
 
       <%!-- <BlogPosts.banner class="col-span-full" /> --%>
-      <BlogPosts.banner class="col-span-wide" />
+      <BlogPosts.banner class="col-span-wide" banner={@post.banner} />
 
       <BlogPosts.left_nav post={@post} class="col-span-main xl:col-span-wide-main" />
       <BlogPosts.body

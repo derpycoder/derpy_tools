@@ -6,11 +6,7 @@
   phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
 >
   <img
-    data-srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(720, 720) |> to_string()} 720w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(960, 960) |> to_string()} 960w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(1200, 1200) |> to_string()} 1200w,
-                          #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(2000, 2000) |> to_string()} 2000w"}
+    data-srcset={source_set(@banner, [300, 720, 960, 1200, 2000])}
     sizes="(max-width: 2000px) 100vw, 2000px"
     class="lozad w-full"
     alt="Taskfile in Action"

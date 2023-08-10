@@ -16,6 +16,7 @@ defmodule DerpyTools.Posts do
       id: "taskfile",
       title: "Taskfile: A Sensible Makefile and Shell Script Alternative",
       short: "Taskfile: A Sensible Makefile Alternative",
+      banner: "taskfile-in-action.png",
       tags: [
         %{
           slug: "best-of-the-best",
@@ -42,6 +43,7 @@ defmodule DerpyTools.Posts do
       title:
         "CROC: Easily Send Files Across Computers with this Modern Alternative to Magic Wormhole",
       short: "CROC: Easily Send Files Across Computers",
+      banner: "send-wallpapers-using-croc.png",
       tags: [
         %{
           slug: "best-of-the-best",
@@ -62,6 +64,7 @@ defmodule DerpyTools.Posts do
       id: "multipass",
       title: "Multipass: Instant Ubuntu Virtual Machines on your Computer",
       short: "Multipass: Instant Ubuntu Virtual Machines",
+      banner: "remote-ubuntu-desktop.png",
       tags: [
         %{
           slug: "best-of-the-best",
