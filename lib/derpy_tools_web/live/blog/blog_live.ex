@@ -38,7 +38,7 @@ defmodule DerpyToolsWeb.BlogLive do
       <BlogPosts.body
         post={@post}
         style_nonce={@style_nonce}
-        class="col-span-main prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
+        class="col-span-main w-0 min-w-full prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
       />
       <BlogPosts.right_nav
         class="col-span-main xl:col-span-main-wide w-0 min-w-full sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height))-200px)]"

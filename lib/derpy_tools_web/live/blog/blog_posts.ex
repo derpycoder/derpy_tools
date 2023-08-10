@@ -14,7 +14,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     ~H"""
     <div
       id="table-of-contents"
-      class="sticky top-[calc(var(--header-height))] py-1 lg:pr-5"
+      class="sticky top-[calc(var(--header-height))] py-1 xl:pr-5"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
       phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
@@ -60,7 +60,7 @@ defmodule DerpyToolsWeb.BlogPosts do
           tabindex="0"
           data-parent={@parent |> Enum.join(">")}
           class={[
-            "block py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
+            "block py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 truncate",
             case header do
               "h2" -> "font-semibold"
               "h3" -> "font-medium"
@@ -204,7 +204,7 @@ defmodule DerpyToolsWeb.BlogPosts do
 
     ~H"""
     <div
-      class={["py-1 lg:px-5", @class]}
+      class={["py-1 xl:px-5", @class]}
       id="recent-articles"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
