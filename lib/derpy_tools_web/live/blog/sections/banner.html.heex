@@ -1,4 +1,10 @@
-<figure class={[@class]}>
+<figure
+  class={[@class]}
+  id="banner"
+  data-file={__ENV__.file}
+  data-line={__ENV__.line}
+  phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+>
   <img
     data-srcset={"#{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(300, 300) |> to_string()} 300w,
                           #{"local:///images/taskfile-in-action.png" |> Imgproxy.new() |> Imgproxy.resize(720, 720) |> to_string()} 720w,
