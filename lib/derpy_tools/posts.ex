@@ -42,7 +42,7 @@ defmodule DerpyTools.Posts do
       id: "croc",
       title:
         "CROC: Easily Send Files Across Computers with this Modern Alternative to Magic Wormhole",
-      short: "CROC: Easily Send Files Across Computers",
+      short: "CROC: Easily Send Files Across",
       banner: "send-wallpapers-using-croc.png",
       tags: [
         %{
@@ -63,7 +63,7 @@ defmodule DerpyTools.Posts do
       slug: "multipass-instant-ubuntu-virtual-machines-on-your-computer",
       id: "multipass",
       title: "Multipass: Instant Ubuntu Virtual Machines on your Computer",
-      short: "Multipass: Instant Ubuntu Virtual Machines",
+      short: "Multipass: Instant Ubuntu VMs",
       banner: "remote-ubuntu-desktop.png",
       tags: [
         %{

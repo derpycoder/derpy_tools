@@ -144,7 +144,7 @@ defmodule DerpyToolsWeb.BlogPosts do
               data-src={
                 "local:///images/profile/profile-pic.webp"
                 |> Imgproxy.new()
-                |> Imgproxy.resize(100, 100)
+                |> Imgproxy.resize(128, 128)
                 |> to_string()
               }
               class="lozad rounded-full aspect-square w-[64px]"
@@ -204,7 +204,7 @@ defmodule DerpyToolsWeb.BlogPosts do
 
     ~H"""
     <div
-      class={["py-1 lg:pl-5", @class]}
+      class={["py-1 lg:px-5", @class]}
       id="recent-articles"
       data-file={__ENV__.file}
       data-line={__ENV__.line}
@@ -218,19 +218,30 @@ defmodule DerpyToolsWeb.BlogPosts do
         Related Articles
       </h5>
       <ul>
-        <li :for={post <- @related_posts} class="pb-5 mb-5 border-b-2 border-dashed">
-          <a
-            href={post.slug}
+        <li
+          :for={post <- @related_posts}
+          class="pb-5 mb-5 border-b-2 border-dashed dark:border-b-navy-400 flex items-center"
+        >
+          <img
+            src={
+              "local:///images/#{post.banner}"
+              |> Imgproxy.new()
+              |> Imgproxy.resize(128, 128, type: "fill")
+              |> to_string()
+            }
+            class="flex-initial w-[64px] aspect-square rounded-md shadow dark:shadow-gray-800"
             alt={post.title}
-            class="hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 font-semibold text-md"
-          >
-            <%= post.short %>
-          </a>
-          <br />
-          <%= Timex.Format.DateTime.Formatters.Relative.format!(post.created, "{relative}") %> |
-          <span><%= @reading_time %> read</span>
-          <br />
-          <span><%= post.star_rating %></span>
+          />
+
+          <div class="flex-initial ml-3 truncate">
+            <a class="font-semibold hover:text-indigo-600" href={post.slug} alt={post.title}>
+              <%= post.short %>
+            </a>
+            <p class="text-sm text-slate-400">
+              <%= Timex.Format.DateTime.Formatters.Relative.format!(post.created, "{relative}") %> | <%= @reading_time %> read
+            </p>
+            <span><%= post.star_rating %></span>
+          </div>
         </li>
       </ul>
     </div>

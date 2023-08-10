@@ -34,14 +34,14 @@ defmodule DerpyToolsWeb.BlogLive do
       <%!-- <BlogPosts.banner class="col-span-full" /> --%>
       <BlogPosts.banner class="col-span-wide" banner={@post.banner} />
 
-      <BlogPosts.left_nav post={@post} class="col-span-main xl:col-span-wide-main" />
+      <BlogPosts.left_nav post={@post} class="col-span-main xl:col-span-wide-main w-0 min-w-full" />
       <BlogPosts.body
         post={@post}
         style_nonce={@style_nonce}
         class="col-span-main prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
       />
       <BlogPosts.right_nav
-        class="col-span-main xl:col-span-main-wide sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height))-200px)]"
+        class="col-span-main xl:col-span-main-wide w-0 min-w-full sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height))-200px)]"
         post={@post}
       />
     </section>
