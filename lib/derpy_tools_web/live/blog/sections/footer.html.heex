@@ -1,5 +1,5 @@
 <nav
-  class={@class}
+  class={["not-prose text-sm w-full", @class]}
   id="footer-nav"
   data-file={__ENV__.file}
   data-line={__ENV__.line}
@@ -8,6 +8,7 @@
   <a
     href="https://www.derpytools.com/porkbun-probably-the-best-domain-registrar-i-have-ever-used/"
     title="Porkbun: Probably the Best Domain Registrar I have Ever Used"
+    class="flex flex-col items-start"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,17 +23,18 @@
         clip-rule="evenodd"
       />
     </svg>
-    <div>Previous post</div>
-    <div>
+    <div class="text-xs font-normal">Previous post</div>
+    <div class="font-semibold">
       Porkbun: Probably the Best Domain Registrar I have Ever Used
     </div>
   </a>
   <a
     href="https://www.derpytools.com/5-ways-to-embed-code-snippets-compared-github-gists-vs-prismjs-vs-screenshots-vs-codepen-vs-chroma/"
     title="5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma"
+    class="flex flex-col items-end text-right"
   >
-    <div>Next post</div>
-    <div>
+    <div class="text-xs font-normal">Next post</div>
+    <div class="font-semibold">
       5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma
     </div>
     <svg

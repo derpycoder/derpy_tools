@@ -52,9 +52,9 @@ module.exports = {
       gridTemplateColumns: {
         blog: `
         [full-start] minmax(var(--gap), auto)
-        [wide-start] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px)) / 2))
+        [wide-start] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px))))
         [main-start] min(var(--content-width, 720px), calc(100% - var(--gap) * 2))
-        [main-end] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px)) / 2))
+        [main-end] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px))))
         [wide-end] minmax(var(--gap), auto)
         [full-end]`,
       },
@@ -64,6 +64,8 @@ module.exports = {
         "span-wide": "wide-start/wide-end",
         "span-wide-main": "wide-start/main-start",
         "span-main-wide": "main-end/wide-end",
+        "span-full-main": "full-start/main-start",
+        "span-main-full": "main-end/full-end",
       },
       height: {
         screen: ["100vh", "100dvh"],
