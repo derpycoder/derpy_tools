@@ -105,6 +105,18 @@ defmodule DerpyTools.Posts do
     end)
   end
 
+  def fetch_prev_and_next_posts(post_slug) do
+    @posts
+    |> Enum.find_index(fn post -> post.slug == post_slug end)
+    |> fetch_prev_or_next_posts()
+  end
+
+  def fetch_prev_or_next_posts(post_index) when post_index > 0 do
+    {Enum.at(@posts, post_index + 1), Enum.at(@posts, post_index - 1)}
+  end
+
+  def fetch_prev_or_next_posts(_post_index), do: {Enum.at(@posts, 1), nil}
+
   def fetch_recent_posts() do
   end
 

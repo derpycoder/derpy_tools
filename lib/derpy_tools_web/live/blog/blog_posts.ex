@@ -104,13 +104,93 @@ defmodule DerpyToolsWeb.BlogPosts do
     ~H"""
     <div class={@class}>
       <%= apply(__MODULE__, @post.body, [assigns]) %>
-      <.footer />
+      <.footer post={@post} />
     </div>
     """
   end
 
   attr :class, :string, default: nil
-  def footer(assigns)
+  attr :post, :map
+
+  def footer(assigns) do
+    {prev, next} = DerpyTools.Posts.fetch_prev_and_next_posts(assigns.post.slug)
+
+    assigns = assign(assigns, prev: prev, next: next)
+
+    ~H"""
+    <div class="inset-0 flex items-center my-10" aria-hidden="true">
+      <div class="w-full border-t border-navy-300"></div>
+    </div>
+
+    <nav
+      class={["not-prose text-sm w-full", @class]}
+      id="footer-nav"
+      data-file={__ENV__.file}
+      data-line={__ENV__.line}
+      phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+    >
+      <a
+        :if={@prev}
+        href={"/blog/#{@prev.slug}"}
+        title={@prev.title}
+        class="flex flex-col items-start mb-3"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          width="24"
+          height="24"
+          viewbox="0 0 24 24"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <div class="text-xs font-normal">Previous post</div>
+        <div class="font-semibold">
+          <%= @prev.short %>
+        </div>
+      </a>
+      <a
+        :if={@next}
+        href={"/blog/#{@next.slug}"}
+        title={@next.title}
+        class="flex flex-col items-end text-right"
+      >
+        <div class="text-xs font-normal">Next post</div>
+        <div class="font-semibold">
+          <%= @next.short %>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          width="24"
+          height="24"
+          viewbox="0 0 24 24"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </a>
+    </nav>
+
+    <div class="relative my-10 block xl:hidden">
+      <div class="absolute inset-0 flex items-center" aria-hidden="true">
+        <div class="w-full border-t border-navy-300"></div>
+      </div>
+      <div class="relative flex justify-start">
+        <span class="pr-3 text-base font-semibold leading-6 uppercase bg-slate-50 dark:bg-navy-900">
+          Read Next
+        </span>
+      </div>
+    </div>
+    """
+  end
 
   attr :post, :map
   attr :class, :string, default: nil
