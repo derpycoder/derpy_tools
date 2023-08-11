@@ -4,6 +4,7 @@ defmodule DerpyToolsWeb.HomePageLive do
   def render(assigns) do
     ~H"""
     <div class="flex justify-center" id="auto-redirect" phx-hook="AutoRedirect">
+      <%!-- <div class="flex justify-center"> --%>
       <div
         class="card mt-10 w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
         id="homepage"

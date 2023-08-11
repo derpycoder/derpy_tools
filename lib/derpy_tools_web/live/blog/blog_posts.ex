@@ -104,7 +104,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     ~H"""
     <div class={@class}>
       <%= apply(__MODULE__, @post.body, [assigns]) %>
-      <.footer post={@post} />
+      <.footer_nav post={@post} />
     </div>
     """
   end
@@ -112,7 +112,7 @@ defmodule DerpyToolsWeb.BlogPosts do
   attr :class, :string, default: nil
   attr :post, :map
 
-  def footer(assigns) do
+  def footer_nav(assigns) do
     {prev, next} = DerpyTools.Posts.fetch_prev_and_next_posts(assigns.post.slug)
 
     assigns = assign(assigns, prev: prev, next: next)
