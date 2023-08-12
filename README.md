@@ -1,4 +1,5 @@
 # DerpyTools
+![Metadata Checker](https://github.com/derpycoder/derpy_tools/assets/25662120/a271b6a8-339c-4a0a-af3f-1c19b13dc335)
 
 
 ## Run Locally
@@ -28,6 +29,9 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 ## TODO (App)
 
 ### Blog
+![Table of Contents](https://github.com/derpycoder/derpy_tools/assets/25662120/2555b87d-f929-4f78-85df-d3394b898e10)
+
+
 - [ ] Reach feature parity with Ghost Blog
   - [x] Routing
   - [x] Table of Contents
@@ -44,12 +48,12 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
   - [ ] Recent Posts
   - [ ] Blog main page
   - [ ] Tags page
-  - [ ] Meta Data
+  - [ ] Metadata
     - [ ] LD Json
     - [ ] Atom feed
     - [ ] Sitemap
   - [ ] Componetize all blog post elements
-  - [ ] URL auto embed, with auto image extraction
+  - [ ] URL auto-embed, with auto image extraction
   - [ ] File uploader with cropping & compression
   - [ ] Lqip
   - [ ] Meilisearch for Command Palette
@@ -63,11 +67,13 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
   - [ ] Privacy Policy
   - [ ] Terms & Conditions
   - [ ] About
-  - [ ] Social share
+  - [ ] Social Share
   - [ ] Cookie Consent
   - [ ] Contact Form
 
 ### Tools
+![Command pallete Keyboard Shortcut](https://github.com/derpycoder/derpy_tools/assets/25662120/2fc2c396-bb01-4fb4-9b79-df4a35d8fe09)
+
 - [ ] URL Beaver
   - [ ] Metadata Analyzer (WIP)
   - [ ] UTM Builder (WIP)
@@ -78,7 +84,6 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 ### Authentication & Authorization
 ![Auth Flow](https://github.com/derpycoder/derpy_tools/assets/25662120/9c5c6c40-61dd-4caa-9dd4-886a9774ba49)
 
-
 - [ ] Authentication
   - [x] Basic Auth
   - [ ] Google OAuth
@@ -87,10 +92,11 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 
 - [ ] Authorization
   - [ ] Add policies to restrict apps and routes to certain users
-  - [ ] Add super user through env variable
+  - [ ] Add super user through an env variable
 
 
 ### Misc
+![Derpy Tools](https://github.com/derpycoder/derpy_tools/assets/25662120/b236b7f0-9d72-473c-be7f-695a8cac965d)
 
 - [x] Heartbeat
 - [x] Offline Indicator
@@ -105,7 +111,7 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 - [x] Varnish cache to cache Images
 - [x] Added meta routes
 - [x] Moved to Bandit server
-- [x] Env variables split to multiple files
+- [x] Env variables split into multiple files
 - [x] 404 & 500 Pages added
 - [ ] UUID7
 - [ ] Local storage to persist user inputs
@@ -114,7 +120,7 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 ## TODO (Local)
 
 - [ ] Litestream backup download to get a copy of production db for local testing
-- [ ] Setup live book & live documentation / playground
+- [ ] Setup live book & live documentation/playground
 
 ## TODO (Stg / Prod)
 
@@ -122,4 +128,4 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 - [ ] Setup Varnish
 - [ ] Setup Imgproxy
 - [ ] Systemd encryption of env files
-- [ ] Reduce number of bash scripts using variables
+- [ ] Reduce the number of bash scripts using variables
