@@ -1,7 +1,7 @@
 defmodule DerpyTools.UtmParams do
   @moduledoc """
   UTM URL Builder, initially written by hand, later learnt about phx.gen.embedded
-  `mix phx.gen.embedded DerpyTools.UtmParams url:string utm_source:string utm_medium:string utm_campaign:string  utm_content:string utm_term:string`
+  `mix phx.gen.embedded UtmParams url:string utm_source:string utm_medium:string utm_campaign:string  utm_content:string utm_term:string`
   """
   use Ecto.Schema
   import Ecto.Changeset
