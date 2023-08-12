@@ -1,5 +1,6 @@
 # DerpyTools
 
+
 ## Run Locally
 
 1. `brew install go-task`
@@ -75,6 +76,8 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
   - [ ] Wordle
 
 ### Authentication & Authorization
+![Auth Flow](https://github.com/derpycoder/derpy_tools/assets/25662120/9c5c6c40-61dd-4caa-9dd4-886a9774ba49)
+
 
 - [ ] Authentication
   - [x] Basic Auth
