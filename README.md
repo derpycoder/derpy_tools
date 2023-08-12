@@ -13,9 +13,11 @@
 1. `task start:caddy`
 1. `task start:server`
 
+---
+
 Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](https://derpytools.site)
 
-## Todos (App)
+## TODO (App)
 
 ### Blog
 - [ ] Reach feature parity with Ghost Blog
@@ -27,12 +29,12 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
   - [ ] Metadata Analyzer (WIP)
   - [ ] UTM Builder (WIP)
 
-## Todos (Local)
+## TODO (Local)
 
 - [ ] Litestream backup download to get a copy of production db for local testing.
 - [ ] Setup live book & live documentation / playground.
 
-## Todos (Stg / Prod)
+## TODO (Stg / Prod)
 
 - [ ] Add commands to run in staging & production.
 - [ ] Setup Varnish
