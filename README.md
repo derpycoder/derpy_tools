@@ -5,6 +5,10 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/derpycoder/derpy_tools)
 ![GitHub Repo stars](https://img.shields.io/github/stars/derpycoder/derpy_tools)
 
+![Elixir](https://img.shields.io/badge/Elixir-4B275F?style=for-the-badge&logo=elixir&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Sqlite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+
 ![Metadata Checker](https://github.com/derpycoder/derpy_tools/assets/25662120/a271b6a8-339c-4a0a-af3f-1c19b13dc335)
 
 
