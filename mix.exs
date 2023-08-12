@@ -63,7 +63,8 @@ defmodule DerpyTools.MixProject do
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
       {:unplug, "~> 1.0"},
       {:pathex, "~> 2.5"},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:tailwind_formatter, "~> 0.3.6", only: [:dev, :test], runtime: false}
     ]
   end
 

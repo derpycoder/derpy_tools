@@ -23,20 +23,20 @@ defmodule DerpyToolsWeb.PostLive do
 
   def render(assigns) do
     ~H"""
-    <section phx-hook="LozadObserver" id="blog-post" class="w-full grid grid-cols-blog py-18 gap-y-10">
+    <section phx-hook="LozadObserver" id="blog-post" class="grid-cols-blog py-18 grid w-full gap-y-10">
       <BlogPosts.header
         post={@post}
-        class="col-span-main w-full prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
+        class="col-span-main prose prose-gray w-full prose-a:text-blue-600 prose-a:no-underline prose-img:rounded-xl dark:prose-invert sm:prose-sm md:prose-md lg:prose-lg"
       />
 
       <%!-- <BlogPosts.banner class="col-span-full" /> --%>
       <BlogPosts.banner class="col-span-wide" banner={@post.banner} />
 
-      <BlogPosts.left_nav post={@post} class="col-span-main xl:col-span-wide-main w-0 min-w-full" />
+      <BlogPosts.left_nav post={@post} class="col-span-main w-0 min-w-full xl:col-span-wide-main" />
       <BlogPosts.body
         post={@post}
         style_nonce={@style_nonce}
-        class="col-span-main w-0 min-w-full prose prose-gray sm:prose-sm md:prose-md lg:prose-lg prose-img:rounded-xl prose-a:text-blue-600 prose-a:no-underline dark:prose-invert"
+        class="col-span-main prose prose-gray w-0 min-w-full prose-a:text-blue-600 prose-a:no-underline prose-img:rounded-xl dark:prose-invert sm:prose-sm md:prose-md lg:prose-lg"
       />
       <BlogPosts.right_nav
         class="col-span-main xl:col-span-main-wide w-0 min-w-full sticky top-[calc(var(--header-height))] max-h-[calc(100svh-(var(--header-height))-200px)]"

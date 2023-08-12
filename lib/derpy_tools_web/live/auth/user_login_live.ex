@@ -5,9 +5,9 @@ defmodule DerpyToolsWeb.UserLoginLive do
 
   def render(assigns) do
     ~H"""
-    <div class="grid w-full h-[100svh] grow grid-cols-1 place-items-center">
+    <div class="h-[100svh] grid w-full grow grid-cols-1 place-items-center">
       <div
-        class="w-full max-w-[26rem] p-4 sm:px-5"
+        class="max-w-[26rem] w-full p-4 sm:px-5"
         id="user-login"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
@@ -71,7 +71,7 @@ defmodule DerpyToolsWeb.UserLoginLive do
             </label>
             <.link
               navigate={~p"/users/reset_password"}
-              class="text-xs text-slate-400 transition-colors line-clamp-1 hover:text-slate-800 focus:text-slate-800 dark:text-navy-300 dark:hover:text-navy-100 dark:focus:text-navy-100"
+              class="line-clamp-1 text-xs text-slate-400 transition-colors hover:text-slate-800 focus:text-slate-800 dark:text-navy-300 dark:hover:text-navy-100 dark:focus:text-navy-100"
             >
               Forgot Password?
             </.link>

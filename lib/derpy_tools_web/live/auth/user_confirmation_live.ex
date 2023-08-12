@@ -5,9 +5,9 @@ defmodule DerpyToolsWeb.UserConfirmationLive do
 
   def render(%{live_action: :edit} = assigns) do
     ~H"""
-    <div class="grid w-full grow grid-cols-1 place-items-center h-[75vh]">
+    <div class="h-[75vh] grid w-full grow grid-cols-1 place-items-center">
       <div
-        class="w-full max-w-[26rem] p-4 sm:px-5"
+        class="max-w-[26rem] w-full p-4 sm:px-5"
         id="user-confirmation"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
@@ -39,7 +39,7 @@ defmodule DerpyToolsWeb.UserConfirmationLive do
           <.input field={@form[:token]} type="hidden" />
           <.button phx-disable-with="Confirming..." class="w-full !mt-0">Confirm my account</.button>
         </.form>
-        <p class="text-center mt-4">
+        <p class="mt-4 text-center">
           <.link navigate={~p"/users/register"}>Register</.link>
           | <.link navigate={~p"/users/log_in"}>Log in</.link>
         </p>

@@ -25,7 +25,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     >
       <h5
         id="toc"
-        class="text-slate-900 font-semibold mb-5 text-sm leading-6 dark:text-slate-100"
+        class="mb-5 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
         phx-hook="TableOfContents"
       >
         On this page
@@ -82,7 +82,7 @@ defmodule DerpyToolsWeb.BlogPosts do
           :if={children}
           id={"#{id}-container"}
           headers={children |> Enum.reverse()}
-          class="pl-4 hidden"
+          class="hidden pl-4"
           parent={[id, @parent |> Enum.join(">")]}
         />
       </li>
@@ -122,8 +122,8 @@ defmodule DerpyToolsWeb.BlogPosts do
     assigns = assign(assigns, prev: prev, next: next)
 
     ~H"""
-    <div class="inset-0 flex items-center my-10" aria-hidden="true">
-      <div class="w-full border-t border-navy-300"></div>
+    <div class="inset-0 my-10 flex items-center" aria-hidden="true">
+      <div class="border-navy-300 w-full border-t"></div>
     </div>
 
     <nav
@@ -137,7 +137,7 @@ defmodule DerpyToolsWeb.BlogPosts do
         :if={@prev}
         href={"/blog/#{@prev.slug}"}
         title={@prev.title}
-        class="flex flex-col items-start mb-3"
+        class="mb-3 flex flex-col items-start"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -185,10 +185,10 @@ defmodule DerpyToolsWeb.BlogPosts do
 
     <div class="relative my-10 block xl:hidden">
       <div class="absolute inset-0 flex items-center" aria-hidden="true">
-        <div class="w-full border-t border-navy-300"></div>
+        <div class="border-navy-300 w-full border-t"></div>
       </div>
       <div class="relative flex justify-start">
-        <span class="pr-3 text-base font-semibold leading-6 uppercase bg-slate-50 dark:bg-navy-900">
+        <span class="bg-slate-50 pr-3 text-base font-semibold uppercase leading-6 dark:bg-navy-900">
           Read Next
         </span>
       </div>
@@ -231,7 +231,7 @@ defmodule DerpyToolsWeb.BlogPosts do
                 |> Imgproxy.resize(128, 128)
                 |> to_string()
               }
-              class="lozad rounded-full aspect-square w-[64px]"
+              class="lozad aspect-square w-[64px] rounded-full"
               alt="Derpy Coder"
               id="author"
               phx-update="ignore"
@@ -296,7 +296,7 @@ defmodule DerpyToolsWeb.BlogPosts do
     >
       <h5
         id="toc"
-        class="text-slate-900 font-semibold mb-5 text-sm leading-6 dark:text-slate-100"
+        class="mb-5 text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
         phx-hook="TableOfContents"
       >
         Related Articles
@@ -304,7 +304,7 @@ defmodule DerpyToolsWeb.BlogPosts do
       <ul>
         <li
           :for={post <- @related_posts}
-          class="pb-5 mb-5 border-b-2 border-dashed dark:border-b-navy-400 flex items-center"
+          class="mb-5 flex items-center border-b-2 border-dashed pb-5 dark:border-b-navy-400"
         >
           <img
             src={
@@ -313,11 +313,11 @@ defmodule DerpyToolsWeb.BlogPosts do
               |> Imgproxy.resize(128, 128, type: "fill")
               |> to_string()
             }
-            class="flex-initial w-[64px] aspect-square rounded-md shadow dark:shadow-gray-800"
+            class="w-[64px] aspect-square flex-initial rounded-md shadow dark:shadow-gray-800"
             alt={post.title}
           />
 
-          <div class="flex-initial ml-3 truncate">
+          <div class="ml-3 flex-initial truncate">
             <a class="font-semibold hover:text-indigo-600" href={post.slug} alt={post.title}>
               <%= post.short %>
             </a>

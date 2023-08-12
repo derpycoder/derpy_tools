@@ -24,27 +24,27 @@
       localStorage.getItem("dark_mode") === "true" && document.documentElement.classList.add("dark");
     </script>
   </head>
-  <body class="w-full bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-900/60 dark:text-navy-200 dark:[color-scheme:dark]">
+  <body class="font-sans w-full bg-slate-50 text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-800 dark:text-navy-200 dark:[color-scheme:dark]">
     <%= @inner_content %>
 
-    <div id="inspector-tooltip" class="hidden absolute z-20 px-5">
+    <div id="inspector-tooltip" class="absolute z-20 hidden px-5">
       <%!-- To link directly to the storybook page! --%>
       <div class="flex">
         <button
-          class="rounded-tl-lg rounded-bl-lg py-0.5 px-2 bg-pink-500 m-0"
+          class="m-0 rounded-tl-lg rounded-bl-lg bg-pink-500 px-2 py-0.5"
           title="Show in Catalog"
         >
           <.icon class="hero-eye-solid h-4 w-4 text-white" />
         </button>
         <button
           id="source-btn"
-          class="rounded-tr-lg rounded-br-lg py-0.5 px-2 bg-pink-500 m-0 border-l border-pink-500 border-l-1 border-l-pink-300"
+          class="border-l-1 m-0 rounded-tr-lg rounded-br-lg border-l border-pink-500 border-l-pink-300 bg-pink-500 px-2 py-0.5"
           title="Open in VS Code"
           phx-click={JS.push("inspect-source")}
         >
           <.icon class="hero-code-bracket-solid h-4 w-4 text-white" />
         </button>
-        <div id="arrow" class="w-full h-3 absolute bg-transparent"></div>
+        <div id="arrow" class="absolute h-3 w-full bg-transparent"></div>
       </div>
     </div>
   </body>

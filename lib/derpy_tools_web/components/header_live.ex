@@ -21,7 +21,7 @@ defmodule DerpyToolsWeb.HeaderLive do
     <!-- App Header Wrapper-->
     <nav class="nav header">
       <!-- App Header  -->
-      <div class="header-container backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-750/80 relative flex w-full print:hidden">
+      <div class="header-container backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-900/80 relative flex w-full print:hidden">
         <!-- Header Items -->
         <div class="flex w-full items-center justify-between">
           <span
@@ -37,7 +37,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               <span class="text-3xl" id="mock-derpy" phx-hook="SpongeBobText">
                 <%= Utils.sponge_bob_text("Derpy") %>
               </span>
-              <span class="ml-2 before:h-10 text-2xl before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+              <span class="relative ml-2 inline-block text-2xl before:absolute before:-inset-1 before:block before:h-10 before:-skew-y-3 before:bg-pink-500">
                 <span class="relative text-white" id="mock-tools" phx-hook="SpongeBobText">
                   <%= Utils.sponge_bob_text("Tools") %>
                 </span>
@@ -49,7 +49,7 @@ defmodule DerpyToolsWeb.HeaderLive do
             <button
               id="menu-toggle"
               phx-click={JS.navigate(~p"/")}
-              class="menu-toggle active ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+              class="menu-toggle active text-primary ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 outline-none focus:outline-none dark:text-accent-light/80"
             >
               <span></span>
               <span></span>
@@ -108,7 +108,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               </div>
               <label
                 for="search-box"
-                class="absolute right-3 flex items-center justify-center h-full cursor-pointer"
+                class="absolute right-3 flex h-full cursor-pointer items-center justify-center"
               >
                 <kbd class="text-[16px]">⌘</kbd><kbd>K</kbd>
               </label>
@@ -121,7 +121,7 @@ defmodule DerpyToolsWeb.HeaderLive do
             >
               <svg
                 id="moon"
-                class="absolute h-6 w-6 text-amber-400 origin-top"
+                class="absolute h-6 w-6 origin-top text-amber-400"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -176,9 +176,9 @@ defmodule DerpyToolsWeb.HeaderLive do
                 />
               </svg>
             </button>
-            <span class="border-r border-slate-900/15 dark:border-slate-300/75 h-5.5"></span>
+            <span class="border-slate-900/15 h-5.5 border-r dark:border-slate-300/75"></span>
             <.heartbeat />
-            <span class="border-r border-slate-900/15 dark:border-slate-300/75 h-5.5"></span>
+            <span class="border-slate-900/15 h-5.5 border-r dark:border-slate-300/75"></span>
             <%= if @current_user do %>
               <.link
                 navigate={~p"/users/settings"}
@@ -239,18 +239,18 @@ defmodule DerpyToolsWeb.HeaderLive do
       <.icon class="online-indicator hero-wifi-solid w-5.5 h-5.5 bg-lime-500" />
 
       <span class="ping-indicator absolute top-0 right-0 flex h-3 w-3 items-center justify-center">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-80">
+        <span class="bg-secondary absolute inline-flex h-full w-full animate-ping rounded-full opacity-80">
         </span>
-        <span class="inline-flex h-2 w-2 rounded-full bg-secondary"></span>
+        <span class="bg-secondary inline-flex h-2 w-2 rounded-full"></span>
       </span>
 
       <span
         id="ping-display"
-        class="ping-display absolute -bottom-3 text-tiny font-semibold text-white p-1 bg-pink-400 rounded-lg empty:hidden"
+        class="ping-display text-tiny absolute -bottom-3 rounded-lg bg-pink-400 p-1 font-semibold text-white empty:hidden"
         phx-hook="Ping"
       />
 
-      <.icon class="offline-indicator hero-x-mark w-4 h-4 absolute right-1 bottom-1 mix-blend-difference" />
+      <.icon class="offline-indicator hero-x-mark absolute right-1 bottom-1 h-4 w-4 mix-blend-difference" />
     </button>
     """
   end

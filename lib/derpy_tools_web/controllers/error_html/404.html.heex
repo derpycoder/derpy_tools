@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="h-screen-sm flex flex-col justify-between">
-      <main class="mx-auto w-full max-w-7xl px-6 pb-16 pt-10 sm:pb-24 lg:px-8 mt-16">
+      <main class="mx-auto mt-16 w-full max-w-7xl px-6 pt-10 pb-16 sm:pb-24 lg:px-8">
         <img
           class="mx-auto"
           src={~p"/images/emojis/grinning_face_with_sweat.gif"}
@@ -22,19 +22,19 @@
           height="64"
         />
         <div class="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
-          <p class="font-semibold leading-8 text-primary text-7xl">404</p>
-          <h1 class="mt-8 text-3xl font-bold tracking-tight sm:text-5xl text-slate-800 dark:text-navy-50">
+          <p class="text-primary text-7xl font-semibold leading-8">404</p>
+          <h1 class="mt-8 text-3xl font-bold tracking-tight text-slate-800 dark:text-navy-50 sm:text-5xl">
             This page does not exist
           </h1>
-          <p class="mt-4 text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-slate-500 dark:text-navy-200">
+          <p class="mt-4 text-base leading-7 text-slate-500 dark:text-navy-200 sm:mt-6 sm:text-lg sm:leading-8">
             Sorry, we couldn’t find the page you’re looking for.
           </p>
         </div>
         <div class="mx-auto mt-16 flow-root max-w-lg sm:mt-20">
           <h2 class="sr-only">Popular pages</h2>
-          <ul role="list" class="-mt-6 divide-y divide-gray-900/5 border-b border-gray-900/5">
+          <ul role="list" class="divide-gray-900/5 border-gray-900/5 -mt-6 divide-y border-b">
             <li class="relative flex gap-x-6 py-6">
-              <div class="flex h-10 w-10 flex-none items-center justify-center rounded-lg shadow-sm ring-1 ring-gray-900/10">
+              <div class="ring-gray-900/10 flex h-10 w-10 flex-none items-center justify-center rounded-lg shadow-sm ring-1">
                 <.icon class="hero-rss-solid h-6 w-6 text-indigo-600" />
               </div>
               <div class="flex-auto">
@@ -53,16 +53,16 @@
             </li>
           </ul>
           <div class="mt-10 flex justify-center">
-            <a href={~p"/"} class="text-sm font-semibold leading-6 text-primary">
+            <a href={~p"/"} class="text-primary text-sm font-semibold leading-6">
               <span aria-hidden="true">&larr;</span> Back to home
             </a>
           </div>
         </div>
       </main>
-      <footer class="border-t border-slate-900/15 dark:border-slate-300/75 py-6 sm:py-10">
+      <footer class="border-slate-900/15 border-t py-6 dark:border-slate-300/75 sm:py-10">
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-center gap-8 px-6 sm:flex-row lg:px-8">
           <p class="text-sm leading-7 text-gray-400">
-            &copy; Derpy Tools, Made with <.icon class="hero-heart-solid bg-pink-500 w-5 h-5" />
+            &copy; Derpy Tools, Made with <.icon class="hero-heart-solid h-5 w-5 bg-pink-500" />
             by DerpyCoder.
           </p>
           <div class="hidden sm:block sm:h-7 sm:w-px sm:flex-none sm:bg-gray-200"></div>

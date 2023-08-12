@@ -35,16 +35,16 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   def inspector(assigns) do
     ~H"""
-    <div class="absolute -top-8 flex justify-end w-full">
+    <div class="absolute -top-8 flex w-full justify-end">
       <%!-- To link directly to the storybook page! --%>
-      <button class="rounded-tl-lg rounded-bl-lg py-1 px-2 bg-slate-100 m-0" title="Show in Catalog">
+      <button class="m-0 rounded-tl-lg rounded-bl-lg bg-slate-100 px-2 py-1" title="Show in Catalog">
         <.icon class="hero-eye-solid h-4 w-4 text-gray-500" />
       </button>
       <button
         phx-click="inspect-source"
         phx-value-file={@file}
         phx-value-line={@line}
-        class="-ml-1 rounded-tr-lg rounded-br-lg py-1 px-2 bg-slate-100 m-0 border-l border-slate-200"
+        class="m-0 -ml-1 rounded-tr-lg rounded-br-lg border-l border-slate-200 bg-slate-100 px-2 py-1"
         title="Open in VS Code"
       >
         <.icon class="hero-code-bracket-solid h-4 w-4 text-gray-500" />
@@ -342,7 +342,7 @@ defmodule DerpyToolsWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="form-checkbox is-basic h-5 w-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
+          class="form-checkbox is-basic border-slate-400/70 h-5 w-5 rounded checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
           {@rest}
         />
         <%= @label %>
@@ -426,7 +426,7 @@ defmodule DerpyToolsWeb.CoreComponents do
       </span>
       <span
         :if={@shortcut}
-        class="pointer-events-none absolute right-3 flex top-[30px] items-center justify-center cursor-pointer"
+        class="top-[30px] pointer-events-none absolute right-3 flex cursor-pointer items-center justify-center"
       >
         <%= render_slot(@shortcut) %>
       </span>
@@ -522,7 +522,7 @@ defmodule DerpyToolsWeb.CoreComponents do
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
       <table class="w-[40rem] mt-11 sm:w-full">
-        <thead class="text-sm text-left leading-6 text-zinc-500">
+        <thead class="text-left text-sm leading-6 text-zinc-500">
           <tr>
             <th :for={col <- @col} class="p-0 pr-6 pb-4 font-normal"><%= col[:label] %></th>
             <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>

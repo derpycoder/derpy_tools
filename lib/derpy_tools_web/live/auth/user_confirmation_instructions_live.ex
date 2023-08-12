@@ -5,9 +5,9 @@ defmodule DerpyToolsWeb.UserConfirmationInstructionsLive do
 
   def render(assigns) do
     ~H"""
-    <div class="grid w-full grow grid-cols-1 place-items-center h-[85vh]">
+    <div class="h-[85vh] grid w-full grow grid-cols-1 place-items-center">
       <div
-        class="w-full max-w-[26rem] p-4 sm:px-5"
+        class="max-w-[26rem] w-full p-4 sm:px-5"
         id="user-confirmation-instructions"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
@@ -46,7 +46,7 @@ defmodule DerpyToolsWeb.UserConfirmationInstructionsLive do
             Resend Confirmation Instructions
           </.button>
         </.form>
-        <p class="text-center mt-4">
+        <p class="mt-4 text-center">
           <.link navigate={~p"/users/register"}>Register</.link>
           | <.link navigate={~p"/users/log_in"}>Log in</.link>
         </p>

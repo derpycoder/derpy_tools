@@ -40,15 +40,15 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mt-10 p-10 flex items-center justify-center">
+    <div class="mt-10 flex items-center justify-center p-10">
       <div
         id="metadata-analyzer"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
         phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
-        class="relative items-center justify-center w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
+        class="w-[65svw] relative items-center justify-center sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
       >
-        <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
+        <nav class="card flex rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
             <li>
               <div>
@@ -83,7 +83,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default dark:text-slate-100">
+                <span class="ml-4 cursor-default text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-slate-100">
                   Metadata Analyzer
                 </span>
               </div>
@@ -129,7 +129,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
             </span>
           </.button>
         </.form>
-        <div :if={@loading || @output} class="overflow-scroll h-96 card mt-5 rounded-lg">
+        <div :if={@loading || @output} class="card mt-5 h-96 overflow-scroll rounded-lg">
           <.loading_indicator visible={@loading} class="h-96" />
           <pre :if={@output} class="p-5 lg:p-7">
     <%= inspect(@output, pretty: true) %>

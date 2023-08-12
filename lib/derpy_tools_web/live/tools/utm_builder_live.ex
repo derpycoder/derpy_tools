@@ -13,15 +13,15 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-10 flex items-center justify-center">
+    <div class="flex items-center justify-center p-10">
       <div
         id="utm-builder"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
         phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
-        class="relative w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
+        class="w-[65svw] relative sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
       >
-        <nav class="flex card rounded-lg px-5 py-3" aria-label="Breadcrumb">
+        <nav class="card flex rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
             <li>
               <div>
@@ -56,7 +56,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default dark:text-slate-100">
+                <span class="ml-4 cursor-default text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-slate-100">
                   UTM Builder
                 </span>
               </div>
@@ -122,7 +122,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
             readonly
             autofocus
           />
-          <span class="pointer-events-none absolute top-[38px] r-0 flex w-10 items-center justify-center peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400">
+          <span class="top-[38px] r-0 pointer-events-none absolute flex w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
             <.icon class="hero-link" />
           </span>
           <button class="copy-btn" id="copy-utm-url" phx-hook="Clipboard" data-target="utm-url">

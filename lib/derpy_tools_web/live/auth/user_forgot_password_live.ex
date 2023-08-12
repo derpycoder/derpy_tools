@@ -5,9 +5,9 @@ defmodule DerpyToolsWeb.UserForgotPasswordLive do
 
   def render(assigns) do
     ~H"""
-    <div class="grid w-full grow grid-cols-1 place-items-center h-[80vh]">
+    <div class="h-[80vh] grid w-full grow grid-cols-1 place-items-center">
       <div
-        class="w-full max-w-[26rem] p-4 sm:px-5"
+        class="max-w-[26rem] w-full p-4 sm:px-5"
         id="user-forgot-password"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
@@ -46,7 +46,7 @@ defmodule DerpyToolsWeb.UserForgotPasswordLive do
             Recover Password
           </.button>
         </.form>
-        <p class="text-center text-sm mt-4">
+        <p class="mt-4 text-center text-sm">
           <.link navigate={~p"/users/register"}>Register</.link>
           | <.link navigate={~p"/users/log_in"}>Log in</.link>
         </p>

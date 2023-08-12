@@ -6,23 +6,23 @@ defmodule DerpyToolsWeb.HomePageLive do
     <%!-- <div class="flex justify-center" id="auto-redirect" phx-hook="AutoRedirect"> --%>
     <div class="flex justify-center">
       <div
-        class="card mt-10 w-[65svw] sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
+        class="card w-[65svw] mt-10 sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
         id="homepage"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
         phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
       >
         <div class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
-          <h2 class="font-semibold tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 lg:text-base">
+          <h2 class="line-clamp-1 font-semibold tracking-wide text-slate-700 dark:text-navy-100 lg:text-base">
             <.icon class="hero-link mr-2" /> URL Beaver
           </h2>
         </div>
         <div class="p-4 sm:px-5">
-          <ul class="space-y-1.5 font-inter font-medium">
+          <ul class="font-inter space-y-1.5 font-medium">
             <li>
               <.link
                 navigate={~p"/utm-builder"}
-                class="flex rounded-lg bg-slate-150 bg-gradient-to-r from-purple-500 to-purple-600 px-4 py-2.5 tracking-wide text-white outline-none transition-all"
+                class="bg-slate-150 flex rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 px-4 py-2.5 tracking-wide text-white outline-none transition-all"
               >
                 UTM Builder
               </.link>

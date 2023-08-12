@@ -5,9 +5,9 @@ defmodule DerpyToolsWeb.UserSettingsLive do
 
   def render(assigns) do
     ~H"""
-    <div class="grid w-full h-screen-sm grow grid-cols-1 place-items-center">
+    <div class="h-screen-sm grid w-full grow grid-cols-1 place-items-center">
       <div
-        class="w-full max-w-[26rem] p-4 sm:px-5"
+        class="max-w-[26rem] w-full p-4 sm:px-5"
         id="user-settings"
         data-file={__ENV__.file}
         data-line={__ENV__.line}
@@ -15,7 +15,7 @@ defmodule DerpyToolsWeb.UserSettingsLive do
       >
         <div class="flex flex-col items-center">
           <div class="avatar h-18 w-18">
-            <div class="is-initial rounded-full bg-secondary text-4xl uppercase text-white">
+            <div class="is-initial bg-secondary rounded-full text-4xl uppercase text-white">
               jd
             </div>
           </div>
