@@ -1,13 +1,14 @@
 # DerpyTools
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/derpycoder/derpy_tools)
-![GitHub top language](https://img.shields.io/github/languages/top/derpycoder/derpy_tools)
-![GitHub](https://img.shields.io/github/license/derpycoder/derpy_tools)
-![GitHub repo size](https://img.shields.io/github/repo-size/derpycoder/derpy_tools)
-![GitHub Repo stars](https://img.shields.io/github/stars/derpycoder/derpy_tools)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/derpycoder/derpy_tools?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/derpycoder/derpy_tools?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/derpycoder/derpy_tools?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/derpycoder/derpy_tools?style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/derpycoder/derpy_tools?style=for-the-badge)
 
 ![Elixir](https://img.shields.io/badge/Elixir-4B275F?style=for-the-badge&logo=elixir&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Phoenix LiveView](https://img.shields.io/badge/-Phoenix%20LiveView-orange?style=for-the-badge&logo=elixir)
 ![Sqlite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ![Metadata Checker](https://github.com/derpycoder/derpy_tools/assets/25662120/a271b6a8-339c-4a0a-af3f-1c19b13dc335)
 
