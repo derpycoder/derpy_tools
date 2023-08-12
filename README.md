@@ -41,12 +41,12 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
   - [ ] File uploader with cropping & compression
   - [ ] Lqip
   - [ ] Meilisearch for Command Palette
-  ...
+  ---
 - [ ] Move blog posts
   - [ ] Taskfile
   - [ ] Multipass
   - [ ] Image Compression
-  ...
+  ---
 - [ ] Move misc pages from Ghost Blog
   - [ ] Privacy Policy
   - [ ] Terms & Conditions
@@ -54,7 +54,7 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
   - [ ] Social share
   - [ ] Cookie Consent
   - [ ] Contact Form
-  ...
+  ---
 - [ ] Build Server Side Analytics using Clickhouse
 
 ### Tools
