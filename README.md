@@ -1,4 +1,10 @@
 # DerpyTools
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/derpycoder/derpy_tools)
+![GitHub top language](https://img.shields.io/github/languages/top/derpycoder/derpy_tools)
+![GitHub](https://img.shields.io/github/license/derpycoder/derpy_tools)
+![GitHub repo size](https://img.shields.io/github/repo-size/derpycoder/derpy_tools)
+![GitHub Repo stars](https://img.shields.io/github/stars/derpycoder/derpy_tools)
+
 ![Metadata Checker](https://github.com/derpycoder/derpy_tools/assets/25662120/a271b6a8-339c-4a0a-af3f-1c19b13dc335)
 
 
