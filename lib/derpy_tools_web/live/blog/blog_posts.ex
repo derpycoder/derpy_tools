@@ -1,4 +1,8 @@
 defmodule DerpyToolsWeb.BlogPosts do
+  @moduledoc """
+  Embeds templates from posts & sections for easy access and defines most of the structural element of a blog.
+  Contains helpers to make a blog function.
+  """
   use Phoenix.Component
   use Pathex
   alias Phoenix.LiveView.JS
@@ -388,7 +392,7 @@ defmodule DerpyToolsWeb.BlogPosts do
 
   defp source_set(url, sizes) do
     sizes
-    |> Enum.map(fn size ->
+    |> Enum.map_join(",\n\t", fn size ->
       img_url =
         "local:///images/#{url}"
         |> Imgproxy.new()
@@ -397,6 +401,5 @@ defmodule DerpyToolsWeb.BlogPosts do
 
       "#{img_url} #{size}w"
     end)
-    |> Enum.join(",\n\t")
   end
 end

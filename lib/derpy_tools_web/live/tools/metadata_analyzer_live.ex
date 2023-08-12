@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.MetadataParams do
+  @moduledoc """
+  Using a changeset to validate user entered data.
+  """
   alias DerpyToolsWeb.MetadataParams
   use Ecto.Schema
   import Ecto.Changeset
@@ -63,7 +66,7 @@ defmodule DerpyToolsWeb.MetadataParams do
 end
 
 defmodule FetchExtraMetadata do
-  @doc """
+  @moduledoc """
   Prints request and response headers.
 
   ## Request Options

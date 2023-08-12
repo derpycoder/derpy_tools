@@ -7,8 +7,6 @@ defmodule DerpyToolsWeb.BlogLive do
   alias DerpyToolsWeb.{BlogPosts}
 
   def mount(%{"post_slug" => post_slug}, _session, socket) do
-    IO.inspect(post_slug, label: "post_slug")
-
     socket =
       case Posts.fetch_post_by_slug(post_slug) do
         nil ->

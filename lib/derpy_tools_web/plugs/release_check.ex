@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.Plugs.ReleaseCheck do
+  @moduledoc """
+  Added a /release route to check if a project is certain color: purple, canary, blue, or green.
+  """
   import Plug.Conn
 
   def init(opts), do: opts

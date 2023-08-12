@@ -1,4 +1,9 @@
 defmodule DerpyToolsWeb.Plugs.StatsCheck do
+  @moduledoc """
+  Added `/stats` endpoint, to see all the metdata of the deployed project.
+
+  Like env, git_info, db, deps, build_info, os_info, system_info.
+  """
   import Plug.Conn
 
   @version Mix.Project.config()[:version]

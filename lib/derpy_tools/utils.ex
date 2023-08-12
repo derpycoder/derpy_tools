@@ -1,4 +1,7 @@
 defmodule DerpyTools.Utils do
+  @moduledoc """
+  Common utils for use across projects.
+  """
   def sponge_bob_text(text) do
     text
     |> String.graphemes()

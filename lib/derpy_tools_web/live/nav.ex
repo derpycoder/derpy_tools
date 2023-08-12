@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.Nav do
+  @moduledoc """
+  Catch all on_mount handler which intercepts navigation related events.
+  """
   import Phoenix.LiveView
   use Phoenix.Component
 

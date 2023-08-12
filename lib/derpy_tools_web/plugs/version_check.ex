@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.Plugs.VersionCheck do
+  @moduledoc """
+  Added a /version route, to see the current git hash of a release.
+  """
   import Plug.Conn
 
   def init(opts), do: opts

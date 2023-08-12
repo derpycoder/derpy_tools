@@ -1,4 +1,7 @@
 defmodule DerpyTools.Accounts.UserNotifier do
+  @moduledoc """
+  Auto generated Swoosh User Notifier.
+  """
   import Swoosh.Email
 
   alias DerpyTools.Mailer

@@ -1,4 +1,7 @@
 defmodule DerpyTools.Posts do
+  @moduledoc """
+  Static metadata related to all the blog posts. Perhaps later, it can be moved the database.
+  """
   @star_ratings %{
     1.0 => "★",
     1.5 => "★☆",
@@ -85,8 +88,6 @@ defmodule DerpyTools.Posts do
       star_rating: @star_ratings[4.5]
     }
   ]
-
-  # TODO: bottom nav, side nav, tag cloud, tag page, author page, main blog page, recent articles.
 
   def fetch_posts() do
     @posts

@@ -51,6 +51,13 @@ img.derpytools.site {
 	import common
 }
 
+docs.derpytools.site {
+	encode zstd gzip
+
+	root * doc
+	file_server browse
+}
+
 netdata.derpytools.site {
 	encode zstd gzip
 
@@ -79,4 +86,26 @@ metrics.derpytools.site {
 	metrics
 
 	import common
+}
+
+search.derpytools.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:7700 {
+		transport http {
+			tls
+		}
+	}
+}
+
+grafana.derpytools.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:3000
+}
+
+prometheus.derpytools.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:9090
 }
