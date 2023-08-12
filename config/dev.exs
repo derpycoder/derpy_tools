@@ -4,6 +4,8 @@ config :derpy_tools,
   env: Mix.env(),
   show_inspector?: true
 
+config :unplug, :init_mode, :runtime
+
 # Configure your database
 config :derpy_tools, DerpyTools.Repo,
   database: Path.expand("../data/derpy_tools_dev.db", Path.dirname(__ENV__.file)),

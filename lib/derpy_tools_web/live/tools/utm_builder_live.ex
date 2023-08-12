@@ -1,4 +1,7 @@
 defmodule DerpyTools.UtmParams do
+  @moduledoc """
+  UTM URL Builder.
+  """
   alias DerpyTools.UtmParams
   use Ecto.Schema
   import Ecto.Changeset

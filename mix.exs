@@ -4,8 +4,8 @@ defmodule DerpyTools.MixProject do
   def project do
     [
       app: :derpy_tools,
-      version: "0.1.0",
-      elixir: "~> 1.14",
+      version: "0.1.1",
+      elixir: "~> 1.15.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -51,9 +51,19 @@ defmodule DerpyTools.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"},
       {:req, "~> 0.3.0"},
-      {:dotenvy, "~> 0.8.0"}
+      {:dotenvy, "~> 0.8.0"},
+      {:prom_ex, "~> 1.8.0"},
+      {:bandit, "~> 1.0-pre"},
+      {:redirect, "~> 0.4.0"},
+      {:timex, "~> 3.7"},
+      {:imgproxy, "~> 3.0"},
+      {:phoenix_bakery, "~> 0.1.2", runtime: false},
+      {:brotli, "~> 0.3.2", runtime: false},
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
+      {:unplug, "~> 1.0"},
+      {:pathex, "~> 2.5"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 

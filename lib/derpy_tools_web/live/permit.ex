@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.Permit do
+  @moduledoc """
+  Authentication code for live view pages. To restrict those pages to an admin, a normal user or anyone.
+  """
   import Phoenix.LiveView
   use Phoenix.Component
 
@@ -6,14 +9,15 @@ defmodule DerpyToolsWeb.Permit do
 
   def on_mount(:anyone, _params, session, socket) do
     socket =
-      with {:ok, user} <- find_current_user(session) do
-        %{"live_socket_id" => live_socket_id} = session
+      case find_current_user(session) do
+        {:ok, user} ->
+          %{"live_socket_id" => live_socket_id} = session
 
-        socket
-        |> assign_new(:current_user, fn -> user end)
-        |> subscribe_user()
-        |> assign(live_socket_id: live_socket_id)
-      else
+          socket
+          |> assign_new(:current_user, fn -> user end)
+          |> subscribe_user()
+          |> assign(live_socket_id: live_socket_id)
+
         {:error, _} ->
           socket
           |> assign(current_user: nil)

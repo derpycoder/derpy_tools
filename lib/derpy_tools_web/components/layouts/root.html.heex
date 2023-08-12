@@ -1,53 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="en" class="scroll-smooth [scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-icon-180x180.png" type="image/png" sizes="180x180" />
+    <link rel="icon" href="/android-icon-192x192.png" type="image/png" sizes="192x192" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#9b39c6" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "DerpyTools" %>
+    <.live_title>
+      <%= assigns[:page_title] || "Home Page" %> · DerpyTools
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
-    <script>
+    <script nonce={assigns[:script_nonce]}>
       localStorage.getItem("dark_mode") === "true" && document.documentElement.classList.add("dark");
     </script>
   </head>
-  <body class="bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-900 dark:text-navy-200 dark:[color-scheme:dark]">
-    <%!-- <header class="px-3 absolute top-0 left-0 w-full">
-      <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
-        <div class="flex items-center gap-4">
-          <a href="/">
-            <img src={~p"/images/logo.svg"} width="36" />
-          </a>
-          <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
-            v<%= Application.spec(:phoenix, :vsn) %>
-          </p>
-        </div>
-      </div>
-      <h1>Derpy Tools</h1>
-    </header> --%>
-    <!-- App preloader-->
-    <%!-- <div
-      class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900"
-    >
-      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
-    </div> --%>
+  <body class="w-full bg-slate-50 font-sans text-sm leading-5 text-slate-500 antialiased [text-rendering:optimizeLegibility] dark:bg-navy-800 dark:text-navy-200 dark:[color-scheme:dark]">
     <%= @inner_content %>
 
     <div id="inspector-tooltip" class="hidden absolute z-20 px-5">
       <%!-- To link directly to the storybook page! --%>
       <div class="flex">
         <button
-          class="rounded-tl-lg rounded-bl-lg py-1 px-2 bg-pink-500 m-0"
+          class="rounded-tl-lg rounded-bl-lg py-0.5 px-2 bg-pink-500 m-0"
           title="Show in Catalog"
         >
           <.icon class="hero-eye-solid h-4 w-4 text-white" />
         </button>
         <button
           id="source-btn"
-          class="rounded-tr-lg rounded-br-lg py-1 px-2 bg-pink-500 m-0 border-l border-pink-500 border-l-1 border-l-pink-300"
+          class="rounded-tr-lg rounded-br-lg py-0.5 px-2 bg-pink-500 m-0 border-l border-pink-500 border-l-1 border-l-pink-300"
           title="Open in VS Code"
           phx-click={JS.push("inspect-source")}
         >

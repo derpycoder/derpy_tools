@@ -1,7 +1,9 @@
 defmodule DerpyToolsWeb.Router do
   use DerpyToolsWeb, :router
+  import Redirect
 
   import DerpyToolsWeb.UserAuth
+  alias DerpyToolsWeb.Plugs.CustomBrowserHeaders
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -9,8 +11,11 @@ defmodule DerpyToolsWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, html: {DerpyToolsWeb.Layouts, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"Content-Security-Policy" => ""}
     plug :fetch_current_user
+    plug PromEx.Plug, prom_ex_module: DerpyTools.PromEx, path: "/metrics"
+    plug Plug.Telemetry, event_prefix: [:webapp, :router]
+    plug CustomBrowserHeaders
   end
 
   pipeline :api do
@@ -22,12 +27,26 @@ defmodule DerpyToolsWeb.Router do
 
     # get "/", PageController, :home
     live_session :no_log_in_required,
-      on_mount: [DerpyToolsWeb.Nav, {DerpyToolsWeb.Permit, :anyone}] do
+      on_mount: [
+        DerpyToolsWeb.Nav,
+        {DerpyToolsWeb.Nav, :assign_nonce},
+        {DerpyToolsWeb.Permit, :anyone}
+      ] do
       live "/", HomePageLive
       live "/utm-builder", UtmBuilderLive
       live "/metadata-analyzer", MetadataAnalyzerLive
+
+      # For Live View Blog Posts, with more interactivity requirements
+      # live "/blog/taskfile-a-sensible-makefile-and-shell-script-alternative", TaskfileLive
+      live "/blog/:post_slug", BlogLive
     end
   end
+
+  redirect(
+    "/taskfile-a-sensible-makefile-and-shell-script-alternative",
+    "/blog/taskfile-a-sensible-makefile-and-shell-script-alternative",
+    :permanent
+  )
 
   # Other scopes may use custom stacks.
   # scope "/api", DerpyToolsWeb do
@@ -46,7 +65,13 @@ defmodule DerpyToolsWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: DerpyToolsWeb.Telemetry
+      live_dashboard "/dashboard",
+        metrics: DerpyToolsWeb.Telemetry,
+        csp_nonce_assign_key: %{
+          style: :style_nonce,
+          script: :script_nonce
+        }
+
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end

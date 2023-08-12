@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1c1b22;
+            color: #fbf8fb;
+            text-align: center;
+            line-height: 100vh;
+        }
+    </style>
+    <script>
+        const healthCheck = async () => {
+            const response = await fetch('/health');
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        }
+        setInterval(async () => {
+            await healthCheck();
+        }, 5000);
+    </script>
+</head>
+
+<body>
+    🚧 Deployment in Progress 🚧
+</body>
+
+</html>

@@ -1,6 +1,16 @@
 defmodule DerpyToolsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :derpy_tools
 
+  alias DerpyToolsWeb.Plugs.{HealthCheck, ReleaseCheck, VersionCheck, StatsCheck}
+
+  # Put the health check here, before anything else
+  plug HealthCheck
+  plug ReleaseCheck
+  plug VersionCheck
+  plug StatsCheck
+
+  plug PromEx.Plug, prom_ex_module: DerpyTools.PromEx
+
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
@@ -18,9 +28,11 @@ defmodule DerpyToolsWeb.Endpoint do
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug Plug.Static,
+    # encodings: [{"zstd", ".zstd"}],
+    gzip: true,
+    brotli: true,
     at: "/",
     from: :derpy_tools,
-    gzip: false,
     only: DerpyToolsWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
@@ -37,7 +49,10 @@ defmodule DerpyToolsWeb.Endpoint do
     cookie_key: "request_logger"
 
   plug Plug.RequestId
-  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
+
+  plug Unplug,
+    if: {Unplug.Predicates.RequestPathNotIn, ["/metrics", "/stats", "/health", "release"]},
+    do: {Plug.Telemetry, event_prefix: [:phoenix, :endpoint]}
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],

@@ -1,0 +1,19 @@
+<header
+  class={@class}
+  id="blog-header"
+  data-file={__ENV__.file}
+  data-line={__ENV__.line}
+  phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+>
+  <a href="https://www.derpytools.com/tag/best-of-the-best/">
+    <%= inspect(@post.tags) %>
+  </a>
+
+  <h1>
+    <%= @post.title %>
+  </h1>
+
+  <p>
+    <%= @post.description %>
+  </p>
+</header>

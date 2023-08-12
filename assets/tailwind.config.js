@@ -49,6 +49,24 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      gridTemplateColumns: {
+        blog: `
+        [full-start] minmax(var(--gap), auto)
+        [wide-start] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px))))
+        [main-start] min(var(--content-width, 720px), calc(100% - var(--gap) * 2))
+        [main-end] minmax(auto, calc((var(--container-width, 1200px) - var(--content-width, 720px))))
+        [wide-end] minmax(var(--gap), auto)
+        [full-end]`,
+      },
+      gridColumn: {
+        "span-full": "full-start/full-end",
+        "span-main": "main-start/main-end",
+        "span-wide": "wide-start/wide-end",
+        "span-wide-main": "wide-start/main-start",
+        "span-main-wide": "main-end/wide-end",
+        "span-full-main": "full-start/main-start",
+        "span-main-full": "main-end/full-end",
+      },
       height: {
         screen: ["100vh", "100dvh"],
         "screen-sm": ["100vh", "100svh"],
@@ -110,6 +128,7 @@ module.exports = {
   plugins: [
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:
     //

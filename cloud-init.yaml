@@ -1,0 +1,38 @@
+#cloud-config
+users:
+  - default
+  - name: derpycoder
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJi1LnfL8WqgNUs3F8m0vwmG8Zu5Q7tiuUOHBMf7v5oO derpycoder
+
+ntp:
+  enabled: true
+  ntp_client: chrony
+
+ssh_deletekeys: true
+no_ssh_fingerprints: false
+disable_root: true
+disable_root_opts: no-port-forwarding,no-agent-forwarding,no-X11-forwarding
+allow_public_ssh_keys: true
+ssh:
+  emit_keys_to_console: false
+
+packages:
+  - ufw
+  - git
+  - zip
+  - unzip
+  - libssl-dev
+  - make
+  - automake
+  - autoconf
+  - libncurses5-dev
+  - gcc
+  - g++
+  - fail2ban
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true

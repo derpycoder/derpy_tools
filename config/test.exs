@@ -1,5 +1,9 @@
 import Config
 
+config :derpy_tools,
+  env: Mix.env(),
+  show_inspector?: false
+
 # Only in tests, remove the complexity from the password hashing algorithm
 config :argon2_elixir, t_cost: 1, m_cost: 8
 

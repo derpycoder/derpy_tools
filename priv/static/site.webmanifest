@@ -1,0 +1,20 @@
+{
+    "name": "Derpy Tools",
+    "short_name": "DerpyTools",
+    "description": "Collection of Curated Tools for Creators, Entrepreneurs, and Indie Hackers, to get to market faster and take your business to the next level.",
+    "icons": [
+      {
+         "src": "/apple-icon-180x180.png",
+         "sizes": "180x180",
+         "type": "image/png"
+      },
+      {
+         "src": "/android-icon-192x192.png",
+         "sizes": "192x192",
+         "type": "image/png"
+      }
+    ],
+    "theme_color": "#9b39c6",
+    "background_color": "#FFFFFF",
+    "display": "standalone"
+ }

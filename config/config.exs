@@ -13,6 +13,7 @@ config :derpy_tools,
 
 # Configures the endpoint
 config :derpy_tools, DerpyToolsWeb.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   render_errors: [
     formats: [html: DerpyToolsWeb.ErrorHTML, json: DerpyToolsWeb.ErrorJSON],
@@ -59,6 +60,27 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :phoenix,
+  static_compressors: [
+    PhoenixBakery.Gzip,
+    PhoenixBakery.Brotli
+    # PhoenixBakery.Zstd
+  ]
+
+config :derpy_tools, DerpyTools.PromEx,
+  grafana: [
+    host: "http://localhost:3000",
+    # Or authenticate via Basic Auth
+    username: "admin",
+    password: "wubalubadubdub",
+    # Or authenticate via API Token
+    # auth_token: "glsa_g1wft4xjE9lrGgCoULf60vDOeCglsTYl_9ac5a552",
+    folder_name: "PromEx",
+    annotate_app_lifecycle: true,
+    # This is an optional setting and will default to `true`
+    upload_dashboards_on_start: true
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

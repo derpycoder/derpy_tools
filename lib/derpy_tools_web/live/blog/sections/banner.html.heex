@@ -1,0 +1,19 @@
+<figure
+  class={[@class]}
+  id="banner"
+  data-file={__ENV__.file}
+  data-line={__ENV__.line}
+  phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
+>
+  <img
+    data-srcset={source_set(@banner, [300, 720, 960, 1200, 2000])}
+    sizes="(max-width: 2000px) 100vw, 2000px"
+    class="lozad w-full"
+    alt="Taskfile in Action"
+    id="taskfile-in-action"
+    phx-update="ignore"
+  />
+  <figcaption>
+    Taskfile in Action
+  </figcaption>
+</figure>

@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.Nav do
+  @moduledoc """
+  Catch all on_mount handler which intercepts navigation related events.
+  """
   import Phoenix.LiveView
   use Phoenix.Component
 
@@ -9,6 +12,7 @@ defmodule DerpyToolsWeb.Nav do
      socket
      #  |> subscribe_ping(session)
      #  |> attach_hook(:ping, :handle_event, &handle_event/3)
+     |> attach_hook(:auto_redirect, :handle_event, &handle_event/3)
      |> attach_hook(:inspect_source, :handle_event, &handle_event/3)
      |> attach_hook(
        :put_path_in_socket,
@@ -29,10 +33,24 @@ defmodule DerpyToolsWeb.Nav do
     {:cont, socket}
   end
 
+  def on_mount(:assign_nonce, _params, session, socket) do
+    %{"script_nonce" => script_nonce, "style_nonce" => style_nonce} = session
+
+    socket = assign(socket, script_nonce: script_nonce, style_nonce: style_nonce)
+
+    {:cont, socket}
+  end
+
   defp handle_event("inspect-source", %{"file" => file, "line" => line}, socket) do
     System.cmd("code", ["--goto", "#{file}:#{line}"])
 
     {:halt, socket}
+  end
+
+  defp handle_event("navigate", route, socket) do
+    {:halt,
+     socket
+     |> push_navigate(to: route)}
   end
 
   defp handle_event(_, _, socket), do: {:cont, socket}

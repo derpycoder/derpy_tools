@@ -1,0 +1,277 @@
+---
+version: "3"
+
+tasks:
+  install:asdf:
+    desc: Install asdf and related plugins using brew
+    summary: |
+      Type `asdf list all elixir` to list all versions of elixir and
+      Type `asdf list elixir` to list only the version installed.
+
+      We can update all asdf plugins: `asdf plugin-update --all`
+    cmds:
+      - brew install asdf
+      - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+      - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+  install:tools:
+    desc: Install all the dependencies for running the whole project
+    summary: |
+      asdf install: will pickup up versions from .tool-versions file and install them.
+
+      mkcert: For generating certificates to use HTTPS locally.
+      caddy: It's a reverse proxy, with easy configuration & HTTPS.
+      imgproxy: To resize, crop & compress images on the fly.
+      varnish: To cache the results from imgproxy.
+      grafana: Beautiful visualizer for prometheus.
+      prometheus: To collect metrics from different tools.
+      netdata: To collect metrics from the operating system and related services.
+      meilisearch: To facilitate fast search.
+      hostsfile: To allow us to use a custom domain on our local system, for prod-dev parity.
+      livebook: For living documentation.
+      multipass: For easy Ubuntu VM creation, to simulate production.
+    cmds:
+      - task: install:asdf
+      - asdf install
+      - brew install mkcert
+      - brew install caddy
+      - brew install imgproxy
+      - brew install varnish
+      - brew install grafana
+      - brew install prometheus
+      - brew install netdata
+      - brew install meilisearch
+      - brew install kevinburke/safe/hostsfile
+      - brew install multipass
+      - brew install chroma
+      - brew install --cask imageoptim
+      - mkcert -install
+      - mix  do local.hex, local.phx, local.rebar
+      - mix  escript.install hex livebook
+      - asdf reshim elixir
+  install:deps:
+    desc: Fetch & Compile dependencies
+    cmds:
+      - mix do deps.get, deps.compile
+
+  generate:caddy_cert:
+    desc: Installs and Initiates the SSL Certificates
+    summary: |
+      We must rename whatever certificate file name gets generated to:
+      ui.pem & ui-key.pem
+    cmds:
+      - mkcert derpytools derpytools.site "*.derpytools.site" localhost 127.0.0.1 ::1
+      - mkdir -p certs/caddy
+      - mv derpytools+5.pem certs/caddy/cert.pem
+      - mv derpytools+5-key.pem certs/caddy/key.pem
+  generate:meilisearch_cert:
+    desc: Generates the certificates necessary to run Meilisearch
+    cmds:
+      - mkcert localhost search.derpytools.site
+      - mkdir -p certs/meilisearch
+      - mv localhost+1.pem certs/meilisearch/cert.pem
+      - mv localhost+1-key.pem certs/meilisearch/key.pem
+  generate:imgproxy_hash:
+    desc: Generates salt & key for Imgproxy
+    cmds:
+      - echo "salt:" `mix imgproxy.gen.secret`
+      - echo "key:" `mix imgproxy.gen.secret`
+  generate:docs:
+    desc: Generates documentation.
+    cmds:
+      - mix docs
+
+  setup:hosts:
+    desc: Modifies the hostsfile, to allow development using named url and https.
+    summary: |
+      It allows us to use derpytools.site or derpytools.piv for local development.
+      Run: `cat /etc/hosts` to check if the command ran successfully
+      Or edit manually using `code /etc/hosts`
+
+      Remove using: `sudo hostsfile remove derpytools.site`
+      And alter IP Address using: `task add:hosts -- "192.168.64.28"`
+    vars:
+      IP_ADDR: '{{default "127.0.0.1" .CLI_ARGS}}'
+    cmds:
+      - sudo hostsfile add
+        derpytools.site
+        www.derpytools.site
+        img.derpytools.site
+        docs.derpytools.site
+        search.derpytools.site
+        grafana.derpytools.site
+        netdata.derpytools.site
+        livebook.derpytools.site
+        prometheus.derpytools.site
+        {{.IP_ADDR}}
+  setup:multipass:
+    desc: Creates an Ubuntu Virtual Machine for Stagin on our dev machine.
+    summary: |
+      Launch an Ubuntu VM with 1 core, 1 GiB ram, 10 GiB disk space, named north-blue.
+      Use lunar as the Ubuntu version as it has SystemD 252. (Which means native encryption of env vars!)
+      Using `cloud-init.yaml` for the initial configuration & user info.
+
+      N.B. Go change the username & ssh_authorized_keys in cloud-init.yaml before running this.
+    cmds:
+      - multipass launch -c 1 -m 1G -d 10G -n north-blue lunar --cloud-init cloud-init.yaml
+
+  start:imgproxy:
+    desc: Starts Imgproxy server
+    summary: |
+      - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
+      - https://img.derpytools.site/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
+      - http://localhost:9080/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
+    cmds:
+      - imgproxy
+    env:
+      IMGPROXY_BIND: :9080
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: ./priv/static/
+      IMGPROXY_ENFORCE_WEBP: true
+      IMGPROXY_ENFORCE_AVIF: true
+      IMGPROXY_ENABLE_CLIENT_HINTS: true
+      IMGPROXY_PREFERRED_FORMATS: avif,webp
+      IMGPROXY_CACHE_CONTROL_PASSTHROUGH: true
+      IMGPROXY_USE_LAST_MODIFIED: true
+      IMGPROXY_ENABLE_DEBUG_HEADERS: true
+      IMGPROXY_KEY: 943dba783daf474a38beee580326cb28a90c48de7a504f23de7c8f5689d96426eccdafc3e8280c8747a82d39a332ebc14611079689d7ac1938623a909adfa273
+      IMGPROXY_SALT: acd0087624cc841a557be9b82002cbcb818e2b024cbdf7e32fabd2ed22655da5724d40e729ed79e1c12c53960c400bad9a3ee7a5d1fd930887104119d83672e3
+  start:caddy:
+    desc: Starts Caddy
+    summary: |
+      Use `caddy run` for a non Daemon mode!
+      And `caddy start` for Daemon mode.
+    cmds:
+      - caddy run
+
+  start:varnish:
+    desc: Starts Varnish Cache
+    cmds:
+      - sudo varnishd -s file,/tmp,100M -a 127.0.0.1:3080 -f `realpath ./varnish/varnish.vcl`
+  start:netdata:
+    desc: Start realtime system monitor
+    summary: |
+      http://localhost:19999 or https://netdata.derpytools.site
+    cmds:
+      - netdata
+
+  start:prometheus:
+    desc: Starts prometheus db
+    cmds:
+      - prometheus --config.file="prometheus.yml"
+  start:grafana:
+    desc: Starts grafana services
+    cmds:
+      - brew services start grafana
+
+  start:meilisearch:
+    desc: Starts a fast search database.
+    summary: |
+      http://localhost:7700 or https://search.derpytools.site
+    cmds:
+      - meilisearch --no-analytics --ssl-require-auth
+    env:
+      MEILI_MASTER_KEY: wubalubadubdub
+      MEILI_ENV: development
+      MEILI_SSL_CERT_PATH: certs/meilisearch/cert.pem
+      MEILI_SSL_KEY_PATH: certs/meilisearch/key.pem
+  start:livebook:
+    desc: Stars a livebook server
+    cmds:
+      - livebook server
+    env:
+      LIVEBOOK_HOME: livebook
+      LIVEBOOK_PORT: 49223
+      LIVEBOOK_SHUTDOWN_ENABLED: true
+      LIVEBOOK_TOKEN_ENABLED: false
+      LIVEBOOK_DEFAULT_RUNTIME: attached:derpytools:wubalubadubdub
+      # LIVEBOOK_DEFAULT_RUNTIME: attached:iex:wubalubadubdub
+
+  start:server:
+    desc: Runs the server with a custom name
+    cmds:
+      - elixir --sname derpytools --cookie wubalubadubdub -S mix phx.server
+  start:console:
+    desc: Run iex in conjunction with the server
+    summary: |
+      Make sure the server is running.
+      This is useful for running iex alongside server.
+      Which means any PubSub events fired from iex is received by the server.
+    cmds:
+      - iex --sname console --cookie wubalubadubdub --remsh derpytools
+  start:iex:
+    desc: Run iex standalone.
+    cmds:
+      - iex --sname iex --cookie wubalubadubdub -S mix phx.server
+
+  analyze:cons:
+    desc: Analyze code, using Credo, for consistency
+    cmds:
+      - cmd: mix credo
+        ignore_error: true
+  analyze:vuln:
+    desc: Analyze code, using Sobelow, for vulnerabilities
+    cmds:
+      - cmd: mix sobelow --compact --config sobelow-conf
+
+  format:check:
+    desc: Format code
+    cmds:
+      - mix format --check-formatted
+  format:code:
+    desc: Format code
+    cmds:
+      - mix format
+
+  optimize:images:
+    desc: Optimize All Images in Assets folder.
+    cmds:
+      - open -a ImageOptim ./priv/static
+
+  update:deps:
+    desc: Update all dependencies
+    cmds:
+      - mix do local.hex, local.rebar
+      - mix deps.update --all
+      - mix hex.outdated
+  reload:caddy:
+    desc: Reloads Caddy Config
+    cmds:
+      - caddy reload
+
+  stop:varnish:
+    desc: Kill Varnish
+    cmds:
+      - sudo pkill varnish
+  stop:netdata:
+    desc: Terminates the realtime monitor
+    cmds:
+      - pkill netdata
+  stop:caddy:
+    desc: Closes the Caddy Instance
+    cmds:
+      - caddy stop
+
+  clean:ecto:
+    desc: Resets Ecto, by dropping, creating, migrating.
+    cmds:
+      - mix ecto.reset
+  clean:deps:
+    desc: Removes the unused dependencies.
+    cmds:
+      - mix deps.clean --unused
+  clean:digest:
+    desc: Removes the digested files.
+    cmds:
+      - mix phx.digest.clean --all
+
+  open:zsh:
+    desc: Opens ZSH Path file, to add Paths
+    summary: |
+      Run the task and then add the following to end of the zshrc file:
+      - source $(brew --prefix asdf)/libexec/asdf.sh
+
+      Add these to end of zshenv.
+      - export ELIXIR_EDITOR="code --goto __FILE__:__LINE__"
+      - export ERL_AFLAGS="-kernel shell_history enabled"
+    cmds:
+      - code ~/.zshrc
+      - code ~/.zshenv

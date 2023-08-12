@@ -1,0 +1,29 @@
+access-key-id: ${LITESTREAM_ACCESS_KEY_ID}
+secret-access-key: ${LITESTREAM_SECRET_ACCESS_KEY}
+
+addr: ":8080"
+
+dbs:
+  - path: /home/derpycoder/data/derpy_tools_stg.db
+    replicas:
+      - name: backblaze_backup
+        type: s3
+        bucket: litestream-damned-soul
+        path: db/derpy_tools_stg.db
+        endpoint: s3.us-east-005.backblazeb2.com
+        force-path-style: true
+
+      - name: local_backup
+        path: /home/derpycoder/backup/derpy_tools_stg.db
+
+  - path: /home/derpycoder/data/derpy_tools_prod.db
+    replicas:
+      - name: backblaze_backup
+        type: s3
+        bucket: litestream-damned-soul
+        path: db/derpy_tools_prod.db
+        endpoint: s3.us-east-005.backblazeb2.com
+        force-path-style: true
+
+      - name: local_backup
+        path: /home/derpycoder/backup/derpy_tools_prod.db

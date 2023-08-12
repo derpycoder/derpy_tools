@@ -38,15 +38,28 @@ npm-debug.log
 # Database files
 *.db
 *.db-*
+/data
 
 # Useless MacOS files
 .DS_Store
 
-# Ignore Prod Env File
+# Ignore Env Files
+.env.stg
 .env.prod
+.env.canary
+.env.*.stg
+.env.*.prod
 
 # Ignore Mix Digested Files
 /priv/static/**/*.gz
 /priv/static/**/*.br
+/priv/static/**/*.zst
 /priv/static/**/*-????????????????????????????????.*
 /priv/static/cache_manifest.json
+
+# Keys & Certs
+keys
+certs
+
+# Elixir LS
+.elixir_ls

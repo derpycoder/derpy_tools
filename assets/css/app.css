@@ -12,6 +12,14 @@
 
 /* This file is for your main application CSS */
 
+h2,
+h3,
+h4,
+h5,
+span[id^="L"] {
+  scroll-margin-top: calc(var(--header-height) + 30px);
+}
+
 #sun,
 #moon {
   -webkit-transition: all 0.3s ease-in-out;

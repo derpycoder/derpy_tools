@@ -1,4 +1,7 @@
 defmodule DerpyToolsWeb.MetadataParams do
+  @moduledoc """
+  Using a changeset to validate user entered data.
+  """
   alias DerpyToolsWeb.MetadataParams
   use Ecto.Schema
   import Ecto.Changeset
@@ -63,7 +66,7 @@ defmodule DerpyToolsWeb.MetadataParams do
 end
 
 defmodule FetchExtraMetadata do
-  @doc """
+  @moduledoc """
   Prints request and response headers.
 
   ## Request Options
@@ -305,7 +308,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
       |> Req.get!(url: url)
 
     {:ok, parsed_doc} = res.body |> Floki.parse_document()
-    IO.inspect(parsed_doc, label: "parsed_doc")
+
     {"head", _, head} = parsed_doc |> Floki.find("head") |> Enum.at(0)
 
     socket =
@@ -325,9 +328,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
 
   def fetch_meta(head) do
     head
-    |> Enum.filter(&is_tuple/1)
-    |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
-    |> Enum.filter(fn {name, _, _} -> String.downcase(name) == "meta" end)
+    |> Enum.filter(&match?({name, _, _} when name == "meta", &1))
     |> Enum.map(fn {"meta", meta, _} -> meta end)
     |> Enum.filter(fn each -> Enum.count(each) == 2 end)
     |> Enum.map(fn
@@ -349,9 +350,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   def fetch_misc(head) do
     head =
       head
-      |> Enum.filter(&is_tuple/1)
-      |> Enum.filter(fn each -> Tuple.to_list(each) |> Enum.count() == 3 end)
-      |> Enum.filter(fn {name, _, _} -> String.downcase(name) != "meta" end)
+      |> Enum.filter(&match?({name, _, _} when name != "meta", &1))
 
     %{
       title: fetch_title(head),

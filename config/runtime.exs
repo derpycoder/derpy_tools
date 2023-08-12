@@ -23,6 +23,14 @@ if env!("PHX_SERVER", :boolean, false) do
   config :derpy_tools, DerpyToolsWeb.Endpoint, server: true
 end
 
+config :derpy_tools,
+  release_name: env!("RELEASE_NAME", :string, "purple")
+
+config :imgproxy,
+  prefix: "https://img.derpytools.site",
+  key: env!("IMGPROXY_KEY", :string),
+  salt: env!("IMGPROXY_SALT", :string)
+
 if config_env() == :prod do
   database_path = env!("DATABASE_PATH", :string)
 
@@ -37,11 +45,12 @@ if config_env() == :prod do
   # variable instead.
   secret_key_base = env!("SECRET_KEY_BASE", :string)
 
-  host = env!("RENDER_EXTERNAL_HOSTNAME", :string, "localhost")
+  host = env!("HOSTNAME", :string, "localhost")
   port = env!("PORT", :string, "80")
 
   config :derpy_tools, DerpyToolsWeb.Endpoint,
     url: [host: host, port: port, scheme: "https"],
+    # check_origin: ["http://localhost", "https://derpytools.site", "https://derpytools.com"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
