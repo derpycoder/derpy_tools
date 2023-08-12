@@ -1,4 +1,4 @@
-defmodule DerpyToolsWeb.BlogLive do
+defmodule DerpyToolsWeb.PostLive do
   require Phoenix.LiveViewTest
   use DerpyToolsWeb, :live_view
   use Pathex

@@ -33,12 +33,30 @@ defmodule DerpyToolsWeb.Router do
         {DerpyToolsWeb.Permit, :anyone}
       ] do
       live "/", HomePageLive
+
+      # Tools
       live "/utm-builder", UtmBuilderLive
       live "/metadata-analyzer", MetadataAnalyzerLive
 
+      # Blog Posts
       # For Live View Blog Posts, with more interactivity requirements
       # live "/blog/taskfile-a-sensible-makefile-and-shell-script-alternative", TaskfileLive
-      live "/blog/:post_slug", BlogLive
+      live "/blog/", BlogLive
+      live "/blog/:post_slug", PostLive
+      live "/tag/", TagsLive
+      live "/tag/:tag_slug", TagLive
+      live "/author/", AuthorsLive
+      live "/author/:author_slug", AuthorLive
+
+      # Misc
+      live "/about", AboutLive
+      live "/support", SupportLive
+      live "/partners", PartnersLive
+      live "/contact-us", ContactUsLive
+      live "/cancellations", CancellationsLive
+      live "/privacy-policy", PrivacyPolicyLive
+      live "/terms-and-conditions", TermsAndConditionsLive
+      live "/affiliate-disclosure", AffiliateDisclosureLive
     end
   end
 
