@@ -72,7 +72,7 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 - [ ] Move blog posts
   - [ ] Taskfile
   - [ ] Multipass
-  - [ ] Image Compression
+  - [x] Image Compression
   ---
 - [ ] Move misc pages from Ghost Blog
   - [ ] Privacy Policy
