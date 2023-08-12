@@ -226,12 +226,15 @@ tasks:
     cmds:
       - open -a ImageOptim ./priv/static
 
+  check:deps:
+    desc: Check the version of dependencies of the project.
+    cmds:
+      - mix hex.outdated
   update:deps:
     desc: Update all dependencies
     cmds:
       - mix do local.hex, local.rebar
       - mix deps.update --all
-      - mix hex.outdated
   reload:caddy:
     desc: Reloads Caddy Config
     cmds:
