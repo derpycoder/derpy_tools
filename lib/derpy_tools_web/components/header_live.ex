@@ -89,7 +89,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               <input
                 id="search-box"
                 placeholder="Search here..."
-                class="form-input border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+                class="form-input border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-800/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-800 dark:focus:bg-navy-800"
                 -click="isShowPopper ? 'w-80' : 'w-60'"
                 @focus="isShowPopper= true"
                 type="text"
