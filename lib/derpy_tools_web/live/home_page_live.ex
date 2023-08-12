@@ -1,6 +1,10 @@
 defmodule DerpyToolsWeb.HomePageLive do
   use DerpyToolsWeb, :live_view
 
+  def mount(_params, _session, socket) do
+    {:ok, socket |> assign(page_title: "Home Page")}
+  end
+
   def render(assigns) do
     ~H"""
     <%!-- <div class="flex justify-center" id="auto-redirect" phx-hook="AutoRedirect"> --%>
@@ -40,9 +44,5 @@ defmodule DerpyToolsWeb.HomePageLive do
       </div>
     </div>
     """
-  end
-
-  def mount(_params, _session, socket) do
-    {:ok, socket}
   end
 end
