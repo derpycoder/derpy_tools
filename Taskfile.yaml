@@ -30,6 +30,7 @@ tasks:
       livebook: For living documentation.
       multipass: For easy Ubuntu VM creation, to simulate production.
     cmds:
+      - task: install:asdf
       - asdf install
       - brew install mkcert
       - brew install caddy
@@ -43,6 +44,7 @@ tasks:
       - brew install multipass
       - brew install chroma
       - brew install --cask imageoptim
+      - mkcert -install
       - mix  do local.hex, local.phx, local.rebar
       - mix  escript.install hex livebook
       - asdf reshim elixir
@@ -57,7 +59,6 @@ tasks:
       We must rename whatever certificate file name gets generated to:
       ui.pem & ui-key.pem
     cmds:
-      - mkcert -install
       - mkcert derpytools derpytools.site "*.derpytools.site" localhost 127.0.0.1 ::1
       - mkdir -p certs/caddy
       - mv derpytools+5.pem certs/caddy/cert.pem
