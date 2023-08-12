@@ -223,7 +223,7 @@ tasks:
   optimize:images:
     desc: Optimize All Images in Assets folder.
     cmds:
-      - open -a ImageOptim ./images
+      - open -a ImageOptim ./priv/static
 
   update:deps:
     desc: Update all dependencies
