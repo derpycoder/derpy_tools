@@ -181,6 +181,7 @@ tasks:
       - livebook server
     env:
       LIVEBOOK_HOME: livebooks
+      LIVEBOOK_PASSWORD: wubalubadubdub
       LIVEBOOK_PORT: 49223
       LIVEBOOK_SHUTDOWN_ENABLED: true
       LIVEBOOK_TOKEN_ENABLED: false
