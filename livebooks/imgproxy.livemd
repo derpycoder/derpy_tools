@@ -1,5 +1,9 @@
 # Imgproxy Playground
 
+```elixir
+System.cmd("code", ["--goto", __ENV__.file |> String.split("#") |> hd()])
+```
+
 ## Section
 
 ```elixir

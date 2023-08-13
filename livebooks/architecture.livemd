@@ -1,0 +1,23 @@
+# App Architecture
+
+```elixir
+System.cmd("code", ["--goto", __ENV__.file |> String.split("#") |> hd()])
+```
+
+## Overall Flow
+
+```mermaid
+graph TD
+
+U(user) <---> |proxy| C{caddy}
+C{caddy} <---> |server| phoenix
+phoenix <---> |database| sqlite
+C{caddy} <---> |monitoring| netdata
+C{caddy} <---> |admin| livebook
+C{caddy} <---> |search| meilisearch
+C{caddy} <---> |monitoring| grafana
+C{caddy} <---> |monitoring| prometheus
+grafana <---> prometheus
+C{caddy} <---> |cache| varnish
+varnish <---> |image manipulator| imgproxy
+```
