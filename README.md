@@ -42,21 +42,16 @@ C{Caddy} <---> |Server| Phoenix
 Phoenix <---> |Database| Sqlite
 Phoenix <---> |S3| S3(Object Store)
 
+C{Caddy} <---> |Cache| Varnish
+Varnish <---> |Image Transformer| Imgproxy
+Imgproxy <---> |S3| S3(Object Store)
+
 Sqlite <---> |Backup| Litestream
 Litestream <---> |S3| S3(Object Store)
 
 C{Caddy} <---> |Admin| LiveBook
 C{Caddy} <---> |Search| Meilisearch
-
 C{Caddy} <---> |Monitoring| Netdata
-
-C{Caddy} <---> |Monitoring| Grafana
-C{Caddy} <---> |Monitoring| Prometheus
-Grafana <---> |Visualize| Prometheus
-
-C{Caddy} <---> |Cache| Varnish
-Varnish <---> |Image Transformer| Imgproxy
-Imgproxy <---> |S3| S3(Object Store)
 ```
 
 #### Meta Routes
