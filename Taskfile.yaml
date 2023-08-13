@@ -174,11 +174,13 @@ tasks:
       MEILI_SSL_CERT_PATH: certs/meilisearch/cert.pem
       MEILI_SSL_KEY_PATH: certs/meilisearch/key.pem
   start:livebook:
-    desc: Stars a livebook server
+    desc: Starts a LiveBook server
+    summary: |
+      attached
     cmds:
       - livebook server
     env:
-      LIVEBOOK_HOME: livebook
+      LIVEBOOK_HOME: livebooks
       LIVEBOOK_PORT: 49223
       LIVEBOOK_SHUTDOWN_ENABLED: true
       LIVEBOOK_TOKEN_ENABLED: false

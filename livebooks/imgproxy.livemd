@@ -1,0 +1,10 @@
+# Imgproxy Playground
+
+## Section
+
+```elixir
+"https://images.igdb.com/igdb/image/upload/t_1080p/co1q1f.jpg"
+|> Imgproxy.new()
+|> Imgproxy.resize(200, 200)
+|> to_string()
+```
