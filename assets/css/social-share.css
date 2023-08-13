@@ -1,0 +1,77 @@
+#social-share-btn {
+  display: none;
+}
+
+#social-share-btns {
+  position: fixed;
+  top: 25vh;
+  left: 0;
+  z-index: 30;
+  display: grid;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px,
+    rgb(9 30 66 / 8%) 0px 0px 0px 1px;
+}
+
+#social-share-btns > button {
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0;
+  position: relative;
+  height: 42px;
+  display: flex;
+  align-items: center;
+}
+#social-share-btns button:first-child {
+  border-top-right-radius: 10px;
+}
+#social-share-btns button:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+#reddit {
+  background-color: #ff5700;
+}
+#whatsapp {
+  background-color: #25d366;
+}
+#twitter {
+  background-color: #2daae1;
+}
+#linkedin {
+  background-color: #007ebb;
+}
+#facebook {
+  background-color: #3b5998;
+}
+#tumblr {
+  background-color: #34526f;
+}
+#buffer {
+  background-color: #333;
+}
+
+@media (max-width: 800px) {
+  #social-share-btns {
+    display: none;
+  }
+
+  #social-share-btn {
+    display: block;
+    position: fixed;
+    right: 22px;
+    bottom: 15px;
+    background: #9b39c6;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}

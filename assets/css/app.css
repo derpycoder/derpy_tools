@@ -5,6 +5,7 @@
 
 @import "tailwindcss/components";
 @import "./components.css";
+@import "./misc.css";
 
 @import "tailwindcss/utilities";
 

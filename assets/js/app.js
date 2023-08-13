@@ -20,8 +20,11 @@ import "phoenix_html";
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
+
 import topbar from "../vendor/topbar";
 import lozad from "../vendor/lozad";
+import goodshare from "../vendor/goodshare";
+
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
@@ -32,6 +35,8 @@ import SourceInspector from "./source_inspector";
 import LozadObserver from "./lozad_observer";
 import AutoRedirect from "./auto_redirect";
 import TableOfContents from "./table_of_contents";
+
+window.goodshare = goodshare;
 
 window.observer = lozad(); // lazy loads elements with default selector as '.lozad'
 observer.observe();
