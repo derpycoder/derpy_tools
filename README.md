@@ -1,4 +1,5 @@
 # DerpyTools
+
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/derpycoder/derpy_tools?style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/derpycoder/derpy_tools?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/derpycoder/derpy_tools?style=for-the-badge)
@@ -29,6 +30,23 @@
 ---
 
 Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](https://derpytools.site)
+
+## Architecture
+
+```mermaid
+graph TD
+  U(user) <---> |proxy| C{caddy}
+  C{caddy} <---> |server| phoenix
+  phoenix <---> |database| sqlite
+  C{caddy} <---> |monitoring| netdata
+  C{caddy} <---> |admin| livebook
+  C{caddy} <---> |search| meilisearch
+  C{caddy} <---> |monitoring| grafana
+  C{caddy} <---> |monitoring| prometheus
+  grafana <---> prometheus
+  C{caddy} <---> |cache| varnish
+  varnish <---> |image manipulator| imgproxy
+```
 
 #### Meta Routes
 
