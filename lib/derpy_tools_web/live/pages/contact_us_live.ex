@@ -3,20 +3,6 @@ defmodule DerpyToolsWeb.ContactUsLive do
 
   def render(assigns) do
     ~H"""
-    <!--
-    This example requires some changes to your config:
-
-    ```
-    // tailwind.config.js
-    module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-    }
-    ```
-    -->
     <div class="relative isolate dark:bg-gray-900">
       <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <div class="relative px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48">
