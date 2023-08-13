@@ -9,7 +9,11 @@ defmodule DerpyTools.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      name: "Derpy Tools",
+      source_url: "https://github.com/derpycoder/derpy_tools",
+      homepage_url: "https://derpytools.site",
+      docs: docs()
     ]
   end
 
@@ -64,7 +68,8 @@ defmodule DerpyTools.MixProject do
       {:unplug, "~> 1.0"},
       {:pathex, "~> 2.5"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:tailwind_formatter, "~> 0.3.6", only: [:dev, :test], runtime: false}
+      {:tailwind_formatter, "~> 0.3.6", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.30.5"}
     ]
   end
 
@@ -83,6 +88,52 @@ defmodule DerpyTools.MixProject do
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind default", "esbuild default"],
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+    ]
+  end
+
+  defp docs do
+    [
+      main: "DerpyTools",
+      source_ref: "main",
+      formatters: ["html"],
+      extra_section: "GUIDES",
+      api_reference: true,
+      extras: extras(),
+      groups_for_extras: groups_for_extras(),
+      groups_for_modules: groups_for_modules(),
+      assets: "images"
+      # canonical
+    ]
+  end
+
+  defp extras do
+    [
+      "README.md",
+      "livebooks/architecture.livemd",
+      "guides/overview.md"
+    ]
+  end
+
+  defp groups_for_extras do
+    [
+      Livebooks: ~r/livebooks\/[^\/]+\.livemd/,
+      Guides: ~r/guides\/[^\/]+\.md/
+    ]
+  end
+
+  defp groups_for_modules do
+    [
+      # "Mix Tasks": [
+      #   Mix.Tasks.App.Setup
+      # ],
+      Utils: [
+        DerpyToolsWeb.Nav,
+        DerpyToolsWeb.Permit
+      ],
+      Blog: [
+        DerpyCoderWeb.BlogPosts,
+        DerpyToolsWeb.CodeSnippets
+      ]
     ]
   end
 end
