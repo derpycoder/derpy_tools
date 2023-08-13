@@ -35,17 +35,29 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 
 ```mermaid
 graph TD
-  U(user) <---> |proxy| C{caddy}
-  C{caddy} <---> |server| phoenix
-  phoenix <---> |database| sqlite
-  C{caddy} <---> |monitoring| netdata
-  C{caddy} <---> |admin| livebook
-  C{caddy} <---> |search| meilisearch
-  C{caddy} <---> |monitoring| grafana
-  C{caddy} <---> |monitoring| prometheus
-  grafana <---> prometheus
-  C{caddy} <---> |cache| varnish
-  varnish <---> |image manipulator| imgproxy
+
+U(User) <---> |Proxy| C{Caddy}
+
+C{Caddy} <---> |Server| Phoenix
+Phoenix <---> |Database| Sqlite
+
+Sqlite <---> |Backup| Litestream
+
+Phoenix <---> |S3| ObjectStore
+Litestream <---> |S3| ObjectStore
+Imgproxy <---> |S3| ObjectStore
+
+C{Caddy} <---> |Admin| Livebook
+C{Caddy} <---> |Search| Meilisearch
+
+C{Caddy} <---> |Monitoring| Netdata
+
+C{Caddy} <---> |Monitoring| Grafana
+C{Caddy} <---> |Monitoring| Prometheus
+Grafana <---> |Visualize| Prometheus
+
+C{Caddy} <---> |Cache| Varnish
+Varnish <---> |Image Transformer| Imgproxy
 ```
 
 #### Meta Routes
