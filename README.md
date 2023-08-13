@@ -37,17 +37,15 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 graph TD
 
 U(User) <---> |Proxy| C{Caddy}
-
 C{Caddy} <---> |Server| Phoenix
+
 Phoenix <---> |Database| Sqlite
+Phoenix <---> |S3| S3(Object Store)
 
 Sqlite <---> |Backup| Litestream
+Litestream <---> |S3| S3(Object Store)
 
-Phoenix <---> |S3| ObjectStore
-Litestream <---> |S3| ObjectStore
-Imgproxy <---> |S3| ObjectStore
-
-C{Caddy} <---> |Admin| Livebook
+C{Caddy} <---> |Admin| LiveBook
 C{Caddy} <---> |Search| Meilisearch
 
 C{Caddy} <---> |Monitoring| Netdata
@@ -58,6 +56,7 @@ Grafana <---> |Visualize| Prometheus
 
 C{Caddy} <---> |Cache| Varnish
 Varnish <---> |Image Transformer| Imgproxy
+Imgproxy <---> |S3| S3(Object Store)
 ```
 
 #### Meta Routes
