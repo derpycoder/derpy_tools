@@ -36,6 +36,8 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 ```mermaid
 graph TD
 
+C{Caddy} <---> |Admin| LiveBook
+
 U(User) <---> |Proxy| C{Caddy}
 C{Caddy} <---> |Server| Phoenix
 
@@ -51,7 +53,6 @@ Imgproxy <---> |S3| S3(Object Store)
 Sqlite <---> |Backup| Litestream
 Litestream <---> |S3| S3(Object Store)
 
-C{Caddy} <---> |Admin| LiveBook
 C{Caddy} <---> |Monitoring| Netdata
 ```
 
