@@ -44,4 +44,46 @@ Req.new(
 )
 ```
 
-<!-- livebook:{"offset":771,"stamp":{"token":"QTEyOEdDTQ.Omwp6G33ytmDQHE0MXkfimr7XigAaVsQcqr8uDt5on6sSwA9BiVkqHQa7aE.S85r5UVmKAHS8QWc.wAfSdRTEsLf44npjbP4ASKuc1eDK6Q5rhG6hGI1DOrFbz1Z6iyTHyueg6xxwIFO1RvssPdBSUjXU.-9jQ0uewlsmn6bJ5pWsxtA","version":1}} -->
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.post!(
+  url: "/indexes/blog-posts/documents",
+  json: [
+    %{
+      id: 4,
+      title:
+        "5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma",
+      overview:
+        "I am sure you have the same problem as I did when I started writing my blogs. How do I get the best-looking code snippet possible? How to embed it efficiently? How to make the copy button work? Well, I got all the answers.
+5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma",
+      genres: ["Blogging Tools"],
+      poster: "https://www.derpytools.com/content/images/size/w1200/2023/01/banner.webp",
+      release_date: 593_393_200
+    }
+  ]
+)
+```
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, search_key}
+)
+|> Req.post!(
+  url: "/indexes/blog-posts/search",
+  json: %{
+    attributesToHighlight: ["*"],
+    facets: [],
+    highlightPreTag: "<yay>",
+    highlightPostTag: "</yay>",
+    limit: 21,
+    offset: 0,
+    q: "Code"
+  }
+)
+```
+
+<!-- livebook:{"offset":1943,"stamp":{"token":"QTEyOEdDTQ.GqWXgJ24RrreZdBsFcVVu08cvQJ2bfNSYMFtXkeMLXGriqenFkhvEzGkLQw.Q65N55WB9c4Ys2ar.NDNoN8pCMhNrJfays92-fHjjS671yOI0nhYDb6K-l7j2J55j-LgrXoFUkcXYaDUh9_gvFPkbPauG.ffeZlUX5JxTYXqGL3GgJZA","version":1}} -->
