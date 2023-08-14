@@ -36,24 +36,22 @@ Visit [`localhost:4000`](http://localhost:4000) or [`https://derpytools.site`](h
 ```mermaid
 graph TD
 
-C{Caddy} <---> |Admin| LiveBook
-
 U(User) <---> |Proxy| C{Caddy}
-C{Caddy} <---> |Server| Phoenix
 
-Phoenix <---> |Database| Sqlite
+subgraph VPS
+  C{Caddy} <---> |Admin| LiveBook
+  C{Caddy} <---> |Server| Phoenix
+  Phoenix <---> |Database| Sqlite
+  Sqlite <---> |Backup| Litestream
+  Phoenix <---> |Search| Meilisearch
+  C{Caddy} <---> |Monitoring| Netdata
+  C{Caddy} <---> |Cache| Varnish
+  Varnish <---> |Image Transformer| Imgproxy
+end
+
 Phoenix <---> |S3| S3(Object Store)
-
-Phoenix <---> |Search| Meilisearch
-
-C{Caddy} <---> |Cache| Varnish
-Varnish <---> |Image Transformer| Imgproxy
 Imgproxy <---> |S3| S3(Object Store)
-
-Sqlite <---> |Backup| Litestream
 Litestream <---> |S3| S3(Object Store)
-
-C{Caddy} <---> |Monitoring| Netdata
 ```
 
 #### Meta Routes
