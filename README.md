@@ -78,6 +78,8 @@ C{Caddy} <---> |Monitoring| Netdata
   - [x] Routing
   - [x] HTTP/3, Brotli, AVIF like modern features achieved
   - [x] Keyboard Shortcuts
+  - [x] Meilisearch for Command Palette
+  - [ ] Command Pallete
   - [ ] Proper code snippet embed
   - [ ] Code snippet copy button
   - [ ] Recent Posts
@@ -91,7 +93,6 @@ C{Caddy} <---> |Monitoring| Netdata
   - [ ] URL auto-embed, with auto image extraction
   - [ ] File uploader with cropping & compression
   - [ ] Lqip
-  - [ ] Meilisearch for Command Palette
   ---
 - [ ] Move blog posts
   - [ ] Taskfile
