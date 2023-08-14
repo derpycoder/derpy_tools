@@ -97,11 +97,7 @@ livebook.derpytools.site {
 search.derpytools.site {
 	encode zstd gzip
 
-	reverse_proxy localhost:7700 {
-		transport http {
-			tls
-		}
-	}
+	reverse_proxy localhost:7700
 }
 
 grafana.derpytools.site {

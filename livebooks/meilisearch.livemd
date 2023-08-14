@@ -1,0 +1,47 @@
+# Meilisearch
+
+## Section
+
+```elixir
+keys =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+  )
+  |> Req.get!(url: "/keys")
+```
+
+```elixir
+use Pathex
+
+search_key = Pathex.get(keys, path(:body / "results" / 0 / "key"))
+```
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.get!(url: "/indexes")
+```
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, search_key}
+)
+|> Req.post!(
+  url: "/indexes/blog-posts/search",
+  json: %{
+    attributesToHighlight: ["*"],
+    facets: [],
+    highlightPreTag: "<yay>",
+    highlightPostTag: "</yay>",
+    limit: 21,
+    offset: 0,
+    q: "tuskfile"
+  }
+)
+```
+
+<!-- livebook:{"offset":771,"stamp":{"token":"QTEyOEdDTQ.Omwp6G33ytmDQHE0MXkfimr7XigAaVsQcqr8uDt5on6sSwA9BiVkqHQa7aE.S85r5UVmKAHS8QWc.wAfSdRTEsLf44npjbP4ASKuc1eDK6Q5rhG6hGI1DOrFbz1Z6iyTHyueg6xxwIFO1RvssPdBSUjXU.-9jQ0uewlsmn6bJ5pWsxtA","version":1}} -->
