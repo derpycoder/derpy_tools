@@ -40,18 +40,21 @@ U(User) <---> |Proxy| C{Caddy}
 
 subgraph VPS
   C{Caddy} <---> |Admin| LiveBook
+  Phoenix <---> |Search| Meilisearch
+
   C{Caddy} <---> |Server| Phoenix
   Phoenix <---> |Database| Sqlite
   Sqlite <---> |Backup| Litestream
-  Phoenix <---> |Search| Meilisearch
-  C{Caddy} <---> |Monitoring| Netdata
+
   C{Caddy} <---> |Cache| Varnish
   Varnish <---> |Image Transformer| Imgproxy
+
+  C{Caddy} <---> |Monitoring| Netdata
 end
 
-Phoenix <---> |S3| S3(Object Store)
-Imgproxy <---> |S3| S3(Object Store)
-Litestream <---> |S3| S3(Object Store)
+Phoenix <---> |S3| S3((Object Store))
+Imgproxy <---> |S3| S3((Object Store))
+Litestream <---> |S3| S3((Object Store))
 ```
 
 #### Meta Routes
