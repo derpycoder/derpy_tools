@@ -42,6 +42,8 @@ C{Caddy} <---> |Server| Phoenix
 Phoenix <---> |Database| Sqlite
 Phoenix <---> |S3| S3(Object Store)
 
+Phoenix <---> |Search| Meilisearch
+
 C{Caddy} <---> |Cache| Varnish
 Varnish <---> |Image Transformer| Imgproxy
 Imgproxy <---> |S3| S3(Object Store)
@@ -50,7 +52,6 @@ Sqlite <---> |Backup| Litestream
 Litestream <---> |S3| S3(Object Store)
 
 C{Caddy} <---> |Admin| LiveBook
-C{Caddy} <---> |Search| Meilisearch
 C{Caddy} <---> |Monitoring| Netdata
 ```
 
