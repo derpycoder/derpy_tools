@@ -1,5 +1,7 @@
 <%= live_render(@socket, DerpyToolsWeb.HeaderLive, id: :header_nav, sticky: true) %>
 
+<.live_component module={CommandPaletteComponent} id="command-palette" />
+
 <main
   class="min-h-[100svh] flex flex-col w-full mt-[var(--header-height)]"
   phx-disconnected={

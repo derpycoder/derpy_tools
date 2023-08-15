@@ -28,7 +28,8 @@ import goodshare from "../vendor/goodshare";
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
-import { CommandPalette, PrimaryInput } from "./keyboard_shortcuts";
+import PrimaryInput from "./keyboard_shortcuts";
+import CommandPalette from "./command_palette";
 import SpongeBobText from "./sponge_bob_text";
 import ScrollIntoView from "./scroll_into_view";
 import SourceInspector from "./source_inspector";
@@ -100,4 +101,18 @@ window.addEventListener("phx:copy", (event) => {
 
 window.addEventListener("phx:focus", (event) => {
   event.target.focus();
+});
+
+window.addEventListener("phx:open-command-palette", (event) => {
+  const targetId = event.target.id;
+
+  const bg = document.querySelector(`#${targetId}-bg`);
+  const container = document.querySelector(`#${targetId}-container`);
+  const content = document.querySelector(`#${targetId}-content`);
+
+  event.target.style.display = "block";
+  bg.style.display = "block";
+  container.style.display = "block";
+  document.body.classList.add("overflow-hidden");
+  content.focus();
 });

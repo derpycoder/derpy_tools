@@ -4,5 +4,7 @@ defmodule DerpyToolsWeb.Layouts do
   """
   use DerpyToolsWeb, :html
 
+  alias DerpyToolsWeb.CommandPaletteComponent
+
   embed_templates "layouts/*"
 end

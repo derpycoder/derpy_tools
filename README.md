@@ -82,7 +82,7 @@ Litestream <---> |S3| S3((Object Store))
   - [x] HTTP/3, Brotli, AVIF like modern features achieved
   - [x] Keyboard Shortcuts
   - [x] Meilisearch for Command Palette
-  - [ ] Command Pallete
+  - [ ] Command Palette
   - [ ] Proper code snippet embed
   - [ ] Code snippet copy button
   - [ ] Recent Posts
@@ -111,7 +111,7 @@ Litestream <---> |S3| S3((Object Store))
   - [ ] Contact Form
 
 ### Tools
-![Command pallete Keyboard Shortcut](https://github.com/derpycoder/derpy_tools/assets/25662120/2fc2c396-bb01-4fb4-9b79-df4a35d8fe09)
+![Command Palette Keyboard Shortcut](https://github.com/derpycoder/derpy_tools/assets/25662120/2fc2c396-bb01-4fb4-9b79-df4a35d8fe09)
 
 - [ ] URL Beaver
   - [ ] Metadata Analyzer (WIP)

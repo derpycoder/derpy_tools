@@ -1,4 +1,4 @@
-defmodule DerpyToolsWeb.CommandPalleteComponent do
+defmodule DerpyToolsWeb.CommandPaletteComponent do
   use DerpyToolsWeb, :live_component
 
   @doc """
@@ -21,7 +21,6 @@ defmodule DerpyToolsWeb.CommandPalleteComponent do
   attr :id, :string, required: true
   attr :show, :boolean, default: false
   attr :on_cancel, JS, default: %JS{}
-  slot :inner_block, required: true
 
   def render(assigns) do
     ~H"""
@@ -31,13 +30,11 @@ defmodule DerpyToolsWeb.CommandPalleteComponent do
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
-      phx-window-keydown={show_modal(@id)}
-      phx-key="p"
       phx-hook="CommandPalette"
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/50 fixed inset-0 transition-opacity dark:bg-navy-500/50"
+        class="bg-zinc-50/50 fixed inset-0 transform transition-all duration-300 ease-out dark:bg-navy-500/50"
         aria-hidden="true"
       />
       <div
@@ -59,7 +56,7 @@ defmodule DerpyToolsWeb.CommandPalleteComponent do
             >
               <div
                 id={"#{@id}-content"}
-                class="transform divide-y divide-gray-500 divide-opacity-20 overflow-hidden rounded-xl transition-all"
+                class="transform divide-y divide-slate-200 divide-opacity-20 overflow-hidden rounded-xl transition-all dark:divide-navy-500"
               >
                 <div class="relative">
                   <svg
@@ -83,7 +80,7 @@ defmodule DerpyToolsWeb.CommandPalleteComponent do
                   />
                 </div>
                 <!-- Default state, show/hide based on command palette state. -->
-                <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-20 overflow-y-auto">
+                <ul class="max-h-80 scroll-py-2 divide-y divide-slate-200 divide-opacity-20 overflow-y-auto dark:divide-navy-500">
                   <li class="p-2">
                     <h2 class="mt-4 mb-2 px-3 text-xs font-semibold text-gray-200">
                       Recent searches
@@ -252,6 +249,22 @@ defmodule DerpyToolsWeb.CommandPalleteComponent do
                   <p class="mt-4 text-sm text-gray-200">
                     We couldn't find any projects with that term. Please try again.
                   </p>
+                </div>
+
+                <div class="text-navy-900 flex flex-wrap items-center bg-slate-50 px-4 py-2.5 text-xs dark:bg-navy-900 dark:text-slate-400">
+                  Type
+                  <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
+                    #
+                  </kbd>
+                  <span class="sm:hidden">for projects,</span><span class="hidden sm:inline">to access projects,</span>
+                  <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
+                    &gt;
+                  </kbd>
+                  for users, and
+                  <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
+                    ?
+                  </kbd>
+                  for help.
                 </div>
               </div>
             </.focus_wrap>
