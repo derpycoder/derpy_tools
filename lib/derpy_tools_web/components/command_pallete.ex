@@ -11,18 +11,15 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
   attr :on_cancel, JS, default: %JS{}
 
   def render(assigns) do
-    # phx-hook="CommandPalette"
-    # phx-window-keyup={show_modal(@id)}
-    # phx-key="k"
     ~H"""
     <div
       id={@id}
       phx-mounted={@show && show_modal(@id)}
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
+      data-show-modal={show_modal(@id)}
       class="relative z-50 hidden"
-      phx-window-keyup={show_modal(@id)}
-      phx-key="k"
+      phx-hook="CommandPalette"
     >
       <div
         id={"#{@id}-bg"}
