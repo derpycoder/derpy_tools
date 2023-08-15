@@ -86,15 +86,13 @@ defmodule DerpyToolsWeb.HeaderLive do
               phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
               class="group relative mr-4 flex h-8"
             >
-              <input
+              <button
                 id="search-box"
                 placeholder="Search here..."
-                class="form-input border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-800/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-800 dark:focus:bg-navy-800"
-                -click="isShowPopper ? 'w-80' : 'w-60'"
-                @focus="isShowPopper= true"
+                class="w-60 border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-800/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-800 dark:focus:bg-navy-800"
                 type="text"
                 x-ref="popperRef"
-                phx-click={JS.dispatch("phx:open-command-palette", to: "#command-palette")}
+                phx-click={show_modal("command-palette")}
               />
               <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                 <svg
@@ -110,7 +108,8 @@ defmodule DerpyToolsWeb.HeaderLive do
                 for="search-box"
                 class="absolute right-3 flex h-full cursor-pointer items-center justify-center"
               >
-                <kbd class="text-[16px]">⌘</kbd><kbd>K</kbd>
+                <kbd class="text-[16px]">⌘</kbd>
+                <kbd>K</kbd>
               </label>
             </div>
             <!-- Dark Mode Toggle -->

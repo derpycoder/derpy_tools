@@ -68,22 +68,31 @@ Req.new(
 ```
 
 ```elixir
-Req.new(
-  base_url: "http://localhost:7700",
-  auth: {:bearer, search_key}
-)
-|> Req.post!(
-  url: "/indexes/blog-posts/search",
-  json: %{
-    attributesToHighlight: ["*"],
-    facets: [],
-    highlightPreTag: "<yay>",
-    highlightPostTag: "</yay>",
-    limit: 21,
-    offset: 0,
-    q: "Code"
-  }
-)
+search_results =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, search_key}
+  )
+  |> Req.post!(
+    url: "/indexes/blog-posts/search",
+    json: %{
+      attributesToHighlight: ["*"],
+      facets: [],
+      highlightPreTag: "<yay>",
+      highlightPostTag: "</yay>",
+      limit: 21,
+      offset: 0,
+      q: "croc"
+    }
+  )
 ```
 
-<!-- livebook:{"offset":1943,"stamp":{"token":"QTEyOEdDTQ.7Ylezx_GKrWmqeQVI10osMQSDGfY0kGNULIajc1qcHEOEqD-ZelLcSuJfO8.jOrDoJ_NH-dumhKM.Z_bItfDug552qCaiJAGXmhl2DcSrMnzZin-Eu98yrz-PFk6tld_X_4-nJ0BKzI-KcwYApEMobOpC.vL3W7CGm5jtf7A9Hh0JKJw","version":1}} -->
+```elixir
+hits = search_results.body["hits"]
+```
+
+```elixir
+match?(^hits, [])
+```
+
+<!-- livebook:{"offset":2075,"stamp":{"token":"QTEyOEdDTQ.kcV3z0mB_kNaDNnzlh8oKCBVTs9-7FFlM4yOwRQLwXyL8Y9nrxCzqwqP3yE.jYsTZm8NU5KoD4rn.dyyyKwYbIlK8oVKSJkHYCLKtE7K5n1FIO9qf--9uFGSv0eswNzMi6kmG6Lm9iHjSqfkki_LuApmV.BQPohjqExnx3z6tdOZTSkA","version":1}} -->

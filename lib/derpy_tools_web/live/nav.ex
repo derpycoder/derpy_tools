@@ -11,9 +11,7 @@ defmodule DerpyToolsWeb.Nav do
     {:cont,
      socket
      #  |> subscribe_ping(session)
-     #  |> attach_hook(:ping, :handle_event, &handle_event/3)
-     |> attach_hook(:auto_redirect, :handle_event, &handle_event/3)
-     |> attach_hook(:inspect_source, :handle_event, &handle_event/3)
+     |> attach_hook(:nav_handlers, :handle_event, &handle_event/3)
      |> attach_hook(
        :put_path_in_socket,
        :handle_params,

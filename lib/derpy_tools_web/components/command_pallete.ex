@@ -1,28 +1,19 @@
 defmodule DerpyToolsWeb.CommandPaletteComponent do
   use DerpyToolsWeb, :live_component
 
-  @doc """
-  Renders a modal.
+  @impl true
+  def mount(socket) do
+    {:ok, assign(socket, search_result: nil)}
+  end
 
-  ## Examples
-
-      <.modal id="confirm-modal">
-        This is a modal.
-      </.modal>
-
-  JS commands may be passed to the `:on_cancel` to configure
-  the closing/cancel event, for example:
-
-      <.modal id="confirm" on_cancel={JS.navigate(~p"/posts")}>
-        This is another modal.
-      </.modal>
-
-  """
   attr :id, :string, required: true
   attr :show, :boolean, default: false
   attr :on_cancel, JS, default: %JS{}
 
   def render(assigns) do
+    # phx-hook="CommandPalette"
+    # phx-window-keyup={show_modal(@id)}
+    # phx-key="k"
     ~H"""
     <div
       id={@id}
@@ -30,11 +21,12 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
-      phx-hook="CommandPalette"
+      phx-window-keyup={show_modal(@id)}
+      phx-key="k"
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/50 fixed inset-0 transform transition-all duration-300 ease-out dark:bg-navy-500/50"
+        class="bg-zinc-50/70 fixed inset-0 transition-opacity dark:bg-black/70"
         aria-hidden="true"
       />
       <div
@@ -52,13 +44,13 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white shadow-2xl ring-1 transition dark:bg-navy-900"
+              class="shadow-zinc-700/10 ring-zinc-700/10 relative rounded-2xl bg-white shadow-2xl ring-1 transition dark:bg-navy-900"
             >
               <div
                 id={"#{@id}-content"}
                 class="transform divide-y divide-slate-200 divide-opacity-20 overflow-hidden rounded-xl transition-all dark:divide-navy-500"
               >
-                <div class="relative">
+                <form class="relative" phx-change="search" phx-submit="search" phx-target={@myself}>
                   <svg
                     class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-slate-50 dark:text-gray-500"
                     fill="none"
@@ -74,11 +66,56 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     />
                   </svg>
                   <input
+                    id="query"
+                    name="query"
                     type="text"
                     class="h-12 w-full border-0 bg-transparent pr-4 pl-11 text-white focus:ring-0 sm:text-sm"
                     placeholder="Search..."
+                    phx-debounce="300"
+                    autocomplete="off"
                   />
+                </form>
+                <!-- Empty state, show/hide based on command palette state. -->
+                <div
+                  :if={@search_result && @search_result["estimatedTotalHits"] < 1}
+                  class="px-6 py-14 text-center sm:px-14"
+                >
+                  <svg
+                    class="mx-auto h-6 w-6 text-gray-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+                    />
+                  </svg>
+                  <p class="mt-4 text-sm text-gray-200">
+                    We couldn't find any projects with that term. Please try again.
+                  </p>
                 </div>
+                <!-- Results, show/hide based on command palette state. -->
+                <ul
+                  :if={@search_result && @search_result["estimatedTotalHits"] > 0}
+                  class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
+                >
+                  <!-- Active: "bg-gray-800 text-white" -->
+                  <li
+                    :for={%{"_formatted" => formatted} <- @search_result["hits"]}
+                    class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
+                  >
+                    <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                    <span class="ml-3 flex-auto truncate">
+                      <%= raw(formatted["title"]) %>
+                    </span>
+                    <!-- Not Active: "hidden" -->
+                    <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
+                  </li>
+                </ul>
                 <!-- Default state, show/hide based on command palette state. -->
                 <ul class="max-h-80 scroll-py-2 divide-y divide-slate-200 divide-opacity-20 overflow-y-auto dark:divide-navy-500">
                   <li class="p-2">
@@ -230,26 +267,6 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                   </li>
                 </ul>
-                <!-- Empty state, show/hide based on command palette state. -->
-                <div class="px-6 py-14 text-center sm:px-14">
-                  <svg
-                    class="mx-auto h-6 w-6 text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
-                    />
-                  </svg>
-                  <p class="mt-4 text-sm text-gray-200">
-                    We couldn't find any projects with that term. Please try again.
-                  </p>
-                </div>
 
                 <div class="text-navy-900 flex flex-wrap items-center bg-slate-50 px-4 py-2.5 text-xs dark:bg-navy-900 dark:text-slate-400">
                   Type
@@ -266,6 +283,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   </kbd>
                   for help.
                 </div>
+                <%!-- <div :if={@search_result}>
+                  <%= @search_result["estimatedTotalHits"] %> hits in <%= @search_result[
+                    "processingTimeMs"
+                  ] %>
+                </div> --%>
               </div>
             </.focus_wrap>
           </div>
@@ -275,7 +297,36 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     """
   end
 
-  def mount(socket) do
-    {:ok, socket}
+  @impl true
+  def handle_event("search", %{"query" => query}, socket) do
+    search_result =
+      Req.new(
+        base_url: "http://localhost:7700",
+        auth: {:bearer, "6cee02231c3b952670614712a51a1fba6e0c6c2f36354ff0ea14afcd0372719e"}
+      )
+      |> Req.post!(
+        url: "/indexes/blog-posts/search",
+        json: %{
+          attributesToHighlight: ["*"],
+          facets: [],
+          highlightPreTag: "<span class=\"text-pink-500\">",
+          highlightPostTag: "</span>",
+          limit: 21,
+          offset: 0,
+          q: query
+        }
+      )
+
+    {:noreply, assign(socket, search_result: search_result.body)}
+  end
+
+  slot :inner_block, required: true
+
+  defp highlight(assigns) do
+    ~H"""
+    <span class="relative before:absolute before:-inset-1 before:block before:h-10 before:-skew-y-3 before:bg-pink-500">
+      <%= @inner_block %>
+    </span>
+    """
   end
 end
