@@ -49,9 +49,83 @@ Req.new(
   base_url: "http://localhost:7700",
   auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
 )
+|> Req.put!(
+  url: "/indexes/blog-posts/settings/sortable-attributes",
+  json: ["star_rating"]
+)
+```
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.patch!(
+  url: "/indexes/blog-posts/settings",
+  json: %{
+    rankingRules: [
+      "words",
+      "typo",
+      "proximity",
+      "attribute",
+      "sort",
+      "exactness",
+      "star_rating:desc"
+    ]
+  }
+)
+```
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.get!(url: "/indexes/blog-posts/settings/sortable-attributes")
+```
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
 |> Req.post!(
   url: "/indexes/blog-posts/documents",
   json: [
+    %{
+      id: 1,
+      title: "Taskfile: A Sensible Makefile and Shell Script Alternative",
+      overview:
+        "Taskfile is here to make your life easier and cheatsheets obsolete. It's a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.",
+      genres: ["Best of the Best", "Command Line Tool"],
+      poster:
+        "https://img.derpytools.site/x6lbrL5V3lm_8gfyJH7kY7Rv4XeVlrdebVL_z_1gzxQ/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3Rhc2tmaWxlLWluLWFjdGlvbi5wbmc",
+      release_date: ~D[2023-01-27] |> Timex.to_unix(),
+      star_rating: 4.5
+    },
+    %{
+      id: 2,
+      title:
+        "CROC: Easily Send Files Across Computers with this Modern Alternative to Magic Wormhole",
+      overview:
+        "After fumbling with countless flimsy pairing and WiFi file-sharing apps, I discovered a CLI tool that will let us send files across computers with ease. Comes in handy when sharing files with systems that are not in the vicinity, like Web Servers or your friend's computer.",
+      genres: ["Best of the Best"],
+      poster:
+        "https://img.derpytools.site/TvhZ7wAr_XwpQOt06Jf712yDNz2ULqJz_yY4FkSD09E/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3NlbmQtd2FsbHBhcGVycy11c2luZy1jcm9jLnBuZw",
+      release_date: ~D[2023-04-12] |> Timex.to_unix(),
+      star_rating: 4.3
+    },
+    %{
+      id: 3,
+      title: "Multipass: Instant Ubuntu Virtual Machines on your Computer",
+      overview:
+        "Multipass is the easiest way to instantly stand up Ubuntu Virtual Machines on your computer, It brings the convenience and ease of using Homebrew to Virtual Machines.",
+      genres: ["Best of the Best", "Command Line Tool"],
+      poster:
+        "https://img.derpytools.site/Kw1CL55FybvXj_0_qQ0VnS-57WjUbpF-EkdTHT7bMGg/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3JlbW90ZS11YnVudHUtZGVza3RvcC5wbmc",
+      release_date: ~D[2023-03-14] |> Timex.to_unix(),
+      star_rating: 4.4
+    },
     %{
       id: 4,
       title:
@@ -61,7 +135,8 @@ Req.new(
 5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma",
       genres: ["Blogging Tools"],
       poster: "https://www.derpytools.com/content/images/size/w1200/2023/01/banner.webp",
-      release_date: 593_393_200
+      release_date: ~D[2023-01-27] |> Timex.to_unix(),
+      star_rating: 4.1
     }
   ]
 )
@@ -82,7 +157,9 @@ search_results =
       highlightPostTag: "</yay>",
       limit: 21,
       offset: 0,
-      q: "croc"
+      showRankingScore: true,
+      sort: ["star_rating:desc"],
+      q: "comp"
     }
   )
 ```
@@ -92,7 +169,72 @@ hits = search_results.body["hits"]
 ```
 
 ```elixir
-match?(^hits, [])
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.get!(url: "/indexes/blog-posts/settings")
 ```
 
-<!-- livebook:{"offset":2075,"stamp":{"token":"QTEyOEdDTQ.kcV3z0mB_kNaDNnzlh8oKCBVTs9-7FFlM4yOwRQLwXyL8Y9nrxCzqwqP3yE.jYsTZm8NU5KoD4rn.dyyyKwYbIlK8oVKSJkHYCLKtE7K5n1FIO9qf--9uFGSv0eswNzMi6kmG6Lm9iHjSqfkki_LuApmV.BQPohjqExnx3z6tdOZTSkA","version":1}} -->
+## Settings
+
+> Settings must happen before indexing or inserting data, as it causes re indexing.
+
+#### Synonyms:
+
+CLI = Command Line Tools
+WWW = World Wide Web
+...
+
+#### Stop Words:
+
+of, the, to, and, :
+
+#### Distinct Attributes:
+
+id, email_id, slug ...
+
+#### Displayed Attributes:
+
+title, slug ...
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.get!(url: "/indexes/blog-posts/synonyms")
+```
+
+```elixir
+search_results =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, search_key}
+  )
+  |> Req.post!(
+    url: "/multi-search",
+    json: %{
+      queries: [
+        %{
+          indexUid: "blog-posts",
+          q: "croc",
+          attributesToHighlight: ["*"],
+          highlightPreTag: "<yay>",
+          highlightPostTag: "</yay>",
+          limit: 21,
+          offset: 0,
+          showRankingScore: true,
+          sort: ["star_rating:desc"]
+        },
+        %{
+          indexUid: "movies",
+          q: "nemo",
+          limit: 5
+        }
+      ]
+    }
+  )
+```
+
+<!-- livebook:{"offset":6139,"stamp":{"token":"QTEyOEdDTQ.i4KfWlh5VebPAbR1_HsBJeXPePK7coCFi63o5ed9cBwmuxKB3_iD7t5oGqY.63k4IEakwVkwdXOJ.iv5F91oPGGNv33FMubZBCBzhPHrdXPIVu61-Xc-zG8abSh0z5r3hSPbE25uHrdfz7I-qzm79n8dT.amvS_3obN7Mz1A3XLU2Yhg","version":1}} -->

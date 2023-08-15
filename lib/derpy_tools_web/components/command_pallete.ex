@@ -41,13 +41,24 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative rounded-2xl bg-white shadow-2xl ring-1 transition dark:bg-navy-900"
+              class="shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl bg-white shadow-2xl ring-1 transition dark:bg-navy-900"
             >
               <div
                 id={"#{@id}-content"}
                 class="transform divide-y divide-slate-200 divide-opacity-20 overflow-hidden rounded-xl transition-all dark:divide-navy-500"
               >
-                <form class="relative" phx-change="search" phx-submit="search" phx-target={@myself}>
+                <form
+                  class="relative"
+                  phx-change="search"
+                  phx-submit="search"
+                  phx-target={@myself}
+                  data-file={__ENV__.file}
+                  data-line={__ENV__.line}
+                  phx-hook={
+                    Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"
+                  }
+                  id="command-palette-search"
+                >
                   <svg
                     class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-slate-50 dark:text-gray-500"
                     fill="none"
@@ -68,7 +79,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     type="text"
                     class="h-12 w-full border-0 bg-transparent pr-4 pl-11 text-white focus:ring-0 sm:text-sm"
                     placeholder="Search..."
-                    phx-debounce="300"
+                    phx-debounce="100"
                     autocomplete="off"
                   />
                 </form>
@@ -299,7 +310,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     search_result =
       Req.new(
         base_url: "http://localhost:7700",
-        auth: {:bearer, "6cee02231c3b952670614712a51a1fba6e0c6c2f36354ff0ea14afcd0372719e"}
+        auth: {:bearer, "b83e0abba62d0144b658bc1537a9d718defceb665d2d237f5c2d48ad5472c460"}
       )
       |> Req.post!(
         url: "/indexes/blog-posts/search",
@@ -310,6 +321,8 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
           highlightPostTag: "</span>",
           limit: 21,
           offset: 0,
+          showRankingScore: true,
+          sort: ["star_rating:desc"],
           q: query
         }
       )

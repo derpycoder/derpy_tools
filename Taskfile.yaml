@@ -162,18 +162,6 @@ tasks:
 
       See all env variables: https://www.meilisearch.com/docs/learn/configuration/instance_options
 
-      To add to the index:
-      curl \
-      -X POST 'http://localhost:7700/indexes/movies/documents'\
-      -H 'Content-Type: application/json' \
-      -H 'Authorization: Bearer obXfmeZYm5zFKTTgh2Yv7ECUu8uJ/Mqc44Dz/t8P/xTD1+PcuXa8a1vjgwL4MVje' \
-      --data-binary @blog_posts.json
-
-      To get all API keys:
-      curl \
-      -X GET 'http://localhost:7700/keys' \
-      -H 'Authorization: Bearer obXfmeZYm5zFKTTgh2Yv7ECUu8uJ/Mqc44Dz/t8P/xTD1+PcuXa8a1vjgwL4MVje'
-
       Visit: http://localhost:7700 or https://search.derpytools.site
     cmds:
       - meilisearch
@@ -181,7 +169,7 @@ tasks:
       MEILI_MASTER_KEY: obXfmeZYm5zFKTTgh2Yv7ECUu8uJ/Mqc44Dz/t8P/xTD1+PcuXa8a1vjgwL4MVje
       MEILI_ENV: development
       MEILI_HTTP_ADDR: localhost:7700
-      MEILI_DB_PATH: ./data/pallete.ms
+      MEILI_DB_PATH: ./data/meilisearch.ms
       MEILI_NO_ANALYTICS: true
       MEILI_DUMP_DIR: ./dumps/
       MEILI_LOG_LEVEL: INFO
