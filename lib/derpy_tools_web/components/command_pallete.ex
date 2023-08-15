@@ -17,9 +17,9 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
       phx-mounted={@show && show_modal(@id)}
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
-      data-show-modal={show_modal(@id)}
       class="relative z-50 hidden"
       phx-hook="CommandPalette"
+      data-show-modal={show_modal(@id)}
     >
       <div
         id={"#{@id}-bg"}
