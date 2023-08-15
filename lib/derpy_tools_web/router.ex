@@ -22,17 +22,17 @@ defmodule DerpyToolsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", DerpyToolsWeb do
-    pipe_through :browser
+  live_session :no_log_in_required,
+    on_mount: [
+      DerpyToolsWeb.Nav,
+      {DerpyToolsWeb.Nav, :assign_nonce},
+      {DerpyToolsWeb.Permit, :anyone}
+    ] do
+    scope "/", DerpyToolsWeb do
+      pipe_through :browser
 
-    # get "/", PageController, :home
-    live_session :no_log_in_required,
-      on_mount: [
-        DerpyToolsWeb.Nav,
-        {DerpyToolsWeb.Nav, :assign_nonce},
-        {DerpyToolsWeb.Permit, :anyone}
-      ] do
       live "/", HomePageLive
+      # get "/", PageController, :home
 
       # Tools
       live "/utm-builder", UtmBuilderLive
