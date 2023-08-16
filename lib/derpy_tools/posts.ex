@@ -13,10 +13,13 @@ defmodule DerpyTools.Posts do
     4.5 => "★★★★☆",
     5.0 => "★★★★★"
   }
+
+  # UUIDv7.generate()
+
   @posts [
     %{
       slug: "taskfile-a-sensible-makefile-and-shell-script-alternative",
-      id: "taskfile",
+      id: "0189feaf-8cef-767d-94d9-b29bdb0a3458",
       title: "Taskfile: A Sensible Makefile and Shell Script Alternative",
       short: "Taskfile: A Sensible Makefile Alternative",
       banner: "taskfile-in-action.png",
@@ -42,7 +45,7 @@ defmodule DerpyTools.Posts do
     %{
       slug:
         "croc-easily-send-files-across-computers-with-this-modern-alternative-to-magic-wormhole",
-      id: "croc",
+      id: "0189feaf-e0c3-7404-953b-96f9e23ca4f6",
       title:
         "CROC: Easily Send Files Across Computers with this Modern Alternative to Magic Wormhole",
       short: "CROC: Easily Send Files Across",
@@ -64,7 +67,7 @@ defmodule DerpyTools.Posts do
     },
     %{
       slug: "multipass-instant-ubuntu-virtual-machines-on-your-computer",
-      id: "multipass",
+      id: "0189feaf-febb-71b7-8942-619e4fa0d716",
       title: "Multipass: Instant Ubuntu Virtual Machines on your Computer",
       short: "Multipass: Instant Ubuntu VMs",
       banner: "remote-ubuntu-desktop.png",

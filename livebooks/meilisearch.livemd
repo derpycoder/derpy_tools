@@ -63,6 +63,10 @@ Req.new(
 |> Req.patch!(
   url: "/indexes/blog-posts/settings",
   json: %{
+    filterableAttributes: [
+      "tags.label",
+      "release_date"
+    ],
     rankingRules: [
       "words",
       "typo",
@@ -70,7 +74,8 @@ Req.new(
       "attribute",
       "sort",
       "exactness",
-      "star_rating:desc"
+      "star_rating:desc",
+      "id:asc"
     ]
   }
 )
@@ -81,7 +86,7 @@ Req.new(
   base_url: "http://localhost:7700",
   auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
 )
-|> Req.get!(url: "/indexes/blog-posts/settings/sortable-attributes")
+|> Req.get!(url: "/indexes/blog-posts/settings")
 ```
 
 ```elixir
@@ -90,50 +95,78 @@ Req.new(
   auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
 )
 |> Req.post!(
-  url: "/indexes/blog-posts/documents",
+  url: "/indexes/blog-posts/documents?primaryKey=id",
   json: [
     %{
-      id: 1,
+      id: "0189feaf-8cef-767d-94d9-b29bdb0a3458",
       title: "Taskfile: A Sensible Makefile and Shell Script Alternative",
       overview:
         "Taskfile is here to make your life easier and cheatsheets obsolete. It's a simple, and easy alternative to writing your shell scripts manually, or maintaining a Makefile.",
-      genres: ["Best of the Best", "Command Line Tool"],
+      tags: [
+        %{
+          slug: "best-of-the-best",
+          label: "Best Of The Best"
+        },
+        %{
+          slug: "cli",
+          label: "Command Line Tools"
+        }
+      ],
       poster:
         "https://img.derpytools.site/x6lbrL5V3lm_8gfyJH7kY7Rv4XeVlrdebVL_z_1gzxQ/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3Rhc2tmaWxlLWluLWFjdGlvbi5wbmc",
       release_date: ~D[2023-01-27] |> Timex.to_unix(),
       star_rating: 4.5
     },
     %{
-      id: 2,
+      id: "0189feaf-e0c3-7404-953b-96f9e23ca4f6",
       title:
         "CROC: Easily Send Files Across Computers with this Modern Alternative to Magic Wormhole",
       overview:
         "After fumbling with countless flimsy pairing and WiFi file-sharing apps, I discovered a CLI tool that will let us send files across computers with ease. Comes in handy when sharing files with systems that are not in the vicinity, like Web Servers or your friend's computer.",
-      genres: ["Best of the Best"],
+      tags: [
+        %{
+          slug: "best-of-the-best",
+          label: "Best Of The Best"
+        }
+      ],
       poster:
         "https://img.derpytools.site/TvhZ7wAr_XwpQOt06Jf712yDNz2ULqJz_yY4FkSD09E/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3NlbmQtd2FsbHBhcGVycy11c2luZy1jcm9jLnBuZw",
       release_date: ~D[2023-04-12] |> Timex.to_unix(),
       star_rating: 4.3
     },
     %{
-      id: 3,
+      id: "0189feaf-febb-71b7-8942-619e4fa0d716",
       title: "Multipass: Instant Ubuntu Virtual Machines on your Computer",
       overview:
         "Multipass is the easiest way to instantly stand up Ubuntu Virtual Machines on your computer, It brings the convenience and ease of using Homebrew to Virtual Machines.",
-      genres: ["Best of the Best", "Command Line Tool"],
+      tags: [
+        %{
+          slug: "best-of-the-best",
+          label: "Best Of The Best"
+        },
+        %{
+          slug: "cli",
+          label: "Command Line Tools"
+        }
+      ],
       poster:
         "https://img.derpytools.site/Kw1CL55FybvXj_0_qQ0VnS-57WjUbpF-EkdTHT7bMGg/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3JlbW90ZS11YnVudHUtZGVza3RvcC5wbmc",
       release_date: ~D[2023-03-14] |> Timex.to_unix(),
       star_rating: 4.4
     },
     %{
-      id: 4,
+      id: "0189feb0-2342-7bc2-959d-d66a1a92319e",
       title:
         "5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma",
       overview:
         "I am sure you have the same problem as I did when I started writing my blogs. How do I get the best-looking code snippet possible? How to embed it efficiently? How to make the copy button work? Well, I got all the answers.
 5 Ways to Embed Code Snippets Compared: GitHub Gists vs PrismJS vs Screenshots vs Codepen vs Chroma",
-      genres: ["Blogging Tools"],
+      tags: [
+        %{
+          slug: "blogging-tools",
+          label: "Blogging Tools"
+        }
+      ],
       poster: "https://www.derpytools.com/content/images/size/w1200/2023/01/banner.webp",
       release_date: ~D[2023-01-27] |> Timex.to_unix(),
       star_rating: 4.1
@@ -158,22 +191,14 @@ search_results =
       limit: 21,
       offset: 0,
       showRankingScore: true,
-      sort: ["star_rating:desc"],
-      q: "comp"
+      sort: ["star_rating:asc"],
+      q: "com"
     }
   )
 ```
 
 ```elixir
 hits = search_results.body["hits"]
-```
-
-```elixir
-Req.new(
-  base_url: "http://localhost:7700",
-  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
-)
-|> Req.get!(url: "/indexes/blog-posts/settings")
 ```
 
 ## Settings
@@ -218,14 +243,13 @@ search_results =
       queries: [
         %{
           indexUid: "blog-posts",
-          q: "croc",
+          q: "Best",
           attributesToHighlight: ["*"],
           highlightPreTag: "<yay>",
           highlightPostTag: "</yay>",
           limit: 21,
           offset: 0,
-          showRankingScore: true,
-          sort: ["star_rating:desc"]
+          showRankingScore: true
         },
         %{
           indexUid: "movies",
@@ -237,4 +261,53 @@ search_results =
   )
 ```
 
-<!-- livebook:{"offset":6139,"stamp":{"token":"QTEyOEdDTQ.IZpp0e2gfk_CR5z_qqvBDV8CIRjS1nr52qGWdfvG1gGXMwdJQhIj3zcq2xM.74J3DBub0T8bmodx.o77cwgy3_zR02bokc1xxiQrjFsvUQSoTAf-aEKxn26paqIdUxknE8WbaXdh_AbaEMF5cWMIW9alB.wvmWS_Z0VcMZVznAGdSv6Q","version":1}} -->
+## Filters
+
+```elixir
+search_results =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, search_key}
+  )
+  |> Req.post!(
+    url: "/indexes/blog-posts/search",
+    json: %{
+      attributesToHighlight: ["*"],
+      facets: [],
+      highlightPreTag: "<yay>",
+      highlightPostTag: "</yay>",
+      limit: 21,
+      offset: 0,
+      showRankingScore: true,
+      sort: ["star_rating:desc"],
+      q: "com",
+      filter: "tags.label = \"Command Line Tools\" AND release_date > 1674777600"
+    }
+  )
+```
+
+## Facets
+
+```elixir
+search_results =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, search_key}
+  )
+  |> Req.post!(
+    url: "/indexes/blog-posts/search",
+    json: %{
+      attributesToHighlight: ["*"],
+      facets: [],
+      highlightPreTag: "<yay>",
+      highlightPostTag: "</yay>",
+      limit: 21,
+      offset: 0,
+      showRankingScore: true,
+      sort: ["star_rating:desc"],
+      q: "com"
+    }
+  )
+```
+
+<!-- livebook:{"offset":7561,"stamp":{"token":"QTEyOEdDTQ.qGwd30EQTivs_gEQHbDgpYv9FLYe4fm_tU4W7uMuwHj5N8uxQvEzut0-K_A.fOYtR5HwXNNSloGL.CCG4sBQIO6bf_W0l3wK4YNz2atbfp_G6gvHa1m_2t5cZznsPBsv2e6RfjiPhQSvblrEGWo9Z9Q5Z.hHiqTc1wCj5PS-5PEu_sqA","version":1}} -->

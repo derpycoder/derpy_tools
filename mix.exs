@@ -69,7 +69,8 @@ defmodule DerpyTools.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:timex, "~> 3.7"},
-      {:unplug, "~> 1.0"}
+      {:unplug, "~> 1.0"},
+      {:uuidv7, "~> 0.2.0"}
     ]
   end
 
