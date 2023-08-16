@@ -24,7 +24,8 @@ if env!("PHX_SERVER", :boolean, false) do
 end
 
 config :derpy_tools,
-  release_name: env!("RELEASE_NAME", :string, "purple")
+  release_name: env!("RELEASE_NAME", :string, "purple"),
+  meili_master_key: env!("MEILI_MASTER_KEY", :string)
 
 config :imgproxy,
   prefix: "https://img.derpytools.site",
