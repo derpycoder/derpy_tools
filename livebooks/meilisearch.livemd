@@ -65,7 +65,8 @@ Req.new(
   json: %{
     filterableAttributes: [
       "tags.label",
-      "release_date"
+      "release_date",
+      "star_rating"
     ],
     rankingRules: [
       "words",
@@ -115,7 +116,7 @@ Req.new(
       poster:
         "https://img.derpytools.site/x6lbrL5V3lm_8gfyJH7kY7Rv4XeVlrdebVL_z_1gzxQ/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3Rhc2tmaWxlLWluLWFjdGlvbi5wbmc",
       release_date: ~D[2023-01-27] |> Timex.to_unix(),
-      star_rating: 4.5
+      star_rating: 5
     },
     %{
       id: "0189feaf-e0c3-7404-953b-96f9e23ca4f6",
@@ -132,7 +133,7 @@ Req.new(
       poster:
         "https://img.derpytools.site/TvhZ7wAr_XwpQOt06Jf712yDNz2ULqJz_yY4FkSD09E/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3NlbmQtd2FsbHBhcGVycy11c2luZy1jcm9jLnBuZw",
       release_date: ~D[2023-04-12] |> Timex.to_unix(),
-      star_rating: 4.3
+      star_rating: 4.5
     },
     %{
       id: "0189feaf-febb-71b7-8942-619e4fa0d716",
@@ -152,7 +153,7 @@ Req.new(
       poster:
         "https://img.derpytools.site/Kw1CL55FybvXj_0_qQ0VnS-57WjUbpF-EkdTHT7bMGg/rs:fit:2000:2000:false/bG9jYWw6Ly8vaW1hZ2VzL3JlbW90ZS11YnVudHUtZGVza3RvcC5wbmc",
       release_date: ~D[2023-03-14] |> Timex.to_unix(),
-      star_rating: 4.4
+      star_rating: 4.5
     },
     %{
       id: "0189feb0-2342-7bc2-959d-d66a1a92319e",
@@ -169,7 +170,7 @@ Req.new(
       ],
       poster: "https://www.derpytools.com/content/images/size/w1200/2023/01/banner.webp",
       release_date: ~D[2023-01-27] |> Timex.to_unix(),
-      star_rating: 4.1
+      star_rating: 4
     }
   ]
 )
@@ -298,16 +299,20 @@ search_results =
     url: "/indexes/blog-posts/search",
     json: %{
       attributesToHighlight: ["*"],
-      facets: [],
       highlightPreTag: "<yay>",
       highlightPostTag: "</yay>",
       limit: 21,
       offset: 0,
       showRankingScore: true,
       sort: ["star_rating:desc"],
-      q: "com"
+      q: "com",
+      facets: [
+        "tags.label",
+        "star_rating"
+      ],
+      filter: "tags.label = \"Command Line Tools\" AND release_date > 1674777600"
     }
   )
 ```
 
-<!-- livebook:{"offset":7561,"stamp":{"token":"QTEyOEdDTQ.EA2SHCupcL1RXNpBWZadtk4jLed1XXrD8Oc8iDoyROmy3jhjQGyzsUe5xLU.v_4rWBxesESXdIk5.wDOqYgbYq2m8WBfmDbIFNrXWuzJJervVnd6YdS9MWmUXLSR7CYg_yGHY7p2slIYJzFSvR7jiJ6bk.qh0xYdS8M_2D70wy2_aVpQ","version":1}} -->
+<!-- livebook:{"offset":7712,"stamp":{"token":"QTEyOEdDTQ.l4NhqgXMRP8ksqBkrXkAumfODPlHDZqkwSFXwaP4zXq0nmHc6LsVsh2Rsyc.OX6COnTLd73BMVe5.UVMsOnN6aYZbCVRVt6lkyCdpH2f70wrqJnvfuqZHmq4Uvy1bRfRrtyYUbLDz7euPu03cw1uTOb3c.X1xA08HfSSHfG0fGSGpLPg","version":1}} -->
