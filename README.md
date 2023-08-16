@@ -23,6 +23,7 @@
 1. `task generate:caddy_cert`
 1. `task setup:hosts`
 ---
+1. `task start:meilisearch`
 1. `task start:imgproxy`
 1. `task start:caddy`
 1. `task start:server`
