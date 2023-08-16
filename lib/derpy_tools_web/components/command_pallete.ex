@@ -310,7 +310,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     search_result =
       Req.new(
         base_url: "http://localhost:7700",
-        auth: {:bearer, "b83e0abba62d0144b658bc1537a9d718defceb665d2d237f5c2d48ad5472c460"}
+        auth: {:bearer, "d8bf0a99e43dba773396b49e2b5149f8eb5928963eff579ba0b1fc99521e50cf"}
       )
       |> Req.post!(
         url: "/indexes/blog-posts/search",
