@@ -11,6 +11,8 @@ config :derpy_tools,
   ecto_repos: [DerpyTools.Repo],
   generators: [binary_id: true]
 
+config :derpy_tools, DerpyTools.Repo, migration_timestamps: [type: :utc_datetime_usec]
+
 # Configures the endpoint
 config :derpy_tools, DerpyToolsWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,

@@ -6,7 +6,7 @@ defmodule DerpyTools.Repo.Migrations.CreateUsersAuthTables do
       add :id, :binary_id, primary_key: true
       add :email, :string, null: false, collate: :nocase
       add :hashed_password, :string, null: false
-      add :confirmed_at, :naive_datetime
+      add :confirmed_at, :utc_datetime_usec
       timestamps()
     end
 

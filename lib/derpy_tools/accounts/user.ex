@@ -7,11 +7,12 @@ defmodule DerpyTools.Accounts.User do
   # @primary_key {:id, :binary_id, autogenerate: true}
   @primary_key {:id, UUIDv7, autogenerate: true}
   @foreign_key_type :binary_id
+  @timestamps_opts [type: :utc_datetime_usec]
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
-    field :confirmed_at, :naive_datetime
+    field :confirmed_at, :utc_datetime_usec
 
     timestamps()
   end
