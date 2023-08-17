@@ -145,4 +145,15 @@ search_results =
   )
 ```
 
-<!-- livebook:{"offset":2813,"stamp":{"token":"QTEyOEdDTQ.HQs9tI75xwNdFIx57-HPQhOdaGdGhk3oDjsNO9w3s7qf9dFUL8SKbi5KzRc.qi58BCh9urQd3aDi.GaBl9CjRJgmxhONBIOqQh6c4P_lccORaLOta1nuzFkKMkZMXHsY2fsIqfvOazQquvLtxls81rrLd.0J_ROnwcVgac7RvHXkvJ6Q","version":1}} -->
+```elixir
+stats =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+  )
+  |> Req.get!(url: "/stats")
+
+stats.body
+```
+
+<!-- livebook:{"offset":2999,"stamp":{"token":"QTEyOEdDTQ.sYI2CvWoxGkqOfXupzWevjqAlsHB-tPlpE1o9OH9_HS1G1aaPIAQe5Rwgpw.RSDoYiZBp1Wzd6ex.evZ3PwIU36uLFeO69StwJeapp6ThFklGox0Rcn11jQjFWN5oGhXdDgeL8_zrIfDbeGSs3aP5qr9I.8EpsoQ8gBxzJa-Kz4bFakg","version":1}} -->

@@ -15,6 +15,13 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
   def call(%Plug.Conn{request_path: "/stats"} = conn, _opts) do
     case DerpyToolsWeb.Heartbeat.status() do
       :running ->
+        meilisearch_stats =
+          Req.new(
+            base_url: "http://localhost:7700",
+            auth: {:bearer, Application.fetch_env!(:derpy_tools, :meili_master_key)}
+          )
+          |> Req.get!(url: "/stats")
+
         conn
         |> put_resp_header("content-type", "application/json; charset=utf-8")
         |> send_resp(
@@ -33,6 +40,7 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
               "message" => "DB is connected.",
               "success" => DerpyTools.Repo.connected?()
             },
+            "meilisearch" => meilisearch_stats.body,
             "cluster" => %{
               "self" => Node.self(),
               "nodes" => Node.list()
