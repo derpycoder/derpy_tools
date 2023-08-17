@@ -248,11 +248,11 @@ defmodule DerpyToolsWeb.BlogPosts do
           </a>
         </.intersperse>
         <br />
-        <time datetime={@post.created}>
-          <%= Timex.format!(@post.created, "{Mshort}, {D} {YYYY}") %>
+        <time datetime={@post.release_date}>
+          <%= Timex.format!(@post.release_date, "{Mshort}, {D} {YYYY}") %>
         </time>
         <br />
-        <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.created, "{relative}") %> |
+        <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.release_date, "{relative}") %> |
         <span><%= @reading_time %> read</span>
         <br />
         <span><%= @post.star_rating %></span>
@@ -322,7 +322,7 @@ defmodule DerpyToolsWeb.BlogPosts do
               <%= post.short %>
             </a>
             <p class="text-sm text-slate-400">
-              <%= Timex.Format.DateTime.Formatters.Relative.format!(post.created, "{relative}") %> | <%= @reading_time %> read
+              <%= Timex.Format.DateTime.Formatters.Relative.format!(post.release_date, "{relative}") %> | <%= @reading_time %> read
             </p>
             <span><%= post.star_rating %></span>
           </div>
