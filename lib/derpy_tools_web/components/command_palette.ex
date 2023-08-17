@@ -384,8 +384,10 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   Type <kbd class="mx-1">#</kbd>
                   <span class="sm:hidden">for tags,</span><span class="hidden sm:inline">to search for tags,</span>
                   <kbd class="mx-1">&gt;</kbd>
-                  for blog posts, and <kbd class="mx-1">@</kbd>
-                  for users.
+                  for blog posts, <kbd class="mx-1">@</kbd>
+                  for users, <kbd class="mx-1">$</kbd>
+                  for tools, and <kbd class="mx-1">/</kbd>
+                  for routes.
                 </div>
               </div>
             </.focus_wrap>
