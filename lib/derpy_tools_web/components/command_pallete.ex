@@ -47,18 +47,15 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
             >
               <div
                 id={"#{@id}-content"}
-                class="transform divide-y divide-slate-200 divide-opacity-20 overflow-hidden rounded-xl transition-all dark:divide-navy-500"
+                data-file={__ENV__.file}
+                data-line={__ENV__.line}
+                phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
               >
                 <form
-                  class="relative"
+                  class="border-slate-200/20 relative border-b dark:border-navy-500"
                   phx-change="search"
                   phx-submit="search"
                   phx-target={@myself}
-                  data-file={__ENV__.file}
-                  data-line={__ENV__.line}
-                  phx-hook={
-                    Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"
-                  }
                   id="command-palette-search"
                 >
                   <svg
@@ -85,106 +82,149 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     autocomplete="off"
                   />
                 </form>
-                <!-- Empty state, show/hide based on command palette state. -->
-                <div
-                  :if={
-                    @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] < 1 &&
-                      (@search_result.blog_tags && @search_result.blog_tags["estimatedTotalHits"] < 1) &&
-                      (@search_result.blog_authors &&
-                         @search_result.blog_authors["estimatedTotalHits"] < 1)
-                  }
-                  class="px-6 py-14 text-center sm:px-14"
-                >
-                  <svg
-                    class="mx-auto h-6 w-6 text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
+                <div class="max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500">
+                  <!-- Empty state, show/hide based on command palette state. -->
+                  <div
+                    :if={
+                      @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] < 1 &&
+                        (@search_result.blog_tags &&
+                           @search_result.blog_tags["estimatedTotalHits"] < 1) &&
+                        (@search_result.blog_authors &&
+                           @search_result.blog_authors["estimatedTotalHits"] < 1)
+                    }
+                    class="px-6 py-14 text-center sm:px-14"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
-                    />
-                  </svg>
-                  <p class="mt-4 text-sm text-gray-200">
-                    We couldn't find anything with that term. Please try again.
-                  </p>
-                </div>
-                <!-- Results, show/hide based on command palette state. -->
-                <ul
-                  :if={@search_result.blog_tags && @search_result.blog_tags["estimatedTotalHits"] > 0}
-                  class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
-                >
-                  <!-- Active: "bg-gray-800 text-white" -->
-                  <li
-                    :for={%{"_formatted" => formatted} <- @search_result.blog_tags["hits"]}
-                    class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
-                  >
-                    <!-- Active: "text-white", Not Active: "text-gray-500" -->
-                    <a
-                      href={"/tag/#{formatted["slug"]}"}
-                      class="ml-3 flex h-full w-full items-center px-3 py-2"
+                    <svg
+                      class="mx-auto h-6 w-6 text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
                     >
-                      <svg width="12" height="12" fill="none" aria-hidden="true" class="mr-2">
-                        <path
-                          d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10"
-                          stroke="currentColor"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                        >
-                        </path>
-                      </svg>
-                      <%= raw(formatted["label"]) %>
-                    </a>
-                    <!-- Not Active: "hidden" -->
-                    <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
-                  </li>
-                </ul>
-                <!-- Results, show/hide based on command palette state. -->
-                <ul
-                  :if={
-                    @search_result.blog_authors &&
-                      @search_result.blog_authors["estimatedTotalHits"] > 0
-                  }
-                  class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
-                >
-                  <!-- Active: "bg-gray-800 text-white" -->
-                  <li
-                    :for={%{"_formatted" => formatted} <- @search_result.blog_authors["hits"]}
-                    class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+                      />
+                    </svg>
+                    <p class="mt-4 text-sm text-gray-200">
+                      We couldn't find anything with that term. Please try again.
+                    </p>
+                  </div>
+                  <ul
+                    :if={
+                      @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] > 0
+                    }
+                    class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
+                    id="blog-post-results"
                   >
-                    <!-- Active: "text-white", Not Active: "text-gray-500" -->
-                    <span class="ml-3 flex-auto truncate">
-                      @ <%= raw(formatted["name"]) %>
-                    </span>
-                    <!-- Not Active: "hidden" -->
-                    <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
-                  </li>
-                </ul>
-                <ul
-                  :if={
-                    @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] > 0
-                  }
-                  class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
-                >
-                  <!-- Active: "bg-gray-800 text-white" -->
-                  <li
-                    :for={%{"_formatted" => formatted} <- @search_result.blog_posts["hits"]}
-                    class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
+                    <!-- Active: "bg-gray-800 text-white" -->
+                    <li
+                      :for={%{"_formatted" => post} <- @search_result.blog_posts["hits"]}
+                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                    >
+                      <a
+                        href={"/blog/#{post["slug"]}"}
+                        class="flex h-full w-full items-center justify-start px-3 py-2"
+                      >
+                        <img
+                          src={
+                            "local:///images/#{post["banner"]}"
+                            |> Imgproxy.new()
+                            |> Imgproxy.resize(64, 64, type: "fill")
+                            |> to_string()
+                          }
+                          class="aspect-square flex-initial rounded-md shadow dark:shadow-gray-800"
+                          alt={post["abbr"]}
+                          width="32px"
+                          height="32px"
+                        />
+                        <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                        <span class="ml-3 flex flex-auto flex-col truncate">
+                          <span class="truncate"><%= raw(post["title"]) %></span>
+                          <span class="truncate text-xs text-gray-500">
+                            <%= raw(post["description"]) %>
+                          </span>
+                        </span>
+                      </a>
+                      <!-- Not Active: "hidden" -->
+                      <span class="hidden flex-none text-gray-400">Jump to...</span>
+                    </li>
+                  </ul>
+                  <!-- Results, show/hide based on command palette state. -->
+                  <ul
+                    :if={
+                      @search_result.blog_authors &&
+                        @search_result.blog_authors["estimatedTotalHits"] > 0
+                    }
+                    class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
                   >
-                    <!-- Active: "text-white", Not Active: "text-gray-500" -->
-                    <span class="ml-3 flex-auto truncate">
-                      &gt; <%= raw(formatted["title"]) %>
-                    </span>
-                    <!-- Not Active: "hidden" -->
-                    <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
-                  </li>
-                </ul>
-                <!-- Default state, show/hide based on command palette state. -->
-                <%!-- <ul class="max-h-80 scroll-py-2 divide-y divide-slate-200 divide-opacity-20 overflow-y-auto dark:divide-navy-500">
+                    <!-- Active: "bg-gray-800 text-white" -->
+                    <li
+                      :for={%{"_formatted" => author} <- @search_result.blog_authors["hits"]}
+                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                    >
+                      <a
+                        href={"/author/#{author["slug"]}"}
+                        class="flex h-full w-full items-center justify-start px-3 py-2"
+                      >
+                        <img
+                          src={
+                            "local:///images/avatar/#{author["avatar"]}"
+                            |> Imgproxy.new()
+                            |> Imgproxy.resize(64, 64)
+                            |> to_string()
+                          }
+                          class="aspect-square rounded-full"
+                          alt={author["name"]}
+                          width="32px"
+                          height="32px"
+                        />
+                        <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                        <span class="ml-3 flex flex-col">
+                          <span><%= raw(author["name"]) %></span>
+                          <span class="text-xs text-gray-500"><%= raw(author["alias"]) %></span>
+                        </span>
+                      </a>
+                      <!-- Not Active: "hidden" -->
+                      <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
+                    </li>
+                  </ul>
+                  <!-- Results, show/hide based on command palette state. -->
+                  <ul
+                    :if={
+                      @search_result.blog_tags && @search_result.blog_tags["estimatedTotalHits"] > 0
+                    }
+                    class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
+                  >
+                    <!-- Active: "bg-gray-800 text-white" -->
+                    <li
+                      :for={%{"_formatted" => tag} <- @search_result.blog_tags["hits"]}
+                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                    >
+                      <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                      <a
+                        href={"/tag/#{tag["slug"]}"}
+                        class="flex h-full w-full items-center px-3 py-2"
+                      >
+                        <svg width="12" height="12" fill="none" aria-hidden="true">
+                          <path
+                            d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          >
+                          </path>
+                        </svg>
+                        <span class="ml-3"><%= raw(tag["label"]) %></span>
+                      </a>
+                      <!-- Not Active: "hidden" -->
+                      <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
+                    </li>
+                  </ul>
+                  <!-- Default state, show/hide based on command palette state. -->
+                  <%!-- <ul class="max-h-80 scroll-py-2 divide-y divide-slate-200 divide-opacity-20 overflow-y-auto dark:divide-navy-500">
                   <li class="p-2">
                     <h2 class="mt-4 mb-2 px-3 text-xs font-semibold text-gray-200">
                       Recent searches
@@ -308,8 +348,8 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     </ul>
                   </li>
                 </ul> --%>
-                <!-- Results, show/hide based on command palette state. -->
-                <%!-- <ul class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400">
+                  <!-- Results, show/hide based on command palette state. -->
+                  <%!-- <ul class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400">
                   <!-- Active: "bg-gray-800 text-white" -->
                   <li class="group flex cursor-default select-none items-center rounded-md px-3 py-2">
                     <!-- Active: "text-white", Not Active: "text-gray-500" -->
@@ -334,8 +374,13 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                   </li>
                 </ul> --%>
-
-                <div class="text-navy-900 flex flex-wrap items-center bg-slate-50 px-4 py-2.5 text-xs dark:bg-navy-900 dark:text-slate-400">
+                  <%!-- <div :if={@search_result}>
+                  <%= @search_result["estimatedTotalHits"] %> hits in <%= @search_result[
+                    "processingTimeMs"
+                  ] %>
+                </div> --%>
+                </div>
+                <div class="text-navy-900 border-slate-200/20 flex flex-wrap items-center rounded-b-2xl border-t bg-slate-50 px-4 py-2.5 text-xs dark:border-navy-500 dark:bg-navy-900 dark:text-slate-400">
                   Type
                   <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
                     #
@@ -350,11 +395,6 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   </kbd>
                   for users.
                 </div>
-                <%!-- <div :if={@search_result}>
-                  <%= @search_result["estimatedTotalHits"] %> hits in <%= @search_result[
-                    "processingTimeMs"
-                  ] %>
-                </div> --%>
               </div>
             </.focus_wrap>
           </div>

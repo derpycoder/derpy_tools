@@ -18,7 +18,7 @@ defmodule DerpyTools.Meilisearch.Blog do
       |> Req.post!(
         url: "/indexes/blog-posts/search",
         json: %{
-          attributesToHighlight: ["*"],
+          attributesToHighlight: ["title", "description"],
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
           showRankingScore: true,
@@ -38,7 +38,7 @@ defmodule DerpyTools.Meilisearch.Blog do
       |> Req.post!(
         url: "/indexes/blog-tags/search",
         json: %{
-          attributesToHighlight: ["*"],
+          attributesToHighlight: ["label"],
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
           showRankingScore: true,
@@ -58,7 +58,7 @@ defmodule DerpyTools.Meilisearch.Blog do
       |> Req.post!(
         url: "/indexes/blog-authors/search",
         json: %{
-          attributesToHighlight: ["*"],
+          attributesToHighlight: ["name", "alias"],
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
           showRankingScore: true,
@@ -82,7 +82,7 @@ defmodule DerpyTools.Meilisearch.Blog do
             %{
               indexUid: "blog-posts",
               q: query,
-              attributesToHighlight: ["*"],
+              attributesToHighlight: ["title", "description"],
               highlightPreTag: "<span class=\"text-pink-500\">",
               highlightPostTag: "</span>",
               showRankingScore: true
@@ -90,7 +90,7 @@ defmodule DerpyTools.Meilisearch.Blog do
             %{
               indexUid: "blog-tags",
               q: query,
-              attributesToHighlight: ["*"],
+              attributesToHighlight: ["label"],
               highlightPreTag: "<span class=\"text-pink-500\">",
               highlightPostTag: "</span>",
               showRankingScore: true
@@ -98,7 +98,7 @@ defmodule DerpyTools.Meilisearch.Blog do
             %{
               indexUid: "blog-authors",
               q: query,
-              attributesToHighlight: ["*"],
+              attributesToHighlight: ["name", "alias"],
               highlightPreTag: "<span class=\"text-pink-500\">",
               highlightPostTag: "</span>",
               showRankingScore: true
@@ -116,6 +116,4 @@ defmodule DerpyTools.Meilisearch.Blog do
         blog_authors: blog_authors
     }
   end
-
-  def search(_), do: @default_search_result
 end
