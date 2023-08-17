@@ -3,6 +3,8 @@ defmodule DerpyToolsWeb.Plugs.StatsCheck do
   Added `/stats` endpoint, to see all the metdata of the deployed project.
 
   Like env, git_info, db, deps, build_info, os_info, system_info.
+
+  #TODO: Add healthcheck routes for meilisearch, caddy, imgproxy, varnish etc
   """
   import Plug.Conn
 
