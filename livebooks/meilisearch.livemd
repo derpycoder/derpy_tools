@@ -39,10 +39,12 @@ Req.new(
     highlightPostTag: "</yay>",
     limit: 21,
     offset: 0,
-    q: "tuskfile"
+    q: "pc"
   }
 )
 ```
+
+## Settings
 
 ```elixir
 Req.new(
@@ -52,60 +54,7 @@ Req.new(
 |> Req.get!(url: "/indexes/blog-posts/settings")
 ```
 
-```elixir
-search_results =
-  Req.new(
-    base_url: "http://localhost:7700",
-    auth: {:bearer, search_key}
-  )
-  |> Req.post!(
-    url: "/indexes/blog-posts/search",
-    json: %{
-      attributesToHighlight: ["*"],
-      facets: [],
-      highlightPreTag: "<yay>",
-      highlightPostTag: "</yay>",
-      limit: 21,
-      offset: 0,
-      showRankingScore: true,
-      q: "com"
-    }
-  )
-```
-
-```elixir
-hits = search_results.body["hits"]
-```
-
-## Settings
-
-> Settings must happen before indexing or inserting data, as it causes re indexing.
-
-#### Synonyms:
-
-CLI = Command Line Tools
-WWW = World Wide Web
-...
-
-#### Stop Words:
-
-of, the, to, and, :
-
-#### Distinct Attributes:
-
-id, email_id, slug ...
-
-#### Displayed Attributes:
-
-title, slug ...
-
-```elixir
-Req.new(
-  base_url: "http://localhost:7700",
-  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
-)
-|> Req.get!(url: "/indexes/blog-posts/synonyms")
-```
+## Multi Search
 
 ```elixir
 search_results =
@@ -119,18 +68,27 @@ search_results =
       queries: [
         %{
           indexUid: "blog-posts",
-          q: "Best",
+          q: "com",
           attributesToHighlight: ["*"],
           highlightPreTag: "<yay>",
           highlightPostTag: "</yay>",
-          limit: 21,
-          offset: 0,
           showRankingScore: true
         },
         %{
-          indexUid: "movies",
-          q: "nemo",
-          limit: 5
+          indexUid: "blog-tags",
+          q: "cli",
+          attributesToHighlight: ["*"],
+          highlightPreTag: "<yay>",
+          highlightPostTag: "</yay>",
+          limit: 2
+        },
+        %{
+          indexUid: "blog-authors",
+          q: "derpy",
+          attributesToHighlight: ["*"],
+          highlightPreTag: "<yay>",
+          highlightPostTag: "</yay>",
+          limit: 2
         }
       ]
     }
@@ -155,9 +113,8 @@ search_results =
       limit: 21,
       offset: 0,
       showRankingScore: true,
-      sort: ["star_rating:desc"],
       q: "com",
-      filter: "tags.label = \"Command Line Tools\" AND release_date > 1674777600"
+      filter: "tags = \"Command Line Tools\" AND release_date > 1674777600"
     }
   )
 ```
@@ -179,15 +136,13 @@ search_results =
       limit: 21,
       offset: 0,
       showRankingScore: true,
-      sort: ["star_rating:desc"],
       q: "com",
       facets: [
-        "tags.label",
-        "star_rating"
+        "tags"
       ],
-      filter: "tags.label = \"Command Line Tools\" AND release_date > 1674777600"
+      filter: "tags = \"Command Line Tools\" AND release_date > 1674777600"
     }
   )
 ```
 
-<!-- livebook:{"offset":3535,"stamp":{"token":"QTEyOEdDTQ.e7_ThfmBAf3MgSlhop8NNVlHii4hSU2UCTYhne2beaYqbkKjLS1hGE_XR3I.WWwH_CDEgloeGjEK.Fd1n3sb5f-QGAP3R8huho_LI22GA9yOAe15VIn93WNgB74TavOMGgL8QvQHpSdCZSqvLuHt-v98e.l9delDQ8G4MCflX4Ygx_XA","version":1}} -->
+<!-- livebook:{"offset":2813,"stamp":{"token":"QTEyOEdDTQ.HQs9tI75xwNdFIx57-HPQhOdaGdGhk3oDjsNO9w3s7qf9dFUL8SKbi5KzRc.qi58BCh9urQd3aDi.GaBl9CjRJgmxhONBIOqQh6c4P_lccORaLOta1nuzFkKMkZMXHsY2fsIqfvOazQquvLtxls81rrLd.0J_ROnwcVgac7RvHXkvJ6Q","version":1}} -->

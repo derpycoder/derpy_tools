@@ -1,9 +1,11 @@
 defmodule DerpyToolsWeb.CommandPaletteComponent do
   use DerpyToolsWeb, :live_component
 
+  alias DerpyTools.Meilisearch.Blog
+
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, search_result: nil)}
+    {:ok, assign(socket, search_result: Blog.get_default_search_result())}
   end
 
   attr :id, :string, required: true
@@ -34,7 +36,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
         aria-modal="true"
         tabindex="0"
       >
-        <div class="flex min-h-full items-center justify-center">
+        <div class="pt-[20svh] flex min-h-full justify-center">
           <div class="w-full max-w-3xl">
             <.focus_wrap
               id={"#{@id}-container"}
@@ -85,7 +87,12 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 </form>
                 <!-- Empty state, show/hide based on command palette state. -->
                 <div
-                  :if={@search_result && @search_result["estimatedTotalHits"] < 1}
+                  :if={
+                    @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] < 1 &&
+                      (@search_result.blog_tags && @search_result.blog_tags["estimatedTotalHits"] < 1) &&
+                      (@search_result.blog_authors &&
+                         @search_result.blog_authors["estimatedTotalHits"] < 1)
+                  }
                   class="px-6 py-14 text-center sm:px-14"
                 >
                   <svg
@@ -103,29 +110,69 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     />
                   </svg>
                   <p class="mt-4 text-sm text-gray-200">
-                    We couldn't find any projects with that term. Please try again.
+                    We couldn't find anything with that term. Please try again.
                   </p>
                 </div>
                 <!-- Results, show/hide based on command palette state. -->
                 <ul
-                  :if={@search_result && @search_result["estimatedTotalHits"] > 0}
+                  :if={@search_result.blog_tags && @search_result.blog_tags["estimatedTotalHits"] > 0}
                   class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
                 >
                   <!-- Active: "bg-gray-800 text-white" -->
                   <li
-                    :for={%{"_formatted" => formatted} <- @search_result["hits"]}
+                    :for={%{"_formatted" => formatted} <- @search_result.blog_tags["hits"]}
                     class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
                   >
                     <!-- Active: "text-white", Not Active: "text-gray-500" -->
                     <span class="ml-3 flex-auto truncate">
-                      <%= raw(formatted["title"]) %>
+                      # <%= raw(formatted["label"]) %>
+                    </span>
+                    <!-- Not Active: "hidden" -->
+                    <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
+                  </li>
+                </ul>
+                <!-- Results, show/hide based on command palette state. -->
+                <ul
+                  :if={
+                    @search_result.blog_authors &&
+                      @search_result.blog_authors["estimatedTotalHits"] > 0
+                  }
+                  class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
+                >
+                  <!-- Active: "bg-gray-800 text-white" -->
+                  <li
+                    :for={%{"_formatted" => formatted} <- @search_result.blog_authors["hits"]}
+                    class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
+                  >
+                    <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                    <span class="ml-3 flex-auto truncate">
+                      @ <%= raw(formatted["name"]) %>
+                    </span>
+                    <!-- Not Active: "hidden" -->
+                    <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
+                  </li>
+                </ul>
+                <ul
+                  :if={
+                    @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] > 0
+                  }
+                  class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
+                >
+                  <!-- Active: "bg-gray-800 text-white" -->
+                  <li
+                    :for={%{"_formatted" => formatted} <- @search_result.blog_posts["hits"]}
+                    class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
+                  >
+                    <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                    <span class="ml-3 flex-auto truncate">
+                      &gt; <%= raw(formatted["title"]) %>
                     </span>
                     <!-- Not Active: "hidden" -->
                     <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                   </li>
                 </ul>
                 <!-- Default state, show/hide based on command palette state. -->
-                <ul class="max-h-80 scroll-py-2 divide-y divide-slate-200 divide-opacity-20 overflow-y-auto dark:divide-navy-500">
+                <%!-- <ul class="max-h-80 scroll-py-2 divide-y divide-slate-200 divide-opacity-20 overflow-y-auto dark:divide-navy-500">
                   <li class="p-2">
                     <h2 class="mt-4 mb-2 px-3 text-xs font-semibold text-gray-200">
                       Recent searches
@@ -248,9 +295,9 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       </li>
                     </ul>
                   </li>
-                </ul>
+                </ul> --%>
                 <!-- Results, show/hide based on command palette state. -->
-                <ul class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400">
+                <%!-- <ul class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400">
                   <!-- Active: "bg-gray-800 text-white" -->
                   <li class="group flex cursor-default select-none items-center rounded-md px-3 py-2">
                     <!-- Active: "text-white", Not Active: "text-gray-500" -->
@@ -274,22 +321,22 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     <!-- Not Active: "hidden" -->
                     <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                   </li>
-                </ul>
+                </ul> --%>
 
                 <div class="text-navy-900 flex flex-wrap items-center bg-slate-50 px-4 py-2.5 text-xs dark:bg-navy-900 dark:text-slate-400">
                   Type
                   <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
                     #
                   </kbd>
-                  <span class="sm:hidden">for projects,</span><span class="hidden sm:inline">to access projects,</span>
+                  <span class="sm:hidden">for tags,</span><span class="hidden sm:inline">to search for tags,</span>
                   <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
                     &gt;
                   </kbd>
-                  for users, and
+                  for blog posts, and
                   <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
-                    ?
+                    @
                   </kbd>
-                  for help.
+                  for users.
                 </div>
                 <%!-- <div :if={@search_result}>
                   <%= @search_result["estimatedTotalHits"] %> hits in <%= @search_result[
@@ -307,24 +354,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
-    # TODO: Move this function to BlogIndex under meilisearch.
-    search_result =
-      Req.new(
-        base_url: "http://localhost:7700",
-        auth: {:bearer, Application.fetch_env!(:derpy_tools, :meili_master_key)}
-      )
-      |> Req.post!(
-        url: "/indexes/blog-posts/search",
-        json: %{
-          attributesToHighlight: ["*"],
-          highlightPreTag: "<span class=\"text-pink-500\">",
-          highlightPostTag: "</span>",
-          showRankingScore: true,
-          q: query
-        }
-      )
-
-    {:noreply, assign(socket, search_result: search_result.body)}
+    {:noreply, assign(socket, search_result: Blog.search(query))}
   end
 
   slot :inner_block, required: true
