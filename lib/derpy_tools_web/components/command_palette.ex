@@ -381,18 +381,10 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 </div> --%>
                 </div>
                 <div class="text-navy-900 border-slate-200/20 flex flex-wrap items-center rounded-b-2xl border-t bg-slate-50 px-4 py-2.5 text-xs dark:border-navy-500 dark:bg-navy-900 dark:text-slate-400">
-                  Type
-                  <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
-                    #
-                  </kbd>
+                  Type <kbd class="mx-1">#</kbd>
                   <span class="sm:hidden">for tags,</span><span class="hidden sm:inline">to search for tags,</span>
-                  <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
-                    &gt;
-                  </kbd>
-                  for blog posts, and
-                  <kbd class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 font-semibold sm:mx-2">
-                    @
-                  </kbd>
+                  <kbd class="mx-1">&gt;</kbd>
+                  for blog posts, and <kbd class="mx-1">@</kbd>
                   for users.
                 </div>
               </div>
