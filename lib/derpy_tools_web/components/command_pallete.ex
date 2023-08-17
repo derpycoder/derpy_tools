@@ -307,6 +307,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
+    # TODO: Move this function to BlogIndex under meilisearch.
     search_result =
       Req.new(
         base_url: "http://localhost:7700",
@@ -316,13 +317,9 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
         url: "/indexes/blog-posts/search",
         json: %{
           attributesToHighlight: ["*"],
-          facets: [],
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
-          limit: 21,
-          offset: 0,
           showRankingScore: true,
-          sort: ["star_rating:desc"],
           q: query
         }
       )

@@ -165,6 +165,7 @@ tasks:
       Visit: http://localhost:7700 or https://search.derpytools.site
     cmds:
       - meilisearch
+      - mix meilisearch.setup
     env:
       MEILI_MASTER_KEY: obXfmeZYm5zFKTTgh2Yv7ECUu8uJ/Mqc44Dz/t8P/xTD1+PcuXa8a1vjgwL4MVje
       MEILI_ENV: development

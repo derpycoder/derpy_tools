@@ -5,9 +5,14 @@
   data-line={__ENV__.line}
   phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
 >
-  <a href="https://www.derpytools.com/tag/best-of-the-best/">
-    <%= inspect(@post.tags) %>
-  </a>
+  <.intersperse :let={tag} enum={@post.tags}>
+    <:separator>
+      <span>, </span>
+    </:separator>
+    <a href={"/tag/#{tag.slug}/"}>
+      <%= tag.label %>
+    </a>
+  </.intersperse>
 
   <h1>
     <%= @post.title %>

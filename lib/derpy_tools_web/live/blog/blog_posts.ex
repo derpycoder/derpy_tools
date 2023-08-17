@@ -154,7 +154,7 @@ defmodule DerpyToolsWeb.BlogPosts do
         </svg>
         <div class="text-xs font-normal">Previous post</div>
         <div class="font-semibold">
-          <%= @prev.short %>
+          <%= @prev.abbr %>
         </div>
       </a>
       <a
@@ -165,7 +165,7 @@ defmodule DerpyToolsWeb.BlogPosts do
       >
         <div class="text-xs font-normal">Next post</div>
         <div class="font-semibold">
-          <%= @next.short %>
+          <%= @next.abbr %>
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -223,17 +223,17 @@ defmodule DerpyToolsWeb.BlogPosts do
       >
         <div>
           <%!-- Use Author Image Carousel --%>
-          <a href="/author/derpycoder/">
+          <a :for={author <- @post.authors} href={"/author/#{author.slug}"}>
             <img
               data-src={
-                "local:///images/profile/profile-pic.webp"
+                "local:///images/avatar/#{author.avatar}"
                 |> Imgproxy.new()
                 |> Imgproxy.resize(128, 128)
                 |> to_string()
               }
               class="lozad aspect-square w-[64px] rounded-full"
-              alt="Derpy Coder"
-              id="author"
+              alt={author.name}
+              id={author.slug}
               phx-update="ignore"
             />
           </a>
@@ -255,7 +255,7 @@ defmodule DerpyToolsWeb.BlogPosts do
         <%= Timex.Format.DateTime.Formatters.Relative.format!(@post.release_date, "{relative}") %> |
         <span><%= @reading_time %> read</span>
         <br />
-        <span><%= @post.star_rating %></span>
+        <span><%= @post.star_rating %> / 5</span>
       </div>
       <.table_of_contents headers={@headers} />
     </aside>
@@ -319,7 +319,7 @@ defmodule DerpyToolsWeb.BlogPosts do
 
           <div class="ml-3 flex-initial truncate">
             <a class="font-semibold hover:text-indigo-600" href={post.slug} alt={post.title}>
-              <%= post.short %>
+              <%= post.abbr %>
             </a>
             <p class="text-sm text-slate-400">
               <%= Timex.Format.DateTime.Formatters.Relative.format!(post.release_date, "{relative}") %> | <%= @reading_time %> read
