@@ -1,0 +1,65 @@
+# Routes
+
+## Section
+
+```elixir
+defmodule Naming do
+  def title_case(str) do
+    str
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.map(fn word ->
+      case word do
+        "" ->
+          "Home Page"
+
+        "utm" ->
+          "UTM"
+
+        "users" ->
+          nil
+
+        word ->
+          Phoenix.Naming.humanize(word)
+      end
+    end)
+    |> Enum.join(" ")
+    |> String.trim()
+  end
+end
+```
+
+```elixir
+slugs =
+  DerpyToolsWeb.Router.__routes__()
+  |> Enum.map(fn route -> {route.path, route.verb} end)
+  |> Enum.filter(fn
+    {path, verb} when verb in ~w(get delete)a -> !(path =~ ":")
+    {_, _} -> false
+  end)
+  |> Enum.map(fn {path, _} -> path end)
+```
+
+```elixir
+names =
+  slugs
+  |> Enum.map(fn path ->
+    path
+    |> String.replace(~r"/|_|\-", " ")
+    |> Naming.title_case()
+  end)
+```
+
+```elixir
+routes =
+  Enum.zip(names, slugs)
+  |> Enum.map(fn {name, slug} -> %{name: name, slug: slug} end)
+```
+
+```elixir
+routes ++ [%{name: "Mew", slug: "/mew"}]
+```
+
+```elixir
+DerpyTools.Routes.fetch_routes()
+```
