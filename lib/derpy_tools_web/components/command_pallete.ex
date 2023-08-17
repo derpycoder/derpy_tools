@@ -121,12 +121,24 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   <!-- Active: "bg-gray-800 text-white" -->
                   <li
                     :for={%{"_formatted" => formatted} <- @search_result.blog_tags["hits"]}
-                    class="group flex cursor-default select-none items-center rounded-md px-3 py-2"
+                    class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                   >
                     <!-- Active: "text-white", Not Active: "text-gray-500" -->
-                    <span class="ml-3 flex-auto truncate">
-                      # <%= raw(formatted["label"]) %>
-                    </span>
+                    <a
+                      href={"/tag/#{formatted["slug"]}"}
+                      class="ml-3 flex h-full w-full items-center px-3 py-2"
+                    >
+                      <svg width="12" height="12" fill="none" aria-hidden="true" class="mr-2">
+                        <path
+                          d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                        >
+                        </path>
+                      </svg>
+                      <%= raw(formatted["label"]) %>
+                    </a>
                     <!-- Not Active: "hidden" -->
                     <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                   </li>
