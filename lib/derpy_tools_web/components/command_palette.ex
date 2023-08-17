@@ -1,11 +1,11 @@
 defmodule DerpyToolsWeb.CommandPaletteComponent do
   use DerpyToolsWeb, :live_component
 
-  alias DerpyTools.Meilisearch.Blog
+  alias DerpyTools.Meilisearch.Global
 
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, search_result: Blog.get_default_search_result())}
+    {:ok, assign(socket, search_result: Global.get_default_search_result())}
   end
 
   attr :id, :string, required: true
@@ -90,7 +90,9 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         (@search_result.blog_tags &&
                            @search_result.blog_tags["estimatedTotalHits"] < 1) &&
                         (@search_result.blog_authors &&
-                           @search_result.blog_authors["estimatedTotalHits"] < 1)
+                           @search_result.blog_authors["estimatedTotalHits"] < 1) &&
+                        (@search_result.routes &&
+                           @search_result.routes["estimatedTotalHits"] < 1)
                     }
                     class="px-6 py-14 text-center sm:px-14"
                   >
@@ -217,10 +219,35 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                           >
                           </path>
                         </svg>
-                        <span class="ml-3"><%= raw(tag["label"]) %></span>
+                        <span class="ml-1"><%= raw(tag["label"]) %></span>
                       </a>
                       <!-- Not Active: "hidden" -->
                       <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
+                    </li>
+                  </ul>
+                  <!-- Results, show/hide based on command palette state. -->
+                  <ul
+                    :if={@search_result.routes && @search_result.routes["estimatedTotalHits"] > 0}
+                    class="max-h-96 overflow-y-auto p-2 text-sm text-gray-400"
+                  >
+                    <!-- Active: "bg-gray-800 text-white" -->
+                    <li
+                      :for={%{"_formatted" => route} <- @search_result.routes["hits"]}
+                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                    >
+                      <!-- Active: "text-white", Not Active: "text-gray-500" -->
+                      <pre :if={route["type"] == "json"} class="text-cyan-200"><%= inspect(Req.get!(url: "http://localhost:4000#{route["slug"]}").body, pretty: true) %></pre>
+                      <.link
+                        :if={route["type"] == "html"}
+                        href={route["slug"]}
+                        method={route["method"]}
+                        class="flex h-full w-full items-center px-3 py-2"
+                      >
+                        <span class="text-xs font-semibold">/</span>
+                        <span class="ml-1"><%= raw(route["name"]) %></span>
+                      </.link>
+                      <!-- Not Active: "hidden" -->
+                      <span class="ml-2 hidden flex-none text-gray-400">Jump to...</span>
                     </li>
                   </ul>
                   <!-- Default state, show/hide based on command palette state. -->
@@ -400,7 +427,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
-    {:noreply, assign(socket, search_result: Blog.search(query))}
+    {:noreply, assign(socket, search_result: Global.search(query))}
   end
 
   slot :inner_block, required: true

@@ -36,42 +36,48 @@ defmodule DerpyTools.Routes do
            {path, verb} when verb in ~w(get delete)a -> !(path =~ ":")
            {_, _} -> false
          end)
-         |> Enum.map(fn {path, _} -> path end)
 
   @names @slugs
-         |> Enum.map(fn path ->
+         |> Enum.map(fn {path, _} ->
            path
            |> String.replace(~r"/|_|\-", " ")
            |> DerpyTools.Routes.Naming.title_case()
          end)
 
   @dynamic_routes Enum.zip(@names, @slugs)
-                  |> Enum.map(fn {name, slug} -> %{name: name, slug: slug} end)
+                  |> Enum.map(fn {name, {slug, verb}} ->
+                    %{name: name, slug: slug, type: "html", method: verb}
+                  end)
 
   @static_routes [
     %{
       name: "Health",
       slug: "/health",
-      type: "json"
+      type: "json",
+      method: "get"
     },
     %{
       name: "Stats",
       slug: "/stats",
-      type: "json"
+      type: "json",
+      method: "get"
     },
     %{
       name: "Version",
       slug: "/version",
-      type: "json"
+      type: "json",
+      method: "get"
     },
     %{
       name: "Release",
       slug: "/release",
-      type: "json"
+      type: "json",
+      method: "get"
     }
   ]
 
-  @routes @dynamic_routes ++ @static_routes
+  @routes (@dynamic_routes ++ @static_routes)
+          |> Enum.with_index(fn map, index -> Map.put_new(map, :id, index) end)
 
   def fetch_routes, do: @routes
 end

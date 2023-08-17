@@ -37,13 +37,12 @@ slugs =
     {path, verb} when verb in ~w(get delete)a -> !(path =~ ":")
     {_, _} -> false
   end)
-  |> Enum.map(fn {path, _} -> path end)
 ```
 
 ```elixir
 names =
   slugs
-  |> Enum.map(fn path ->
+  |> Enum.map(fn {path, _} ->
     path
     |> String.replace(~r"/|_|\-", " ")
     |> Naming.title_case()
@@ -53,11 +52,12 @@ names =
 ```elixir
 routes =
   Enum.zip(names, slugs)
-  |> Enum.map(fn {name, slug} -> %{name: name, slug: slug} end)
+  |> Enum.map(fn {name, {slug, verb}} -> %{name: name, slug: slug, method: verb} end)
 ```
 
 ```elixir
-routes ++ [%{name: "Mew", slug: "/mew"}]
+(routes ++ [%{name: "Mew", slug: "/mew"}])
+|> Enum.with_index(fn map, index -> Map.put_new(map, :id, index) end)
 ```
 
 ```elixir

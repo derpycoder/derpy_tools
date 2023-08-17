@@ -156,4 +156,32 @@ stats =
 stats.body
 ```
 
-<!-- livebook:{"offset":2999,"stamp":{"token":"QTEyOEdDTQ.sYI2CvWoxGkqOfXupzWevjqAlsHB-tPlpE1o9OH9_HS1G1aaPIAQe5Rwgpw.RSDoYiZBp1Wzd6ex.evZ3PwIU36uLFeO69StwJeapp6ThFklGox0Rcn11jQjFWN5oGhXdDgeL8_zrIfDbeGSs3aP5qr9I.8EpsoQ8gBxzJa-Kz4bFakg","version":1}} -->
+## Tasks
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.get!(url: "/tasks")
+```
+
+## Change Index
+
+```elixir
+Req.new(
+  base_url: "http://localhost:7700",
+  auth: {:bearer, System.fetch_env!("LB_MEILISEARCH_MASTER_KEY")}
+)
+|> Req.get!(
+  url: "/indexes/routes/search",
+  json: %{
+    attributesToHighlight: ~w(name),
+    highlightPreTag: "<span class=\"text-pink-500\">",
+    highlightPostTag: "</span>",
+    q: ""
+  }
+)
+```
+
+<!-- livebook:{"offset":3509,"stamp":{"token":"QTEyOEdDTQ.q-fsXQaoeAv_yuWWxmwI9m_IS1rcIqJ3IowM7Y_zKJ2kPtRkOADQrFgb7As.Zj1LE9vdVIVvlsCE.EDPBf3vcYOoAalnnZeOPR2F4KDswphYaovqYdp0-zIHk1uwMSde8_3AodHNACI9q_TWbwsVw5674.XNdDZDXiycOCC1yJ0Hx7Yw","version":1}} -->

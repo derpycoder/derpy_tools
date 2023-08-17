@@ -18,7 +18,7 @@ defmodule DerpyTools.Meilisearch.Blog do
       |> Req.post!(
         url: "/indexes/blog-posts/search",
         json: %{
-          attributesToHighlight: ["title", "description"],
+          attributesToHighlight: ~w(title description),
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
           showRankingScore: true,
@@ -38,7 +38,7 @@ defmodule DerpyTools.Meilisearch.Blog do
       |> Req.post!(
         url: "/indexes/blog-tags/search",
         json: %{
-          attributesToHighlight: ["label"],
+          attributesToHighlight: ~w(label),
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
           showRankingScore: true,
@@ -58,7 +58,7 @@ defmodule DerpyTools.Meilisearch.Blog do
       |> Req.post!(
         url: "/indexes/blog-authors/search",
         json: %{
-          attributesToHighlight: ["name", "alias"],
+          attributesToHighlight: ~w(name alias),
           highlightPreTag: "<span class=\"text-pink-500\">",
           highlightPostTag: "</span>",
           showRankingScore: true,
@@ -82,7 +82,7 @@ defmodule DerpyTools.Meilisearch.Blog do
             %{
               indexUid: "blog-posts",
               q: query,
-              attributesToHighlight: ["title", "description"],
+              attributesToHighlight: ~w(title description),
               highlightPreTag: "<span class=\"text-pink-500\">",
               highlightPostTag: "</span>",
               showRankingScore: true
@@ -90,7 +90,7 @@ defmodule DerpyTools.Meilisearch.Blog do
             %{
               indexUid: "blog-tags",
               q: query,
-              attributesToHighlight: ["label"],
+              attributesToHighlight: ~w(label),
               highlightPreTag: "<span class=\"text-pink-500\">",
               highlightPostTag: "</span>",
               showRankingScore: true
@@ -98,7 +98,7 @@ defmodule DerpyTools.Meilisearch.Blog do
             %{
               indexUid: "blog-authors",
               q: query,
-              attributesToHighlight: ["name", "alias"],
+              attributesToHighlight: ~w(name alias),
               highlightPreTag: "<span class=\"text-pink-500\">",
               highlightPostTag: "</span>",
               showRankingScore: true

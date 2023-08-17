@@ -1,6 +1,12 @@
 defmodule DerpyTools.Meilisearch.BlogIndex do
   alias DerpyTools.Posts
 
+  def init() do
+    create()
+    configure()
+    upload()
+  end
+
   def create() do
     meilisearch =
       Req.new(
@@ -43,76 +49,30 @@ defmodule DerpyTools.Meilisearch.BlogIndex do
     Req.patch!(meilisearch,
       url: "/indexes/blog-authors/settings",
       json: %{
-        displayedAttributes: [
-          "slug",
-          "name",
-          "alias",
-          "avatar"
-        ],
+        displayedAttributes: ~w(slug name alias avatar),
         distinctAttribute: "slug",
-        filterableAttributes: [
-          "name",
-          "alias"
-        ],
-        searchableAttributes: [
-          "name",
-          "alias"
-        ],
-        sortableAttributes: [
-          "name",
-          "alias"
-        ]
+        filterableAttributes: ~w(name alias),
+        searchableAttributes: ~w(name alias),
+        sortableAttributes: ~w(name alias)
       }
     )
 
     Req.patch!(meilisearch,
       url: "/indexes/blog-posts/settings",
       json: %{
-        displayedAttributes: [
-          "slug",
-          "title",
-          "banner",
-          "description",
-          "tags",
-          "release_date"
-        ],
+        displayedAttributes: ~w(slug title banner description tags release_date),
         distinctAttribute: "slug",
-        filterableAttributes: [
-          "tags",
-          "release_date"
-        ],
-        rankingRules: [
-          "words",
-          "typo",
-          "proximity",
-          "attribute",
-          "sort",
-          "exactness",
-          "release_date:desc"
-        ],
-        searchableAttributes: [
-          "title",
-          "description"
-        ],
-        sortableAttributes: [
-          "release_date"
-        ],
+        filterableAttributes: ~w(tags release_date),
+        rankingRules: ~w(words typo proximity attribute sort exactness release_date:desc),
+        searchableAttributes: ~w(title description),
+        sortableAttributes: ~w(release_date),
         stopWords: ~w(for to and or is in the),
         synonyms: %{
           "cli" => ["Command Line Tools", "Command Line Interface"],
-          "Command Line Tools" => ["cli"],
-          "computer" => [
-            "pc",
-            "laptop"
-          ],
-          "pc" => [
-            "computer",
-            "laptop"
-          ],
-          "laptop" => [
-            "pc",
-            "computer"
-          ]
+          "Command Line Tools" => ~w(cli),
+          "computer" => ~w(pc laptop),
+          "pc" => ~w(computer laptop),
+          "laptop" => ~w(pc computer)
         }
       }
     )
@@ -120,23 +80,14 @@ defmodule DerpyTools.Meilisearch.BlogIndex do
     Req.patch!(meilisearch,
       url: "/indexes/blog-tags/settings",
       json: %{
-        displayedAttributes: [
-          "slug",
-          "label"
-        ],
+        displayedAttributes: ~w(slug label),
         distinctAttribute: "slug",
-        filterableAttributes: [
-          "label"
-        ],
-        searchableAttributes: [
-          "label"
-        ],
-        sortableAttributes: [
-          "label"
-        ],
+        filterableAttributes: ~w(label),
+        searchableAttributes: ~w(label),
+        sortableAttributes: ~w(label),
         synonyms: %{
           "cli" => ["Command Line Tools", "Command Line Interface"],
-          "Command Line Interface" => ["cli"]
+          "Command Line Interface" => ~w(cli)
         }
       }
     )

@@ -1,9 +1,9 @@
 defmodule DerpyTools.Meilisearch do
   alias DerpyTools.Meilisearch.BlogIndex
+  alias DerpyTools.Meilisearch.RoutesIndex
 
   def init do
-    BlogIndex.create()
-    BlogIndex.configure()
-    BlogIndex.upload()
+    BlogIndex.init()
+    RoutesIndex.init()
   end
 end
