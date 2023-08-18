@@ -1,5 +1,10 @@
-defmodule DerpyTools.Meilisearch.Routes do
-  alias DerpyTools.Meilisearch.Global
+defmodule DerpyTools.Meilisearch.RoutesQueryBuilder do
+  alias DerpyTools.Meilisearch
+
+  @default_search_result Meilisearch.get_default_search_result()
+
+  @pre_tag Meilisearch.get_pre_tag()
+  @post_tag Meilisearch.get_post_tag()
 
   def search(:routes, query) do
     result =
@@ -11,12 +16,12 @@ defmodule DerpyTools.Meilisearch.Routes do
         url: "/indexes/routes/search",
         json: %{
           attributesToHighlight: ["name"],
-          highlightPreTag: "<span class=\"text-pink-500\">",
-          highlightPostTag: "</span>",
+          highlightPreTag: @pre_tag,
+          highlightPostTag: @post_tag,
           q: query
         }
       )
 
-    %{Global.get_default_search_result() | routes: result.body}
+    %{@default_search_result | routes: result.body}
   end
 end

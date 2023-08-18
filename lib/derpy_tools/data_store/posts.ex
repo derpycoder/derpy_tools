@@ -1,4 +1,4 @@
-defmodule DerpyTools.Posts do
+defmodule DerpyTools.DataStore.Posts do
   @moduledoc """
   Static metadata related to all the blog posts. Perhaps later, it can be moved the database.
   """

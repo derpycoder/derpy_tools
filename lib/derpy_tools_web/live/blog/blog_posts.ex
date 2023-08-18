@@ -5,7 +5,9 @@ defmodule DerpyToolsWeb.BlogPosts do
   """
   use Phoenix.Component
   use Pathex
+
   alias Phoenix.LiveView.JS
+  alias DerpyTools.DataStore.Posts
 
   @wpm 225
 
@@ -117,7 +119,7 @@ defmodule DerpyToolsWeb.BlogPosts do
   attr :post, :map
 
   def footer_nav(assigns) do
-    {prev, next} = DerpyTools.Posts.fetch_prev_and_next_posts(assigns.post.slug)
+    {prev, next} = Posts.fetch_prev_and_next_posts(assigns.post.slug)
 
     assigns = assign(assigns, prev: prev, next: next)
 
@@ -276,7 +278,7 @@ defmodule DerpyToolsWeb.BlogPosts do
       |> assign(reading_time: reading_time(parsed_blog))
 
     related_posts =
-      DerpyTools.Posts.fetch_posts_by_tag(
+      Posts.fetch_posts_by_tag(
         Pathex.get(
           assigns,
           path(:post / :tags / 0 / :slug)

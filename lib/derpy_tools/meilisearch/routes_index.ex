@@ -1,4 +1,5 @@
 defmodule DerpyTools.Meilisearch.RoutesIndex do
+  alias DerpyTools.DataStore.Routes
   def init() do
     create()
     configure()
@@ -49,7 +50,7 @@ defmodule DerpyTools.Meilisearch.RoutesIndex do
 
     Req.post!(meilisearch,
       url: "/indexes/routes/documents?primaryKey=id",
-      json: DerpyTools.Routes.fetch_routes()
+      json: Routes.fetch_routes()
     )
   end
 end

@@ -15,14 +15,21 @@ defmodule DerpyToolsWeb.AboutLive do
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex">
             <img
-              class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-              src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-              alt=""
+              src={
+                "local:///images/avatar/derpycoder.png"
+                |> Imgproxy.new()
+                |> Imgproxy.resize(256, 256)
+                |> to_string()
+              }
+              class="aspect-square rounded-full ring-4 ring-white"
+              alt="Abhijit Kar"
+              width="128px"
+              height="128px"
             />
           </div>
           <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
             <div class="mt-6 min-w-0 flex-1 sm:hidden md:block">
-              <h1 class="truncate text-2xl font-bold text-gray-900">Derpy Coder</h1>
+              <h1 class="truncate text-2xl font-bold dark:text-slate-300 text-gray-900">Derpy Coder</h1>
             </div>
             <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
               <button

@@ -26,7 +26,7 @@ defmodule DerpyTools.Routes.Naming do
   end
 end
 
-defmodule DerpyTools.Routes do
+defmodule DerpyTools.DataStore.Routes do
   @moduledoc """
   Fetches all the Routes and transforms them for ingestion by Meilisearch.
   """

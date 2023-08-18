@@ -62,7 +62,7 @@ const CommandPalette = {
   destroyed() {},
   highlightSelection(target) {
     if (!target) return;
-    target.classList.add("bg-slate-900/80", "text-slate-50");
+    target.setAttribute("aria-selected", true);
     target.scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -70,7 +70,7 @@ const CommandPalette = {
   },
   removeHighlight(target) {
     if (!target) return;
-    target.classList.remove("bg-slate-900/80", "text-slate-50");
+    target.setAttribute("aria-selected", false);
   },
 };
 

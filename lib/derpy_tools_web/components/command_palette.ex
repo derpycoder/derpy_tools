@@ -1,11 +1,11 @@
 defmodule DerpyToolsWeb.CommandPaletteComponent do
   use DerpyToolsWeb, :live_component
 
-  alias DerpyTools.Meilisearch.Global
+  alias DerpyTools.Meilisearch
 
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, search_result: Global.get_non_empty_search_result())}
+    {:ok, assign(socket, search_result: Meilisearch.get_non_empty_search_result())}
   end
 
   attr :id, :string, required: true
@@ -84,7 +84,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 </form>
                 <div
                   id={"#{@id}-results"}
-                  class="max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500"
+                  class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500"
                 >
                   <div
                     :if={
@@ -125,11 +125,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => post} <- @search_result.blog_posts["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
                         href={"/blog/#{post["slug"]}"}
-                        class="flex h-full w-full items-center justify-start px-3 py-2"
+                        class="group flex h-full w-full items-center justify-start px-3 py-2 aria-selected:bg-slate-900/80 aria-selected:text-slate-50"
                       >
                         <img
                           src={
@@ -152,7 +152,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                               <%= raw(post["description"]) %>
                             </span>
                           </span>
-                          <span class="ml-3 hidden text-gray-400 group-hover:block">
+                          <span class="ml-3 hidden text-gray-400 group-hover:block group-aria-selected:block">
                             Jump to
                           </span>
                         </span>
@@ -168,11 +168,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => author} <- @search_result.blog_authors["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
                         href={"/author/#{author["slug"]}"}
-                        class="flex h-full w-full items-center justify-start px-3 py-2"
+                        class="group flex h-full w-full items-center justify-start px-3 py-2 aria-selected:bg-slate-900/80 aria-selected:text-slate-50"
                       >
                         <img
                           src={
@@ -188,12 +188,12 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         />
                         <span class="ml-3 flex w-full items-center justify-between">
                           <span class="flex flex-col">
-                            <%= raw(author["name"]) %>
+                            <span><%= raw(author["name"]) %></span>
                             <span class="text-xs text-gray-500">
                               <%= raw(author["alias"]) %>
                             </span>
                           </span>
-                          <span class="ml-3 hidden text-gray-400 group-hover:block">
+                          <span class="ml-3 hidden text-gray-400 group-hover:block group-aria-selected:block">
                             Jump to
                           </span>
                         </span>
@@ -208,11 +208,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => tag} <- @search_result.blog_tags["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
                         href={"/tag/#{tag["slug"]}"}
-                        class="flex h-full w-full items-center px-3 py-2"
+                        class="group flex h-full w-full items-center px-3 py-2 aria-selected:bg-slate-900/80 aria-selected:text-slate-50"
                       >
                         <svg width="12" height="12" fill="none" aria-hidden="true">
                           <path
@@ -224,8 +224,8 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                           </path>
                         </svg>
                         <span class="ml-1 flex w-full justify-between">
-                          <%= raw(tag["label"]) %>
-                          <span class="ml-3 hidden text-gray-400 group-hover:block">
+                          <span><%= raw(tag["label"]) %></span>
+                          <span class="ml-3 hidden text-gray-400 group-hover:block group-aria-selected:block">
                             Jump to
                           </span>
                         </span>
@@ -238,19 +238,19 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => route} <- @search_result.routes["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <pre :if={route["type"] == "json"} class="text-cyan-200"><%= inspect(Req.get!(url: "http://localhost:4000#{route["slug"]}").body, pretty: true) %></pre>
                       <.link
                         :if={route["type"] == "html"}
                         href={route["slug"]}
                         method={route["method"]}
-                        class="flex h-full w-full items-center px-3 py-2"
+                        class="group flex h-full w-full items-center px-3 py-2 aria-selected:bg-slate-900/80 aria-selected:text-slate-50"
                       >
-                        <span class="text-xs font-semibold">/</span>
+                        <i class="hero-link-mini"></i>
                         <span class="ml-1 flex w-full justify-between">
-                          <%= raw(route["name"]) %>
-                          <span class="ml-3 hidden text-gray-400 group-hover:block">
+                          <span><%= raw(route["name"]) %></span>
+                          <span class="ml-3 hidden text-gray-400 group-hover:block group-aria-selected:block">
                             Jump to
                           </span>
                         </span>
@@ -283,7 +283,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
     socket =
       socket
-      |> assign(search_result: Global.search(query |> String.trim()))
+      |> assign(search_result: Meilisearch.search(query |> String.trim()))
       |> push_event("search-results-ready", %{query: query})
 
     {:noreply, socket}

@@ -3,7 +3,7 @@ defmodule DerpyToolsWeb.PostLive do
   use DerpyToolsWeb, :live_view
   use Pathex
 
-  alias DerpyTools.Posts
+  alias DerpyTools.DataStore.Posts
   alias DerpyToolsWeb.{BlogPosts}
 
   def mount(%{"post_slug" => post_slug}, _session, socket) do

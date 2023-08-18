@@ -1,5 +1,10 @@
-defmodule DerpyTools.Meilisearch.Blog do
-  alias DerpyTools.Meilisearch.Global
+defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
+  alias DerpyTools.Meilisearch
+
+  @default_search_result Meilisearch.get_default_search_result()
+
+  @pre_tag Meilisearch.get_pre_tag()
+  @post_tag Meilisearch.get_post_tag()
 
   def search(:posts, query) do
     result =
@@ -11,14 +16,14 @@ defmodule DerpyTools.Meilisearch.Blog do
         url: "/indexes/blog-posts/search",
         json: %{
           attributesToHighlight: ~w(title description),
-          highlightPreTag: "<span class=\"text-pink-500\">",
-          highlightPostTag: "</span>",
+          highlightPreTag: @pre_tag,
+          highlightPostTag: @post_tag,
           showRankingScore: true,
           q: query
         }
       )
 
-    %{Global.get_default_search_result() | blog_posts: result.body}
+    %{@default_search_result | blog_posts: result.body}
   end
 
   def search(:tags, query) do
@@ -31,14 +36,14 @@ defmodule DerpyTools.Meilisearch.Blog do
         url: "/indexes/blog-tags/search",
         json: %{
           attributesToHighlight: ~w(label),
-          highlightPreTag: "<span class=\"text-pink-500\">",
-          highlightPostTag: "</span>",
+          highlightPreTag: @pre_tag,
+          highlightPostTag: @post_tag,
           showRankingScore: true,
           q: query
         }
       )
 
-    %{Global.get_default_search_result() | blog_tags: result.body}
+    %{@default_search_result | blog_tags: result.body}
   end
 
   def search(:authors, query) do
@@ -51,13 +56,13 @@ defmodule DerpyTools.Meilisearch.Blog do
         url: "/indexes/blog-authors/search",
         json: %{
           attributesToHighlight: ~w(name alias),
-          highlightPreTag: "<span class=\"text-pink-500\">",
-          highlightPostTag: "</span>",
+          highlightPreTag: @pre_tag,
+          highlightPostTag: @post_tag,
           showRankingScore: true,
           q: query
         }
       )
 
-    %{Global.get_default_search_result() | blog_authors: result.body}
+    %{@default_search_result | blog_authors: result.body}
   end
 end

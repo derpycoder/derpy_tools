@@ -1,5 +1,5 @@
 defmodule DerpyTools.Meilisearch.BlogIndex do
-  alias DerpyTools.Posts
+  alias DerpyTools.DataStore.Posts
 
   def init() do
     create()
