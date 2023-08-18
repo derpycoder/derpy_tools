@@ -288,14 +288,4 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
     {:noreply, socket}
   end
-
-  slot :inner_block, required: true
-
-  defp highlight(assigns) do
-    ~H"""
-    <span class="relative before:absolute before:-inset-1 before:block before:h-10 before:-skew-y-3 before:bg-pink-500">
-      <%= @inner_block %>
-    </span>
-    """
-  end
 end
