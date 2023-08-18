@@ -5,7 +5,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, search_result: Global.get_default_search_result())}
+    {:ok, assign(socket, search_result: Global.get_non_empty_search_result())}
   end
 
   attr :id, :string, required: true
@@ -427,7 +427,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
-    {:noreply, assign(socket, search_result: Global.search(query))}
+    {:noreply, assign(socket, search_result: Global.search(query |> String.trim()))}
   end
 
   slot :inner_block, required: true
