@@ -73,7 +73,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     />
                   </svg>
                   <input
-                    id="query"
+                    id="command-palette-search-field"
                     name="query"
                     type="text"
                     class="h-12 w-full border-0 bg-transparent pr-4 pl-11 text-white focus:ring-0 sm:text-sm"
@@ -82,7 +82,10 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     autocomplete="off"
                   />
                 </form>
-                <div class="max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500">
+                <div
+                  id={"#{@id}-results"}
+                  class="max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500"
+                >
                   <!-- Empty state, show/hide based on command palette state. -->
                   <div
                     :if={
@@ -126,7 +129,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       :for={%{"_formatted" => post} <- @search_result.blog_posts["hits"]}
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
-                      <a
+                      <.link
                         href={"/blog/#{post["slug"]}"}
                         class="flex h-full w-full items-center justify-start px-3 py-2"
                       >
@@ -149,7 +152,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                             <%= raw(post["description"]) %>
                           </span>
                         </span>
-                      </a>
+                      </.link>
                       <!-- Not Active: "hidden" -->
                       <span class="hidden flex-none text-gray-400">Jump to...</span>
                     </li>
@@ -167,7 +170,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       :for={%{"_formatted" => author} <- @search_result.blog_authors["hits"]}
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
-                      <a
+                      <.link
                         href={"/author/#{author["slug"]}"}
                         class="flex h-full w-full items-center justify-start px-3 py-2"
                       >
@@ -188,7 +191,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                           <span><%= raw(author["name"]) %></span>
                           <span class="text-xs text-gray-500"><%= raw(author["alias"]) %></span>
                         </span>
-                      </a>
+                      </.link>
                       <!-- Not Active: "hidden" -->
                       <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                     </li>
@@ -206,7 +209,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <!-- Active: "text-white", Not Active: "text-gray-500" -->
-                      <a
+                      <.link
                         href={"/tag/#{tag["slug"]}"}
                         class="flex h-full w-full items-center px-3 py-2"
                       >
@@ -220,7 +223,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                           </path>
                         </svg>
                         <span class="ml-1"><%= raw(tag["label"]) %></span>
-                      </a>
+                      </.link>
                       <!-- Not Active: "hidden" -->
                       <span class="ml-3 hidden flex-none text-gray-400">Jump to...</span>
                     </li>
@@ -427,7 +430,14 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
-    {:noreply, assign(socket, search_result: Global.search(query |> String.trim()))}
+    IO.inspect(query, label: "query")
+
+    socket =
+      socket
+      |> assign(search_result: Global.search(query |> String.trim()))
+      |> push_event("search-results-ready", %{query: query})
+
+    {:noreply, socket}
   end
 
   slot :inner_block, required: true
