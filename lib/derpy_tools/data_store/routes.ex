@@ -36,8 +36,11 @@ defmodule DerpyTools.DataStore.Routes do
   @slugs DerpyToolsWeb.Router.__routes__()
          |> Enum.map(fn route -> {route.path, route.verb} end)
          |> Enum.filter(fn
-           {path, verb} when verb in ~w(get delete)a -> !(path =~ ":" || path =~ "/tools")
-           {_, _} -> false
+           {path, verb} when verb in ~w(get delete)a ->
+             !(path =~ ":" || path =~ "/tools" || path =~ "/dev")
+
+           {_, _} ->
+             false
          end)
 
   @names @slugs
