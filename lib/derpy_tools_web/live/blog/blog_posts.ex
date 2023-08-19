@@ -3,7 +3,7 @@ defmodule DerpyToolsWeb.BlogPosts do
   Embeds templates from posts & sections for easy access and defines most of the structural element of a blog.
   Contains helpers to make a blog function.
   """
-  use Phoenix.Component
+  use DerpyToolsWeb, :html
   use Pathex
 
   alias Phoenix.LiveView.JS
@@ -225,7 +225,7 @@ defmodule DerpyToolsWeb.BlogPosts do
       >
         <div>
           <%!-- Use Author Image Carousel --%>
-          <a :for={author <- @post.authors} href={"/author/#{author.slug}"}>
+          <a :for={author <- @post.authors} href={~p"/authors/#{author.slug}"}>
             <img
               data-src={
                 "local:///images/avatar/#{author.avatar}"
@@ -245,7 +245,7 @@ defmodule DerpyToolsWeb.BlogPosts do
           <:separator>
             <span>·</span>
           </:separator>
-          <a href={"/author/#{author.slug}/"}>
+          <a href={~p"/authors/#{author.slug}/"}>
             <%= author.name %>
           </a>
         </.intersperse>

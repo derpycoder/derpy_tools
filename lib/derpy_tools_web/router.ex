@@ -35,18 +35,21 @@ defmodule DerpyToolsWeb.Router do
       # get "/", PageController, :home
 
       # Tools
-      live "/utm-builder", UtmBuilderLive
-      live "/metadata-analyzer", MetadataAnalyzerLive
+      scope "/tools" do
+        live "/", ToolsLive
+        live "/utm-builder", UtmBuilderLive
+        live "/metadata-analyzer", MetadataAnalyzerLive
+      end
 
       # Blog Posts
       # For Live View Blog Posts, with more interactivity requirements
       # live "/blog/taskfile-a-sensible-makefile-and-shell-script-alternative", TaskfileLive
       live "/blog/", BlogLive
       live "/blog/:post_slug", PostLive
-      live "/tag/", TagsLive
-      live "/tag/:tag_slug", TagLive
-      live "/author/", AuthorsLive
-      live "/author/:author_slug", AuthorLive
+      live "/tags/", TagsLive
+      live "/tags/:tag_slug", TagLive
+      live "/authors/", AuthorsLive
+      live "/authors/:author_slug", AuthorLive
 
       # Misc
       live "/about", AboutLive

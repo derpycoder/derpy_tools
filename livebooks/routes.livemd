@@ -34,7 +34,7 @@ slugs =
   DerpyToolsWeb.Router.__routes__()
   |> Enum.map(fn route -> {route.path, route.verb} end)
   |> Enum.filter(fn
-    {path, verb} when verb in ~w(get delete)a -> !(path =~ ":")
+    {path, verb} when verb in ~w(get delete)a -> !(path =~ ":" || path =~ "/tools")
     {_, _} -> false
   end)
 ```
@@ -61,5 +61,5 @@ routes =
 ```
 
 ```elixir
-DerpyTools.Routes.fetch_routes()
+DerpyTools.DataStore.Routes.fetch_routes()
 ```

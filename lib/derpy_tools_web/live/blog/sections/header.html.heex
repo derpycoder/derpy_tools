@@ -9,7 +9,7 @@
     <:separator>
       <span>, </span>
     </:separator>
-    <a href={"/tag/#{tag.slug}/"}>
+    <a href={~p"/tags/#{tag.slug}/"}>
       <%= tag.label %>
     </a>
   </.intersperse>
