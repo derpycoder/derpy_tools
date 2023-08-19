@@ -1,42 +1,31 @@
-defmodule DerpyTools.UtmParams do
+defmodule DerpyTools.MetadataSchema do
   @moduledoc """
-  UTM URL Builder, initially written by hand, later learnt about phx.gen.embedded
-  `mix phx.gen.embedded UtmParams url:string utm_source:string utm_medium:string utm_campaign:string  utm_content:string utm_term:string`
+  Using a changeset to validate user entered data.
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias DerpyTools.UtmParams
+  alias DerpyTools.MetadataSchema
 
   embedded_schema do
     field :url, :string
-    field :utm_source, :string
-    field :utm_medium, :string
-    field :utm_campaign, :string
-    field :utm_content, :string
-    field :utm_term, :string
   end
 
   @doc false
-  def changeset(%UtmParams{} = utm_params, attrs) do
-    utm_params
-    |> cast(attrs, [:url, :utm_source, :utm_medium, :utm_campaign, :utm_content, :utm_term])
+  def changeset(%MetadataSchema{} = metadata, attrs) do
+    metadata
+    |> cast(attrs, [:url])
     |> validate_required([:url])
     |> validate_url(:url, message: "URL must be valid")
-    |> validate_length(:utm_source, min: 2, max: 10, message: "at least 2")
-    |> validate_length(:utm_campaign, min: 2, max: 10)
-    |> validate_length(:utm_medium, min: 2, max: 10)
-    |> validate_length(:utm_content, min: 2, max: 10)
-    |> validate_length(:utm_term, min: 2, max: 10)
   end
 
   def update(attrs) do
-    %UtmParams{}
-    |> UtmParams.changeset(attrs)
+    %MetadataSchema{}
+    |> MetadataSchema.changeset(attrs)
     |> apply_action(:update)
   end
 
-  def change_utm_params(%UtmParams{} = utm_params, attrs \\ %{}) do
-    UtmParams.changeset(utm_params, attrs)
+  def change_metadata(%MetadataSchema{} = metadata, attrs \\ %{}) do
+    MetadataSchema.changeset(metadata, attrs)
   end
 
   defp validate_url(changeset, field, opts) when is_atom(field) do

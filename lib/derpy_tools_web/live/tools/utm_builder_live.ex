@@ -1,10 +1,10 @@
 defmodule DerpyToolsWeb.UtmBuilderLive do
   use DerpyToolsWeb, :live_view
 
-  alias DerpyTools.UtmParams
+  alias DerpyTools.UtmSchema
 
   def mount(_params, _session, socket) do
-    changeset = UtmParams.change_utm_params(%UtmParams{})
+    changeset = UtmSchema.change_utm_params(%UtmSchema{})
 
     socket = assign(socket, form: to_form(changeset), output: nil)
 
@@ -149,20 +149,20 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
     """
   end
 
-  def handle_event("validate", %{"utm_params" => params}, socket) do
+  def handle_event("validate", %{"utm_schema" => params}, socket) do
     changeset =
-      %UtmParams{}
-      |> UtmParams.change_utm_params(params)
+      %UtmSchema{}
+      |> UtmSchema.change_utm_params(params)
       |> Map.put(:action, :validate)
 
     socket = assign(socket, form: to_form(changeset))
     {:noreply, socket}
   end
 
-  def handle_event("generate-utm", %{"utm_params" => params}, socket) do
-    case UtmParams.update(params) do
+  def handle_event("generate-utm", %{"utm_schema" => params}, socket) do
+    case UtmSchema.update(params) do
       {:ok, result} ->
-        changeset = UtmParams.change_utm_params(%UtmParams{}, params)
+        changeset = UtmSchema.change_utm_params(%UtmSchema{}, params)
 
         query =
           params

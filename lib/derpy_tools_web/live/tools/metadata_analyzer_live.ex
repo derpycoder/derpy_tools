@@ -21,11 +21,11 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   """
   use DerpyToolsWeb, :live_view
 
-  alias DerpyTools.MetadataParams
+  alias DerpyTools.MetadataSchema
   alias DerpyTools.FetchExtraMetadata
 
   def mount(_params, _session, socket) do
-    changeset = MetadataParams.change_metadata(%MetadataParams{})
+    changeset = MetadataSchema.change_metadata(%MetadataSchema{})
 
     socket =
       socket
@@ -140,10 +140,10 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     """
   end
 
-  def handle_event("validate", %{"metadata_params" => params}, socket) do
+  def handle_event("validate", %{"metadata" => params}, socket) do
     changeset =
-      %MetadataParams{}
-      |> MetadataParams.change_metadata(params)
+      %MetadataSchema{}
+      |> MetadataSchema.change_metadata(params)
       |> Map.put(:action, :validate)
 
     socket = socket |> assign(form: to_form(changeset))
@@ -151,10 +151,10 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     {:noreply, socket}
   end
 
-  def handle_event("save", %{"metadata_params" => params}, socket) do
-    case MetadataParams.update(params) do
+  def handle_event("save", %{"metadata" => params}, socket) do
+    case MetadataSchema.update(params) do
       {:ok, %{id: _, url: url}} ->
-        changeset = MetadataParams.change_metadata(%MetadataParams{}, params)
+        changeset = MetadataSchema.change_metadata(%MetadataSchema{}, params)
 
         send(self(), {:analyze_metadata, url})
         socket = assign(socket, output: nil, loading: true, form: to_form(changeset))
