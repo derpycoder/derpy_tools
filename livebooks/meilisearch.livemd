@@ -26,22 +26,27 @@ Req.new(
 ```
 
 ```elixir
-Req.new(
-  base_url: "http://localhost:7700",
-  auth: {:bearer, search_key}
-)
-|> Req.post!(
-  url: "/indexes/blog-posts/search",
-  json: %{
-    attributesToHighlight: ["*"],
-    facets: [],
-    highlightPreTag: "<yay>",
-    highlightPostTag: "</yay>",
-    limit: 21,
-    offset: 0,
-    q: "pc"
-  }
-)
+searchResult =
+  Req.new(
+    base_url: "http://localhost:7700",
+    auth: {:bearer, search_key}
+  )
+  |> Req.post!(
+    url: "/indexes/blog-posts/search",
+    json: %{
+      attributesToHighlight: ["*"],
+      facets: [],
+      highlightPreTag: "<yay>",
+      highlightPostTag: "</yay>",
+      limit: 21,
+      offset: 0,
+      q: "pc"
+    }
+  )
+```
+
+```elixir
+searchResult.body["estimatedTotalHits"]
 ```
 
 ## Settings
@@ -68,7 +73,7 @@ search_results =
       queries: [
         %{
           indexUid: "blog-posts",
-          q: "com",
+          q: "c",
           attributesToHighlight: ["*"],
           highlightPreTag: "<yay>",
           highlightPostTag: "</yay>",
@@ -76,23 +81,41 @@ search_results =
         },
         %{
           indexUid: "blog-tags",
-          q: "cli",
+          q: "c",
           attributesToHighlight: ["*"],
           highlightPreTag: "<yay>",
           highlightPostTag: "</yay>",
-          limit: 2
+          limit: 10
         },
         %{
           indexUid: "blog-authors",
-          q: "derpy",
+          q: "c",
           attributesToHighlight: ["*"],
           highlightPreTag: "<yay>",
           highlightPostTag: "</yay>",
-          limit: 2
+          limit: 10
+        },
+        %{
+          indexUid: "routes",
+          q: "c",
+          attributesToHighlight: ["*"],
+          highlightPreTag: "<yay>",
+          highlightPostTag: "</yay>",
+          limit: 10
         }
       ]
     }
   )
+```
+
+```elixir
+search_results.body["results"]
+|> Enum.reduce({0, 0}, fn
+  result, {total_hits, processing_time} ->
+    total_hits = total_hits + result["estimatedTotalHits"]
+    processing_time = max(processing_time, result["processingTimeMs"])
+    {total_hits, processing_time}
+end)
 ```
 
 ## Filters
@@ -184,4 +207,4 @@ Req.new(
 )
 ```
 
-<!-- livebook:{"offset":3509,"stamp":{"token":"QTEyOEdDTQ.q-fsXQaoeAv_yuWWxmwI9m_IS1rcIqJ3IowM7Y_zKJ2kPtRkOADQrFgb7As.Zj1LE9vdVIVvlsCE.EDPBf3vcYOoAalnnZeOPR2F4KDswphYaovqYdp0-zIHk1uwMSde8_3AodHNACI9q_TWbwsVw5674.XNdDZDXiycOCC1yJ0Hx7Yw","version":1}} -->
+<!-- livebook:{"offset":4093,"stamp":{"token":"QTEyOEdDTQ.kmLGmnY4CQAW5IqqxiYIH54RU7Xk8dP0JY8BDXP06e-7lN4ZKT2BJGS1Uiw.T9wzfAXp7JDEBnOR.UrX57ZE5V0e988mXNDYJEI6YbPvidLEYgs-n-JgcXAT7uKZrjdwCOlTzsduZvlIWETM4i4fNhL9J.PGI_gC693VvTdy_mpwwkBA","version":1}} -->

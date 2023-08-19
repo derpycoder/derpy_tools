@@ -3,10 +3,17 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
   use DerpyToolsWeb, :html
 
   alias DerpyTools.Meilisearch
+  alias DerpyTools.CommandPaletteSchema
 
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, search_result: Meilisearch.get_non_empty_search_result())}
+    changeset = CommandPaletteSchema.change_command_palette_schema(%CommandPaletteSchema{})
+
+    {:ok,
+     assign(socket,
+       form: to_form(changeset),
+       search_result: Meilisearch.get_non_empty_search_result()
+     )}
   end
 
   attr :id, :string, required: true
@@ -26,7 +33,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/70 fixed inset-0 transition-opacity dark:bg-black/70"
+        class="bg-zinc-50/70 fixed inset-0 transition-opacity backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-900/70 "
         aria-hidden="true"
       />
       <div
@@ -38,7 +45,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
         tabindex="0"
       >
         <div class="pt-[20svh] flex min-h-full justify-center">
-          <div class="w-full max-w-3xl">
+          <div class="w-full max-w-3xl px-4 lg:px-0">
             <.focus_wrap
               id={"#{@id}-container"}
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
@@ -52,39 +59,32 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 data-line={__ENV__.line}
                 phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
               >
-                <%!-- for={@form} --%>
-                <form
-                  class="border-slate-200/20 relative border-b dark:border-navy-500"
+                <.form
+                  for={@form}
+                  class="border-slate-200/20 relative border-b ring-0 dark:border-navy-500"
                   phx-change="search"
                   phx-submit="search"
                   phx-target={@myself}
                   id="command-palette-search"
                 >
-                  <svg
-                    class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-slate-50 dark:text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                    />
-                  </svg>
-                  <%!-- field={@form[:query]} --%>
-                  <input
+                  <.input
                     id="command-palette-search-field"
+                    field={@form[:query]}
                     name="query"
                     type="text"
-                    class="h-12 w-full border-0 bg-transparent pr-4 pl-11 text-white focus:ring-0 sm:text-sm"
+                    class="h-12 w-full border-0 bg-transparent text-white focus:ring-0 sm:text-sm"
                     placeholder="Search..."
                     phx-debounce="100"
                     autocomplete="off"
-                  />
-                </form>
+                  >
+                    <:icon>
+                      <.icon class="hero-magnifying-glass h-5 w-5 text-gray-500" />
+                    </:icon>
+                    <:shortcut>
+                      <kbd class="w-fit font-semibold">ESC</kbd>
+                    </:shortcut>
+                  </.input>
+                </.form>
                 <div
                   id={"#{@id}-results"}
                   class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500"
@@ -280,7 +280,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     </li>
                   </ul>
                 </div>
-                <div class="text-navy-900 border-slate-200/20 flex flex-wrap items-center rounded-b-2xl border-t bg-slate-50 px-4 py-2.5 text-xs dark:border-navy-500 dark:bg-navy-900 dark:text-slate-400">
+                <div class="text-navy-900 border-slate-200/20 relative flex flex-wrap items-center rounded-b-2xl border-t bg-slate-50 px-4 py-2.5 text-xs dark:border-navy-500 dark:bg-navy-900 dark:text-slate-400">
                   Type <kbd class="mx-1">#</kbd>
                   <span class="sm:hidden">for tags,</span><span class="hidden sm:inline">to search for tags,</span>
                   <kbd class="mx-1">&gt;</kbd>
@@ -289,6 +289,21 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   for tools, <kbd class="mx-1">/</kbd>
                   for routes, and <kbd class="mx-1">?</kbd>
                   for tips.
+                  <span class="absolute -bottom-6 left-0 flex w-full justify-between px-2 text-xs text-gray-500 dark:text-slate-300">
+                    <span>
+                      Powered by
+                      <a
+                        href="https://www.meilisearch.com"
+                        target="_blank"
+                        class="font-semibold text-pink-500"
+                      >
+                        Meilisearch
+                      </a>
+                    </span>
+                    <span :if={@search_result.total_hits != 0}>
+                      Found <%= @search_result.total_hits %> results in <%= @search_result.processing_time %>ms
+                    </span>
+                  </span>
                 </div>
               </div>
             </.focus_wrap>

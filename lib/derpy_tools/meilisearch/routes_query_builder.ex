@@ -22,6 +22,11 @@ defmodule DerpyTools.Meilisearch.RoutesQueryBuilder do
         }
       )
 
-    %{@default_search_result | routes: result.body}
+    %{
+      @default_search_result
+      | routes: result.body,
+        total_hits: result.body["estimatedTotalHits"],
+        processing_time: result.body["processingTimeMs"]
+    }
   end
 end

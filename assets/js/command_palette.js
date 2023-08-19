@@ -36,9 +36,13 @@ const CommandPalette = {
         case "Enter":
           e.preventDefault();
           const target = this.search_results[this.selected];
-          clickableTarget = target.querySelector("a, button, [data-clickable]");
 
-          clickableTarget && clickableTarget.click();
+          if (target) {
+            clickableTarget = target.querySelector(
+              "a, button, [data-clickable]"
+            );
+            clickableTarget && clickableTarget.click();
+          }
           break;
         case "Tab":
           e.preventDefault();

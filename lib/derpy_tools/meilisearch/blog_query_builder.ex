@@ -23,7 +23,14 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
         }
       )
 
-    %{@default_search_result | blog_posts: result.body}
+    IO.inspect(result, label: "result")
+
+    %{
+      @default_search_result
+      | blog_posts: result.body,
+        total_hits: result.body["estimatedTotalHits"],
+        processing_time: result.body["processingTimeMs"]
+    }
   end
 
   def search(:tags, query) do
@@ -43,7 +50,12 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
         }
       )
 
-    %{@default_search_result | blog_tags: result.body}
+    %{
+      @default_search_result
+      | blog_tags: result.body,
+        total_hits: result.body["estimatedTotalHits"],
+        processing_time: result.body["processingTimeMs"]
+    }
   end
 
   def search(:authors, query) do
@@ -63,6 +75,11 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
         }
       )
 
-    %{@default_search_result | blog_authors: result.body}
+    %{
+      @default_search_result
+      | blog_authors: result.body,
+        total_hits: result.body["estimatedTotalHits"],
+        processing_time: result.body["processingTimeMs"]
+    }
   end
 end

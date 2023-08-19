@@ -394,7 +394,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class={["w-full relative", @class]}>
+    <div phx-feedback-for={@name} class={["w-full relative"]}>
       <.label for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -406,17 +406,23 @@ defmodule DerpyToolsWeb.CoreComponents do
           @errors == [] &&
             "border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent",
           @errors != [] && "!border-rose-400 focus:ring-rose-400",
-          @icon != [] && "pl-9"
+          @icon != [] && "pl-9",
+          @class
         ]}
         {@rest}
       />
       <span
         :if={@icon}
         class={[
-          "pointer-events-none absolute top-[35px] flex w-10 items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
+          "pointer-events-none absolute flex w-10 items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-7",
           @errors == [] &&
             "peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent text-slate-400",
-          @errors != [] && "text-rose-600"
+          @errors != [] && "text-rose-600",
+          if @label do
+            "top-[35px]"
+          else
+            "top-[14px]"
+          end
         ]}
       >
         <%= render_slot(@icon) %>
@@ -426,7 +432,14 @@ defmodule DerpyToolsWeb.CoreComponents do
       </span>
       <span
         :if={@shortcut}
-        class="top-[30px] pointer-events-none absolute right-3 flex cursor-pointer items-center justify-center"
+        class={[
+          "pointer-events-none absolute right-3 flex cursor-pointer items-center justify-center",
+          if @label do
+            "top-[30px]"
+          else
+            "top-[10px]"
+          end
+        ]}
       >
         <%= render_slot(@shortcut) %>
       </span>

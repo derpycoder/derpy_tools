@@ -6,7 +6,9 @@ defmodule DerpyTools.Meilisearch do
     blog_posts: nil,
     blog_tags: nil,
     blog_authors: nil,
-    routes: nil
+    routes: nil,
+    total_hits: nil,
+    processing_time: nil
   }
 
   @pre_tag "<span class=\"text-pink-500\">"
@@ -86,12 +88,22 @@ defmodule DerpyTools.Meilisearch do
 
     [blog_posts, blog_tags, blog_authors, routes] = result.body["results"]
 
+    {total_hits, processing_time} =
+      result.body["results"]
+      |> Enum.reduce({0, 0}, fn
+        result, {total_hits, processing_time} ->
+          total_hits = total_hits + result["estimatedTotalHits"]
+          processing_time = max(processing_time, result["processingTimeMs"])
+          {total_hits, processing_time}
+      end)
+
     %{
-      @default_search_result
-      | blog_posts: blog_posts,
-        blog_tags: blog_tags,
-        blog_authors: blog_authors,
-        routes: routes
+      blog_posts: blog_posts,
+      blog_tags: blog_tags,
+      blog_authors: blog_authors,
+      routes: routes,
+      total_hits: total_hits,
+      processing_time: processing_time
     }
   end
 end
