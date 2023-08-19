@@ -17,6 +17,9 @@ defmodule DerpyTools.Routes.Naming do
         "users" ->
           nil
 
+        "tools" ->
+          nil
+
         word ->
           Phoenix.Naming.humanize(word)
       end
@@ -33,7 +36,7 @@ defmodule DerpyTools.DataStore.Routes do
   @slugs DerpyToolsWeb.Router.__routes__()
          |> Enum.map(fn route -> {route.path, route.verb} end)
          |> Enum.filter(fn
-           {path, verb} when verb in ~w(get delete)a -> !(path =~ ":")
+           {path, verb} when verb in ~w(get delete)a -> !(path =~ ":" || path =~ "/tools")
            {_, _} -> false
          end)
 
@@ -46,32 +49,38 @@ defmodule DerpyTools.DataStore.Routes do
 
   @dynamic_routes Enum.zip(@names, @slugs)
                   |> Enum.map(fn {name, {slug, verb}} ->
-                    %{name: name, slug: slug, type: "html", method: verb}
+                    %{name: name, slug: slug, type: "internal", method: verb}
                   end)
 
   @static_routes [
     %{
+      name: "Tools",
+      slug: "/tools",
+      type: "internal",
+      method: "get"
+    },
+    %{
       name: "Health",
       slug: "/health",
-      type: "json",
+      type: "external",
       method: "get"
     },
     %{
       name: "Stats",
       slug: "/stats",
-      type: "json",
+      type: "external",
       method: "get"
     },
     %{
       name: "Version",
       slug: "/version",
-      type: "json",
+      type: "external",
       method: "get"
     },
     %{
       name: "Release",
       slug: "/release",
-      type: "json",
+      type: "external",
       method: "get"
     }
   ]
