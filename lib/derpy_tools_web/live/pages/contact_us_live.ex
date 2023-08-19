@@ -3,7 +3,7 @@ defmodule DerpyToolsWeb.ContactUsLive do
 
   def render(assigns) do
     ~H"""
-    <div class="relative isolate dark:bg-gray-900">
+    <div class="relative isolate dark:bg-navy-900">
       <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <div class="relative px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48">
           <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
@@ -34,13 +34,13 @@ defmodule DerpyToolsWeb.ContactUsLive do
                   fill="url(#54f88622-e7f8-4f1d-aaf9-c2f5e46dd1f2)"
                 />
               </svg>
-              <div
+              <%!-- <div
                 class="absolute -left-56 top-[calc(100%-13rem)] transform-gpu blur-3xl lg:left-[max(-14rem,calc(100%-59rem))] lg:top-[calc(50%-7rem)]"
                 aria-hidden="true"
               >
                 <div class="ethereal-polygon-clip aspect-[1155/678] w-[72.1875rem] bg-gray-100 opacity-20 dark:from-[#80caff] dark:to-[#4f46e5] dark:bg-gradient-to-br">
                 </div>
-              </div>
+              </div> --%>
             </div>
             <h2 class="text-navy-900 text-3xl font-bold tracking-tight dark:text-slate-50">
               Get in touch

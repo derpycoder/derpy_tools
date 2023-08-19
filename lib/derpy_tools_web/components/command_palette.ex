@@ -33,7 +33,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/70 fixed inset-0 transition-opacity backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-900/70 "
+        class="bg-zinc-50/70 fixed inset-0 transition-opacity backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-gray-900/80"
         aria-hidden="true"
       />
       <div
@@ -61,7 +61,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               >
                 <.form
                   for={@form}
-                  class="relative border-b border-slate-200 bg-slate-50 ring-0 dark:border-navy-500 dark:bg-navy-900"
+                  class="relative rounded-t-2xl border-b border-slate-200 bg-slate-50 ring-0 dark:border-navy-500 dark:bg-navy-900"
                   phx-change="search"
                   phx-submit="search"
                   phx-target={@myself}
