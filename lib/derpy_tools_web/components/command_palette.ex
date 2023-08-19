@@ -51,7 +51,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl bg-white shadow-2xl ring-1 transition dark:bg-navy-900"
+              class="shadow-zinc-700/10 ring-zinc-700/10 bg-white/60 rounded-2xl shadow-2xl ring-1 transition dark:bg-navy-900/60"
             >
               <div
                 id={"#{@id}-content"}
@@ -61,7 +61,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               >
                 <.form
                   for={@form}
-                  class="relative border-b border-slate-200 ring-0 dark:border-navy-500"
+                  class="relative border-b border-slate-200 bg-slate-50 ring-0 dark:border-navy-500 dark:bg-navy-900"
                   phx-change="search"
                   phx-submit="search"
                   phx-target={@myself}
@@ -72,7 +72,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     field={@form[:query]}
                     name="query"
                     type="text"
-                    class="h-12 w-full border-0 bg-transparent text-white focus:ring-0 sm:text-sm"
+                    class="text-navy-900 h-12 w-full border-0 focus:ring-0 dark:text-white sm:text-sm"
                     placeholder="Search..."
                     phx-debounce="100"
                     autocomplete="off"
@@ -87,7 +87,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 </.form>
                 <div
                   id={"#{@id}-results"}
-                  class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl transition-all dark:divide-navy-500"
+                  class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl dark:divide-navy-500"
                 >
                   <div
                     :if={
@@ -128,11 +128,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => post} <- @search_result.blog_posts["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="group flex cursor-default select-none items-center rounded-md"
                     >
                       <.link
                         href={"/blog/#{post["slug"]}"}
-                        class="flex h-full w-full items-center justify-start from-purple-500 to-purple-600 px-3 py-2 text-gray-600 group-aria-selected:bg-gradient-to-r group-aria-selected:text-white hover:bg-gradient-to-r group-hover:text-white dark:text-slate-200"
+                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
                       >
                         <img
                           src={
@@ -151,11 +151,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                             <span class="truncate">
                               <%= raw(post["title"]) %>
                             </span>
-                            <span class="truncate text-xs text-gray-500 group-aria-selected:text-purple-200 group-hover:text-purple-200">
+                            <span class="truncate text-xs text-gray-400 group-aria-selected:text-navy-500 group-hover:text-navy-500 dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                               <%= raw(post["description"]) %>
                             </span>
                           </span>
-                          <span class="hidden text-gray-400 group-aria-selected:block group-aria-selected:text-purple-200 group-hover:block group-hover:text-purple-200">
+                          <span class="hidden text-gray-400 group-aria-selected:text-navy-500 group-aria-selected:block group-hover:text-navy-500 group-hover:block dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                             Jump to
                           </span>
                         </span>
@@ -171,11 +171,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => author} <- @search_result.blog_authors["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="group flex cursor-default select-none items-center rounded-md"
                     >
                       <.link
                         href={"/authors/#{author["slug"]}"}
-                        class="flex h-full w-full items-center justify-start from-purple-500 to-purple-600 px-3 py-2 text-gray-600 group-aria-selected:bg-gradient-to-r group-aria-selected:text-white hover:bg-gradient-to-r group-hover:text-white dark:text-slate-200"
+                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
                       >
                         <img
                           src={
@@ -192,11 +192,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         <span class="ml-3 flex w-full items-center justify-between">
                           <span class="flex flex-col">
                             <span><%= raw(author["name"]) %></span>
-                            <span class="text-xs text-gray-500 group-aria-selected:text-purple-200 group-hover:text-purple-200">
+                            <span class="text-xs text-gray-400 group-aria-selected:text-navy-500 group-hover:text-navy-500 dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                               <%= raw(author["alias"]) %>
                             </span>
                           </span>
-                          <span class="hidden text-gray-400 group-aria-selected:block group-aria-selected:text-purple-200 group-hover:block group-hover:text-purple-200">
+                          <span class="hidden text-gray-400 group-aria-selected:text-navy-500 group-aria-selected:block group-hover:text-navy-500 group-hover:block dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                             Jump to
                           </span>
                         </span>
@@ -211,11 +211,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => tag} <- @search_result.blog_tags["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="group flex cursor-default select-none items-center rounded-md"
                     >
                       <.link
                         href={"/tags/#{tag["slug"]}"}
-                        class="flex h-full w-full items-center from-purple-500 to-purple-600 px-3 py-2 text-gray-600 group-aria-selected:bg-gradient-to-r group-aria-selected:text-white hover:bg-gradient-to-r group-hover:text-white dark:text-slate-200"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
                       >
                         <svg width="12" height="12" fill="none" aria-hidden="true">
                           <path
@@ -228,7 +228,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         </svg>
                         <span class="ml-1 flex w-full justify-between">
                           <span><%= raw(tag["label"]) %></span>
-                          <span class="hidden text-gray-400 group-aria-selected:block group-aria-selected:text-purple-200 group-hover:block group-hover:text-purple-200">
+                          <span class="hidden text-gray-400 group-aria-selected:text-navy-500 group-aria-selected:block group-hover:text-navy-500 group-hover:block dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                             Jump to
                           </span>
                         </span>
@@ -241,13 +241,13 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   >
                     <li
                       :for={%{"_formatted" => route} <- @search_result.routes["hits"]}
-                      class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
+                      class="group flex cursor-default select-none items-center rounded-md"
                     >
                       <.link
                         :if={route["type"] == "internal"}
                         href={route["slug"]}
                         method={route["method"]}
-                        class="flex h-full w-full items-center from-purple-500 to-purple-600 px-3 py-2 text-gray-600 group-aria-selected:bg-gradient-to-r group-aria-selected:text-white hover:bg-gradient-to-r group-hover:text-white dark:text-slate-200"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
                       >
                         <i :if={route["method"] == "get"} class="hero-link-mini"></i>
                         <i
@@ -257,7 +257,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         </i>
                         <span class="ml-1 flex w-full justify-between">
                           <span><%= raw(route["name"]) %></span>
-                          <span class="hidden text-gray-400 group-aria-selected:block group-aria-selected:text-purple-200 group-hover:block group-hover:text-purple-200">
+                          <span class="hidden text-gray-400 group-aria-selected:text-navy-500 group-aria-selected:block group-hover:text-navy-500 group-hover:block dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                             <%= if route["method"] == "get", do: "Jump to", else: "Jump out" %>
                           </span>
                         </span>
@@ -267,12 +267,12 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         href={route["slug"]}
                         method={route["method"]}
                         target="_blank"
-                        class="flex h-full w-full items-center from-purple-500 to-purple-600 px-3 py-2 text-gray-600 group-aria-selected:bg-gradient-to-r group-aria-selected:text-white hover:bg-gradient-to-r group-hover:text-white dark:text-slate-200"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
                       >
                         <i class="hero-arrow-top-right-on-square-mini" />
                         <span class="ml-1 flex w-full justify-between">
                           <span><%= raw(route["name"]) %></span>
-                          <span class="hidden text-gray-400 group-aria-selected:block group-aria-selected:text-purple-200 group-hover:block group-hover:text-purple-200">
+                          <span class="hidden text-gray-400 group-aria-selected:text-navy-500 group-aria-selected:block group-hover:text-navy-500 group-hover:block dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">
                             Jump to
                           </span>
                         </span>
