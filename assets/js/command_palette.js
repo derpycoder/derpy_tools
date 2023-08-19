@@ -3,7 +3,7 @@ const CommandPalette = {
     const fetchDomNodes = () => {
       this.search_results =
         Array.from(
-          document.querySelectorAll("#command-palette-results>ul>li")
+          document.querySelectorAll("#command-palette-results > ul > li")
         ) || [];
 
       this.selected && this.removeHighlight(this.search_results[this.selected]);
@@ -42,7 +42,9 @@ const CommandPalette = {
           case "Enter":
             e.preventDefault();
             const target = this.search_results[this.selected];
-            clickableTarget = target.querySelector("a, button");
+            clickableTarget = target.querySelector(
+              "a, button, [data-clickable]"
+            );
 
             clickableTarget && clickableTarget.click();
             break;

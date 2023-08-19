@@ -52,6 +52,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 data-line={__ENV__.line}
                 phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
               >
+                <%!-- for={@form} --%>
                 <form
                   class="border-slate-200/20 relative border-b dark:border-navy-500"
                   phx-change="search"
@@ -73,6 +74,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                     />
                   </svg>
+                  <%!-- field={@form[:query]} --%>
                   <input
                     id="command-palette-search-field"
                     name="query"
@@ -129,7 +131,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        navigate={"/blog/#{post["slug"]}"}
+                        href={"/blog/#{post["slug"]}"}
                         class="flex h-full w-full items-center justify-start px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <img
@@ -172,7 +174,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        navigate={~p"/authors/#{author["slug"]}"}
+                        href={"/authors/#{author["slug"]}"}
                         class="flex h-full w-full items-center justify-start px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <img
@@ -212,7 +214,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        navigate={~p"/tags/#{tag["slug"]}"}
+                        href={"/tags/#{tag["slug"]}"}
                         class="flex h-full w-full items-center px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <svg width="12" height="12" fill="none" aria-hidden="true">
@@ -242,29 +244,21 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        :if={route["type"] == "internal" && route["method"] == "get"}
-                        patch={route["slug"]}
-                        class="flex h-full w-full items-center px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
-                      >
-                        <i class="hero-link-mini"></i>
-                        <span class="ml-1 flex w-full justify-between">
-                          <span><%= raw(route["name"]) %></span>
-                          <span class="hidden text-gray-400 group-aria-selected:block group-hover:block">
-                            Jump to
-                          </span>
-                        </span>
-                      </.link>
-                      <.link
-                        :if={route["type"] == "internal" && route["method"] == "delete"}
+                        :if={route["type"] == "internal"}
                         href={route["slug"]}
-                        method="delete"
+                        method={route["method"]}
                         class="flex h-full w-full items-center px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
-                        <i class="hero-arrow-right-on-rectangle-mini"></i>
+                        <i :if={route["method"] == "get"} class="hero-link-mini"></i>
+                        <i
+                          :if={route["method"] == "delete"}
+                          class="hero-arrow-right-on-rectangle-mini"
+                        >
+                        </i>
                         <span class="ml-1 flex w-full justify-between">
                           <span><%= raw(route["name"]) %></span>
                           <span class="hidden text-gray-400 group-aria-selected:block group-hover:block">
-                            Jump out
+                            <%= if route["method"] == "get", do: "Jump to", else: "Jump out" %>
                           </span>
                         </span>
                       </.link>
