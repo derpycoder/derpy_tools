@@ -33,7 +33,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/70 fixed inset-0 transition-opacity backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-gray-900/80"
+        class="bg-zinc-50/70 fixed inset-0 transition-opacity backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-900/80"
         aria-hidden="true"
       />
       <div
@@ -132,7 +132,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     >
                       <.link
                         href={"/blog/#{post["slug"]}"}
-                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <img
                           src={
@@ -175,7 +175,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     >
                       <.link
                         href={"/authors/#{author["slug"]}"}
-                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <img
                           src={
@@ -215,7 +215,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     >
                       <.link
                         href={"/tags/#{tag["slug"]}"}
-                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <svg width="12" height="12" fill="none" aria-hidden="true">
                           <path
@@ -247,7 +247,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         :if={route["type"] == "internal"}
                         href={route["slug"]}
                         method={route["method"]}
-                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <i :if={route["method"] == "get"} class="hero-link-mini"></i>
                         <i
@@ -267,7 +267,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         href={route["slug"]}
                         method={route["method"]}
                         target="_blank"
-                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-navy-900 dark:group-aria-selected:text-white dark:hover:bg-navy-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <i class="hero-arrow-top-right-on-square-mini" />
                         <span class="ml-1 flex w-full justify-between">
