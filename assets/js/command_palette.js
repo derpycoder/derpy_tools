@@ -1,18 +1,22 @@
 const CommandPalette = {
   mounted() {
+    const fetchDomNodes = () => {
+      this.search_results =
+        Array.from(
+          document.querySelectorAll("#command-palette-results>ul>li")
+        ) || [];
+
+      this.selected && this.removeHighlight(this.search_results[this.selected]);
+      this.selected = 0;
+      this.highlightSelection(this.search_results[this.selected]);
+    };
+
     document.addEventListener("keydown", (e) => {
       if (e.key === "k" && e.metaKey) {
         e.preventDefault();
         liveSocket.execJS(this.el, this.el.getAttribute("data-show-modal"));
 
-        this.search_results =
-          Array.from(
-            document.querySelectorAll("#command-palette-results>ul>li>a")
-          ) || [];
-        this.selected &&
-          this.removeHighlight(this.search_results[this.selected]);
-        this.selected = 0;
-        this.highlightSelection(this.search_results[this.selected]);
+        fetchDomNodes();
       } else {
         switch (e.key) {
           case "ArrowUp":
@@ -38,26 +42,21 @@ const CommandPalette = {
           case "Enter":
             e.preventDefault();
             const target = this.search_results[this.selected];
-            target.click();
+            clickableTarget = target.querySelector("a, button");
+
+            clickableTarget && clickableTarget.click();
+            break;
           case "Tab":
             e.preventDefault();
             console.log("Do something on tab");
+            break;
           default:
             this.selected &&
               this.removeHighlight(this.search_results[this.selected]);
         }
       }
     });
-    this.handleEvent("search-results-ready", () => {
-      this.search_results =
-        Array.from(
-          document.querySelectorAll("#command-palette-results>ul>li>a")
-        ) || [];
-
-      this.selected && this.removeHighlight(this.search_results[this.selected]);
-      this.selected = 0;
-      this.highlightSelection(this.search_results[this.selected]);
-    });
+    this.handleEvent("search-results-ready", fetchDomNodes);
   },
   destroyed() {},
   highlightSelection(target) {
