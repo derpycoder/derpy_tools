@@ -140,10 +140,10 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     """
   end
 
-  def handle_event("validate", %{"metadata_schema" => params}, socket) do
+  def handle_event("validate", %{"metadata_schema" => metadata}, socket) do
     changeset =
       %MetadataSchema{}
-      |> MetadataSchema.change_metadata(params)
+      |> MetadataSchema.change_metadata(metadata)
       |> Map.put(:action, :validate)
 
     socket = socket |> assign(form: to_form(changeset))
@@ -151,10 +151,10 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     {:noreply, socket}
   end
 
-  def handle_event("save", %{"metadata_schema" => params}, socket) do
-    case MetadataSchema.update(params) do
+  def handle_event("save", %{"metadata_schema" => metadata}, socket) do
+    case MetadataSchema.update(metadata) do
       {:ok, %{id: _, url: url}} ->
-        changeset = MetadataSchema.change_metadata(%MetadataSchema{}, params)
+        changeset = MetadataSchema.change_metadata(%MetadataSchema{}, metadata)
 
         send(self(), {:analyze_metadata, url})
         socket = assign(socket, output: nil, loading: true, form: to_form(changeset))

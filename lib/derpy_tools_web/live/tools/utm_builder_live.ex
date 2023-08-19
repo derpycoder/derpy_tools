@@ -149,23 +149,23 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
     """
   end
 
-  def handle_event("validate", %{"utm_schema" => params}, socket) do
+  def handle_event("validate", %{"utm_schema" => utm_params}, socket) do
     changeset =
       %UtmSchema{}
-      |> UtmSchema.change_utm_params(params)
+      |> UtmSchema.change_utm_params(utm_params)
       |> Map.put(:action, :validate)
 
     socket = assign(socket, form: to_form(changeset))
     {:noreply, socket}
   end
 
-  def handle_event("generate-utm", %{"utm_schema" => params}, socket) do
-    case UtmSchema.update(params) do
+  def handle_event("generate-utm", %{"utm_schema" => utm_params}, socket) do
+    case UtmSchema.update(utm_params) do
       {:ok, result} ->
-        changeset = UtmSchema.change_utm_params(%UtmSchema{}, params)
+        changeset = UtmSchema.change_utm_params(%UtmSchema{}, utm_params)
 
         query =
-          params
+          utm_params
           |> Map.delete("url")
           |> Enum.filter(fn {_, v} -> v != "" end)
           |> Enum.into(%{}, fn {k, v} -> {k, v} end)
