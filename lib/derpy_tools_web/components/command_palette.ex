@@ -129,7 +129,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        href={"/blog/#{post["slug"]}"}
+                        navigate={"/blog/#{post["slug"]}"}
                         class="flex h-full w-full items-center justify-start px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <img
@@ -172,7 +172,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        href={~p"/authors/#{author["slug"]}"}
+                        navigate={~p"/authors/#{author["slug"]}"}
                         class="flex h-full w-full items-center justify-start px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <img
@@ -212,7 +212,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        href={~p"/tags/#{tag["slug"]}"}
+                        navigate={~p"/tags/#{tag["slug"]}"}
                         class="flex h-full w-full items-center px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <svg width="12" height="12" fill="none" aria-hidden="true">
@@ -242,9 +242,8 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       class="group flex cursor-default select-none items-center rounded-md dark:hover:bg-slate-900/80"
                     >
                       <.link
-                        :if={route["type"] == "internal"}
+                        :if={route["type"] == "internal" && route["method"] == "get"}
                         patch={route["slug"]}
-                        method={route["method"]}
                         class="flex h-full w-full items-center px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
                       >
                         <i class="hero-link-mini"></i>
@@ -252,6 +251,20 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                           <span><%= raw(route["name"]) %></span>
                           <span class="hidden text-gray-400 group-aria-selected:block group-hover:block">
                             Jump to
+                          </span>
+                        </span>
+                      </.link>
+                      <.link
+                        :if={route["type"] == "internal" && route["method"] == "delete"}
+                        href={route["slug"]}
+                        method="delete"
+                        class="flex h-full w-full items-center px-3 py-2 group-aria-selected:bg-slate-900/80 group-aria-selected:text-slate-50"
+                      >
+                        <i class="hero-arrow-right-on-rectangle-mini"></i>
+                        <span class="ml-1 flex w-full justify-between">
+                          <span><%= raw(route["name"]) %></span>
+                          <span class="hidden text-gray-400 group-aria-selected:block group-hover:block">
+                            Jump out
                           </span>
                         </span>
                       </.link>

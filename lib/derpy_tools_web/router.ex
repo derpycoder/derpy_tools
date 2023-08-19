@@ -13,8 +13,6 @@ defmodule DerpyToolsWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers, %{"Content-Security-Policy" => ""}
     plug :fetch_current_user
-    plug PromEx.Plug, prom_ex_module: DerpyTools.PromEx, path: "/metrics"
-    plug Plug.Telemetry, event_prefix: [:webapp, :router]
     plug CustomBrowserHeaders
   end
 

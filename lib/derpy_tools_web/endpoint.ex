@@ -10,6 +10,7 @@ defmodule DerpyToolsWeb.Endpoint do
   plug StatsCheck
 
   plug PromEx.Plug, prom_ex_module: DerpyTools.PromEx
+  plug Plug.Telemetry, event_prefix: [:webapp, :router]
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
