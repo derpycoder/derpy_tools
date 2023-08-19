@@ -2,7 +2,7 @@ const TableOfContents = {
   mounted() {
     if (location.hash) {
       const hash = location.hash.replace("#", "");
-      const header = document.getElementById(hash);
+      const header = document.querySelector(`#${hash}`);
 
       header &&
         header.scrollIntoView({
@@ -59,7 +59,7 @@ function handleHashChange(event) {
 }
 
 function highlightNav(hash, remove, add) {
-  const nav = document.getElementById(`${hash}-link`);
+  const nav = document.querySelector(`#${hash}-link`);
 
   if (nav) {
     nav.classList.remove(...remove);
@@ -69,15 +69,15 @@ function highlightNav(hash, remove, add) {
 
     if (parent) {
       parent.split(">").forEach((parentId) => {
-        const parent = document.getElementById(`${parentId}-link`);
+        const parent = document.querySelector(`#${parentId}-link`);
 
         if (parent) {
           parent.classList.remove(...remove);
           parent.classList.add(...add);
         }
 
-        const parentContainer = document.getElementById(
-          `${parentId}-container`
+        const parentContainer = document.querySelector(
+          `#${parentId}-container`
         );
 
         if (parentContainer) {
