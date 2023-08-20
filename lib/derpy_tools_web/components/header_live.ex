@@ -19,7 +19,7 @@ defmodule DerpyToolsWeb.HeaderLive do
   def render(assigns) do
     ~H"""
     <!-- App Header Wrapper-->
-    <nav class="nav header">
+    <nav class="nav header" id="header-nav" phx-hook="KeyboardShortcuts">
       <!-- App Header  -->
       <div class="header-container relative flex w-full backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-navy-900/80 print:hidden">
         <!-- Header Items -->
@@ -89,7 +89,7 @@ defmodule DerpyToolsWeb.HeaderLive do
               <button
                 id="search-box"
                 placeholder="Search here..."
-                class="w-60 border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-800/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-800 dark:focus:bg-navy-800"
+                class="w-60 border-slate-400 peer h-full rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring-1.5 dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900/80 dark:focus:bg-navy-900/80"
                 type="text"
                 x-ref="popperRef"
                 phx-click={show_modal("command-palette")}

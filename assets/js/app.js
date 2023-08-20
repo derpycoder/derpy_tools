@@ -28,7 +28,8 @@ import goodshare from "../vendor/goodshare";
 import Clipboard from "./clipboard";
 import DarkModeToggle from "./dark_mode_toggle";
 import Ping from "./ping";
-import PrimaryInput from "./keyboard_shortcuts";
+import PrimaryInput from "./primary_input";
+import KeyboardShortcuts from "./keyboard_shortcuts";
 import CommandPalette from "./command_palette";
 import SpongeBobText from "./sponge_bob_text";
 import ScrollIntoView from "./scroll_into_view";
@@ -59,6 +60,8 @@ let liveSocket = new LiveSocket("/live", Socket, {
       return {
         key: e.key,
         metaKey: e.metaKey,
+        altKey: e.altKey,
+        ctrlKey: e.ctrlKey,
       };
     },
   },
@@ -74,6 +77,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     LozadObserver,
     AutoRedirect,
     TableOfContents,
+    KeyboardShortcuts,
   },
 });
 
