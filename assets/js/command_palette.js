@@ -48,6 +48,9 @@ const CommandPalette = {
           e.preventDefault();
           console.log("Do something on tab");
           break;
+        case "Escape":
+          e.preventDefault();
+          break;
       }
     };
 
