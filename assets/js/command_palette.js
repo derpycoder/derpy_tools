@@ -48,9 +48,6 @@ const CommandPalette = {
           e.preventDefault();
           console.log("Do something on tab");
           break;
-        default:
-          this.selected &&
-            this.removeHighlight(this.search_results[this.selected]);
       }
     };
 
