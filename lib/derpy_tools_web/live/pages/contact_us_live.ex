@@ -34,13 +34,10 @@ defmodule DerpyToolsWeb.ContactUsLive do
                   fill="url(#54f88622-e7f8-4f1d-aaf9-c2f5e46dd1f2)"
                 />
               </svg>
-              <%!-- <div
-                class="absolute -left-56 top-[calc(100%-13rem)] transform-gpu blur-3xl lg:left-[max(-14rem,calc(100%-59rem))] lg:top-[calc(50%-7rem)]"
-                aria-hidden="true"
-              >
+              <div class="absolute rotate-180 transform-gpu blur-3xl" aria-hidden="true">
                 <div class="ethereal-polygon-clip aspect-[1155/678] w-[72.1875rem] bg-gray-100 opacity-20 dark:from-[#80caff] dark:to-[#4f46e5] dark:bg-gradient-to-br">
                 </div>
-              </div> --%>
+              </div>
             </div>
             <h2 class="text-navy-900 text-3xl font-bold tracking-tight dark:text-slate-50">
               Get in touch

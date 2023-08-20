@@ -21,7 +21,7 @@ defmodule DerpyToolsWeb.HeaderLive do
     <!-- App Header Wrapper-->
     <nav class="nav header">
       <!-- App Header  -->
-      <div class="header-container backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-900/80 relative flex w-full print:hidden">
+      <div class="header-container relative flex w-full backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-navy-900/80 print:hidden">
         <!-- Header Items -->
         <div class="flex w-full items-center justify-between">
           <span

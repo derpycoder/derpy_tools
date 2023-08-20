@@ -9,11 +9,15 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
   def mount(socket) do
     changeset = CommandPaletteSchema.change_command_palette_schema(%CommandPaletteSchema{})
 
-    {:ok,
-     assign(socket,
-       form: to_form(changeset),
-       search_result: Meilisearch.get_non_empty_search_result()
-     )}
+    socket =
+      socket
+      |> assign(
+        form: to_form(changeset),
+        search_result: Meilisearch.get_non_empty_search_result()
+      )
+      |> push_event("search-results-ready", %{query: ""})
+
+    {:ok, socket}
   end
 
   attr :id, :string, required: true
@@ -33,7 +37,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
     >
       <div
         id={"#{@id}-bg"}
-        class="bg-zinc-50/70 fixed inset-0 transition-opacity backdrop-blur-md supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:!bg-navy-900/80"
+        class="bg-zinc-50/70 fixed inset-0 backdrop-blur-md transition-opacity supports-[backdrop-filter]:!bg-navy-200/60 dark:supports-[backdrop-filter]:!bg-navy-200/20"
         aria-hidden="true"
       />
       <div
@@ -51,7 +55,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 bg-white/60 rounded-2xl shadow-2xl ring-1 transition dark:bg-navy-900/60"
+              class="ring-zinc-700/10 bg-white/60 rounded-2xl ring-1 transition dark:bg-navy-900/60"
             >
               <div
                 id={"#{@id}-content"}
@@ -61,7 +65,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               >
                 <.form
                   for={@form}
-                  class="relative rounded-t-2xl border-b border-slate-200 bg-slate-50 ring-0 dark:border-navy-500 dark:bg-navy-900"
+                  class="bg-slate-50/80 relative rounded-t-2xl border-b border-slate-200 ring-0 dark:border-navy-500 dark:bg-navy-900/80"
                   phx-change="search"
                   phx-submit="search"
                   phx-target={@myself}
@@ -132,7 +136,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     >
                       <.link
                         href={"/blog/#{post["slug"]}"}
-                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-white hover:slate-50 hover:bg-white group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <img
                           src={
@@ -175,7 +179,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     >
                       <.link
                         href={"/authors/#{author["slug"]}"}
-                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center justify-start rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-white hover:slate-50 hover:bg-white group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <img
                           src={
@@ -215,7 +219,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     >
                       <.link
                         href={"/tags/#{tag["slug"]}"}
-                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-white hover:slate-50 hover:bg-white group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <svg width="12" height="12" fill="none" aria-hidden="true">
                           <path
@@ -247,7 +251,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         :if={route["type"] == "internal"}
                         href={route["slug"]}
                         method={route["method"]}
-                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-white hover:slate-50 hover:bg-white group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <i :if={route["method"] == "get"} class="hero-link-mini"></i>
                         <i
@@ -267,7 +271,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         href={route["slug"]}
                         method={route["method"]}
                         target="_blank"
-                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-slate-50 hover:slate-50 hover:bg-slate-50 group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
+                        class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-white hover:slate-50 hover:bg-white group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
                         <i class="hero-arrow-top-right-on-square-mini" />
                         <span class="ml-1 flex w-full justify-between">
@@ -280,7 +284,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     </li>
                   </ul>
                 </div>
-                <div class="text-navy-900 relative flex flex-wrap items-center rounded-b-2xl border-t border-slate-200 bg-slate-50 px-4 py-2.5 text-xs dark:border-navy-500 dark:bg-navy-900 dark:text-slate-400">
+                <div class="text-navy-900 bg-slate-50/80 relative flex flex-wrap items-center rounded-b-2xl border-t border-slate-200 px-4 py-2.5 text-xs dark:border-navy-500 dark:bg-navy-900/80 dark:text-slate-400">
                   Type <kbd class="mx-1">#</kbd>
                   <span class="sm:hidden">for tags,</span><span class="hidden sm:inline">to search for tags,</span>
                   <kbd class="mx-1">&gt;</kbd>
@@ -289,7 +293,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   for tools, <kbd class="mx-1">/</kbd>
                   for routes, and <kbd class="mx-1">?</kbd>
                   for tips.
-                  <span class="absolute -bottom-6 left-0 flex w-full justify-between px-2 text-xs text-gray-500 dark:text-slate-300">
+                  <span class="text-navy-700 absolute -bottom-6 left-0 flex w-full justify-between px-2 text-xs dark:text-slate-200">
                     <span>
                       Powered by
                       <a
@@ -316,8 +320,6 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
-    IO.inspect(query, label: "query")
-
     socket =
       socket
       |> assign(search_result: Meilisearch.search(query |> String.trim()))
