@@ -23,8 +23,6 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
         }
       )
 
-    IO.inspect(result, label: "result")
-
     %{
       @default_search_result
       | blog_posts: result.body,

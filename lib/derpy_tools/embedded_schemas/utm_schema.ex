@@ -22,7 +22,7 @@ defmodule DerpyTools.UtmSchema do
     |> cast(attrs, [:url, :utm_source, :utm_medium, :utm_campaign, :utm_content, :utm_term])
     |> validate_required([:url])
     |> validate_url(:url, message: "URL must be valid")
-    |> validate_length(:utm_source, min: 2, max: 10, message: "at least 2")
+    |> validate_length(:utm_source, min: 2, max: 10)
     |> validate_length(:utm_campaign, min: 2, max: 10)
     |> validate_length(:utm_medium, min: 2, max: 10)
     |> validate_length(:utm_content, min: 2, max: 10)

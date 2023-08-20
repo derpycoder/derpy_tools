@@ -7,7 +7,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def mount(socket) do
-    changeset = CommandPaletteSchema.change_command_palette_schema(%CommandPaletteSchema{})
+    changeset = CommandPaletteSchema.change_command_palette(%CommandPaletteSchema{})
 
     socket =
       socket
@@ -65,7 +65,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
               >
                 <.form
                   for={@form}
-                  class="bg-slate-50/80 relative rounded-t-2xl border-b border-slate-200 ring-0 dark:border-navy-500 dark:bg-navy-900/80"
+                  class="bg-slate-50/80 relative rounded-t-2xl dark:bg-navy-900/80"
                   phx-change="search"
                   phx-submit="search"
                   phx-target={@myself}
@@ -76,7 +76,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     field={@form[:query]}
                     name="query"
                     type="text"
-                    class="text-navy-900 h-12 w-full border-0 focus:ring-0 dark:text-white sm:text-sm"
+                    class="text-navy-900 h-12 w-full rounded-b-none border-0 border-b border-slate-200 ring-0 focus:ring-0 dark:border-navy-500 dark:text-white sm:text-sm"
                     placeholder="Search..."
                     phx-debounce="100"
                     autocomplete="off"
@@ -90,37 +90,23 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   </.input>
                 </.form>
                 <div
+                  :if={@form.source.valid?}
                   id={"#{@id}-results"}
                   class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl dark:divide-navy-500"
                 >
                   <div
                     :if={
-                      @search_result.blog_posts && @search_result.blog_posts["estimatedTotalHits"] < 1 &&
-                        (@search_result.blog_tags &&
-                           @search_result.blog_tags["estimatedTotalHits"] < 1) &&
-                        (@search_result.blog_authors &&
-                           @search_result.blog_authors["estimatedTotalHits"] < 1) &&
-                        (@search_result.routes &&
-                           @search_result.routes["estimatedTotalHits"] < 1)
+                      !(@search_result
+                        |> Map.values()
+                        |> Enum.any?(fn
+                          map when is_map(map) -> map["estimatedTotalHits"] > 0
+                          _ -> false
+                        end))
                     }
                     class="px-6 py-14 text-center sm:px-14"
                   >
-                    <svg
-                      class="mx-auto h-6 w-6 text-gray-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
-                      />
-                    </svg>
-                    <p class="mt-4 text-sm text-gray-200">
-                      We couldn't find anything with that term. Please try again.
+                    <p class="text-navy-800 text-sm dark:text-gray-200">
+                      🚧 Can't find anything with that query. Please try again. 🚧
                     </p>
                   </div>
                   <ul
@@ -304,8 +290,15 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         Meilisearch
                       </a>
                     </span>
-                    <span :if={@search_result.total_hits != 0}>
-                      Found <%= @search_result.total_hits %> results in <%= @search_result.processing_time %>ms
+                    <span :if={@search_result.total_hits != 0 && @form.source.valid?}>
+                      Found
+                      <span class="text-pink-500 dark:text-green-400">
+                        <%= @search_result.total_hits %>
+                      </span>
+                      results in
+                      <span class="text-pink-500 dark:text-green-400">
+                        <%= @search_result.processing_time %> ms
+                      </span>
                     </span>
                   </span>
                 </div>
@@ -320,11 +313,36 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   @impl true
   def handle_event("search", %{"query" => query}, socket) do
-    socket =
-      socket
-      |> assign(search_result: Meilisearch.search(query |> String.trim()))
-      |> push_event("search-results-ready", %{query: query})
+    command_palette_input = %{query: query}
 
-    {:noreply, socket}
+    case CommandPaletteSchema.update(command_palette_input) do
+      {:ok, %{id: _, query: query}} ->
+        changeset =
+          CommandPaletteSchema.change_command_palette(
+            %CommandPaletteSchema{},
+            command_palette_input
+          )
+
+        socket =
+          socket
+          |> assign(
+            search_result: Meilisearch.search(query),
+            form: to_form(changeset)
+          )
+          |> push_event("search-results-ready", command_palette_input)
+
+        {:noreply, socket}
+
+      {:error, changeset} ->
+        socket =
+          socket
+          |> assign(
+            form: to_form(changeset),
+            search_result: Meilisearch.get_non_empty_search_result()
+          )
+          |> push_event("search-results-ready", command_palette_input)
+
+        {:noreply, socket}
+    end
   end
 end

@@ -407,6 +407,7 @@ defmodule DerpyToolsWeb.CoreComponents do
             "border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent",
           @errors != [] && "!border-rose-400 focus:ring-rose-400",
           @icon != [] && "pl-9",
+          @shortcut != [] && "pr-9",
           @class
         ]}
         {@rest}
@@ -469,9 +470,11 @@ defmodule DerpyToolsWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="flex items-center gap-3 text-tiny+ text-rose-600 leading-6 phx-no-feedback:hidden">
+    <p class="flex items-center gap-3 text-tiny+ text-rose-600 leading-6 phx-no-feedback:hidden ml-3">
       <.icon class="hero-exclamation-circle-mini mt-0.5 h-4 w-4 flex-none" />
-      <%= render_slot(@inner_block) %>
+      <span class="first-letter:uppercase">
+        <%= render_slot(@inner_block) %>
+      </span>
     </p>
     """
   end
