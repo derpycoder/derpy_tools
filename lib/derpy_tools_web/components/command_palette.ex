@@ -94,15 +94,13 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   id={"#{@id}-results"}
                   class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl dark:divide-navy-500"
                 >
+                  <div :if={@search_result.show_hints?}>
+                    Shortcuts:
+                    Ctrl + d - Dark/Light
+                    Cmd + k - Command Palette
+                  </div>
                   <div
-                    :if={
-                      !(@search_result
-                        |> Map.values()
-                        |> Enum.any?(fn
-                          map when is_map(map) -> map["estimatedTotalHits"] > 0
-                          _ -> false
-                        end))
-                    }
+                    :if={@search_result.total_hits == 0 && !@search_result.show_hints?}
                     class="px-6 py-14 text-center sm:px-14"
                   >
                     <p class="text-navy-800 text-sm dark:text-gray-200">
@@ -290,7 +288,11 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         Meilisearch
                       </a>
                     </span>
-                    <span :if={@search_result.total_hits != 0 && @form.source.valid?}>
+                    <span :if={
+                      !@search_result.show_hints? &&
+                        @form.source.valid? &&
+                        @search_result.total_hits != 0
+                    }>
                       Found
                       <span class="text-pink-500 dark:text-green-400">
                         <%= @search_result.total_hits %>

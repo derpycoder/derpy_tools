@@ -8,7 +8,8 @@ defmodule DerpyTools.Meilisearch do
     blog_authors: nil,
     routes: nil,
     total_hits: nil,
-    processing_time: nil
+    processing_time: nil,
+    show_hints?: false
   }
 
   @pre_tag "<span class=\"text-pink-500\">"
@@ -32,6 +33,8 @@ defmodule DerpyTools.Meilisearch do
   def search("@" <> query), do: BlogQueryBuilder.search(:authors, query)
 
   def search("/" <> query), do: RoutesQueryBuilder.search(:routes, query)
+
+  def search("?" <> _query), do: %{@default_search_result | show_hints?: true}
 
   def search(query) do
     result =
@@ -103,7 +106,8 @@ defmodule DerpyTools.Meilisearch do
       blog_authors: blog_authors,
       routes: routes,
       total_hits: total_hits,
-      processing_time: processing_time
+      processing_time: processing_time,
+      show_hints?: false
     }
   end
 end
