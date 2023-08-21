@@ -76,7 +76,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                     field={@form[:query]}
                     name="query"
                     type="text"
-                    class="text-navy-900 h-12 w-full rounded-b-none border-0 border-b border-slate-200 ring-0 focus:ring-0 dark:border-navy-500 dark:text-white sm:text-sm"
+                    class={"#{!@form.source.valid? && "border-b"} text-navy-900 h-12 w-full rounded-b-none border-0 border-slate-200 ring-0 focus:ring-0 dark:border-navy-500 dark:text-white sm:text-sm"}
                     placeholder="Search..."
                     phx-debounce="100"
                     autocomplete="off"
@@ -92,7 +92,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                 <div
                   :if={@form.source.valid?}
                   id={"#{@id}-results"}
-                  class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl dark:divide-navy-500"
+                  class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-300 divide-opacity-20 overflow-auto rounded-xl dark:divide-navy-500"
                 >
                   <div
                     :if={@search_result.show_hints?}
