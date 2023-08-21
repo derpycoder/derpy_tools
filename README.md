@@ -99,7 +99,7 @@ Litestream <---> |S3| S3((Object Store))
   - [ ] Lqip
   ---
 - [ ] Move blog posts
-  - [ ] Taskfile
+  - [x] Taskfile
   - [ ] Multipass
   - [x] Image Compression
   ---
@@ -153,7 +153,7 @@ Litestream <---> |S3| S3((Object Store))
 - [x] Moved to Bandit server
 - [x] Env variables split into multiple files
 - [x] 404 & 500 Pages added
-- [ ] UUID7
+- [x] UUID7
 - [ ] Local storage to persist user inputs
 - [ ] Build Server Side Analytics using Clickhouse
 
