@@ -8,6 +8,7 @@ defmodule DerpyToolsWeb.BlogPosts do
 
   alias Phoenix.LiveView.JS
   alias DerpyTools.DataStore.Posts
+  import DerpyToolsWeb.IconComponents
 
   @wpm 225
 

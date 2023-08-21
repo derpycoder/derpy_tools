@@ -4,6 +4,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
 
   alias DerpyTools.Meilisearch
   alias DerpyTools.CommandPaletteSchema
+  import DerpyToolsWeb.IconComponents
 
   @impl true
   def mount(socket) do
@@ -265,15 +266,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                         href={"/tags/#{tag["slug"]}"}
                         class="flex h-full w-full items-center rounded-lg px-3 py-2 text-gray-600 group-aria-selected:text-navy-900 group-aria-selected:bg-white hover:slate-50 hover:bg-white group-hover:text-navy-900 dark:text-slate-200 dark:group-aria-selected:bg-gray-900 dark:group-aria-selected:text-white dark:hover:bg-gray-900 dark:group-hover:text-white"
                       >
-                        <svg width="12" height="12" fill="none" aria-hidden="true">
-                          <path
-                            d="M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                          >
-                          </path>
-                        </svg>
+                        <.hash_bang />
                         <span class="ml-1 flex w-full justify-between">
                           <span><%= raw(tag["label"]) %></span>
                           <span class="hidden text-gray-400 group-aria-selected:text-navy-500 group-aria-selected:block group-hover:text-navy-500 group-hover:block dark:group-aria-selected:text-gray-300 dark:group-hover:text-gray-300">

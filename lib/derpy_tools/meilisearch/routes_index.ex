@@ -1,5 +1,6 @@
 defmodule DerpyTools.Meilisearch.RoutesIndex do
   alias DerpyTools.DataStore.Routes
+
   def init() do
     create()
     configure()

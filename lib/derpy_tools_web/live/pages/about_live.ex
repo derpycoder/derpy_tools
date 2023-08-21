@@ -29,7 +29,9 @@ defmodule DerpyToolsWeb.AboutLive do
           </div>
           <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
             <div class="mt-6 min-w-0 flex-1 sm:hidden md:block">
-              <h1 class="truncate text-2xl font-bold dark:text-slate-300 text-gray-900">Derpy Coder</h1>
+              <h1 class="truncate text-2xl font-bold text-gray-900 dark:text-slate-300">
+                Derpy Coder
+              </h1>
             </div>
             <div class="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
               <button

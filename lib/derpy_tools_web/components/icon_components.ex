@@ -11,5 +11,5 @@ defmodule DerpyToolsWeb.IconComponents do
   """
   use Phoenix.Component
 
-  embed_templates "icons/*"
+  embed_templates "icons/**/*"
 end
