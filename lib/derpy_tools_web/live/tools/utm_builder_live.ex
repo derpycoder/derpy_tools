@@ -85,7 +85,7 @@ defmodule DerpyToolsWeb.UtmBuilderLive do
               The full URL of the page to which the traffic is sent, including the protocol (https).
             </:hint>
             <:shortcut>
-              <kbd class="text-[16px] font-bold">/</kbd>
+              <kbd class="pt-2 text-lg font-bold">/</kbd>
             </:shortcut>
           </.input>
           <.input field={@form[:utm_source]} phx-debounce="blur" label="Source:" class="mt-4">

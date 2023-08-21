@@ -85,7 +85,7 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                       <.icon class="hero-magnifying-glass h-5 w-5 text-gray-500" />
                     </:icon>
                     <:shortcut>
-                      <kbd class="w-fit font-semibold">ESC</kbd>
+                      <kbd class="font-semibold">esc</kbd>
                     </:shortcut>
                   </.input>
                 </.form>
@@ -94,10 +94,70 @@ defmodule DerpyToolsWeb.CommandPaletteComponent do
                   id={"#{@id}-results"}
                   class="overscroll-contain max-h-[calc(60svh-100px)] transform divide-y divide-slate-200 divide-opacity-20 overflow-auto rounded-xl dark:divide-navy-500"
                 >
-                  <div :if={@search_result.show_hints?}>
-                    Shortcuts:
-                    Ctrl + d - Dark/Light
-                    Cmd + k - Command Palette
+                  <div
+                    :if={@search_result.show_hints?}
+                    class="divide-slate-200/20 divide-y px-4 dark:text-slate-200"
+                  >
+                    <div class="flex flex-col space-y-3 py-4">
+                      <h3 class="text-lg font-medium">
+                        Global Shortcuts:
+                      </h3>
+                      <div class="text-slate-400">
+                        Shortcuts are based on US Keyboard layout for Mac.
+                      </div>
+                      <div class="flex flex-col lg:flex-row lg:space-x-4">
+                        <div class="lg:grow">
+                          <div class="flex items-center">
+                            <span class="py-2 pr-3">
+                              <div class="markdown flex items-center space-x-1">
+                                <kbd>esc</kbd>
+                              </div>
+                            </span>
+                            <span class="lg:whitespace-nowrap">
+                              Close Modals
+                            </span>
+                          </div>
+                          <div class="flex items-center">
+                            <span class="py-2 pr-3">
+                              <div class="markdown flex items-center space-x-1">
+                                <kbd>ctrl</kbd>
+
+                                <i class="hero-plus-small" aria-hidden="true"></i>
+
+                                <kbd>d</kbd>
+                              </div>
+                            </span>
+                            <span class="lg:whitespace-nowrap">
+                              To toggle dark mode
+                            </span>
+                          </div>
+                        </div>
+                        <div class="lg:w-1/2">
+                          <div class="flex items-center">
+                            <span class="py-2 pr-3">
+                              <div class="markdown flex items-center space-x-1">
+                                <kbd class="pt-2 text-lg">⌘</kbd>
+                                <i class="hero-plus-small" aria-hidden="true"></i>
+                                <kbd>k</kbd>
+                              </div>
+                            </span>
+                            <span class="lg:whitespace-nowrap">
+                              Command Palette
+                            </span>
+                          </div>
+                          <div class="flex items-center">
+                            <span class="py-2 pr-3">
+                              <div class="markdown flex items-center space-x-1">
+                                <kbd>/</kbd>
+                              </div>
+                            </span>
+                            <span class="lg:whitespace-nowrap">
+                              To focus on 1st input field
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div
                     :if={@search_result.total_hits == 0 && !@search_result.show_hints?}
