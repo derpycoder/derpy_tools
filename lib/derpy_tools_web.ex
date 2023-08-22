@@ -22,6 +22,7 @@ defmodule DerpyToolsWeb do
         fonts
         assets
         images
+        snippets
         robots.txt
         favicon.ico
         site.webmanifest
