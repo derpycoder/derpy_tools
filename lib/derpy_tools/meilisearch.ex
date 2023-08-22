@@ -52,7 +52,6 @@ defmodule DerpyTools.Meilisearch do
               attributesToHighlight: ~w(title description),
               highlightPreTag: @pre_tag,
               highlightPostTag: @post_tag,
-              showRankingScore: true,
               limit: 4,
               offset: 0
             },
@@ -62,7 +61,6 @@ defmodule DerpyTools.Meilisearch do
               attributesToHighlight: ~w(label),
               highlightPreTag: @pre_tag,
               highlightPostTag: @post_tag,
-              showRankingScore: true,
               limit: 6,
               offset: 0
             },
@@ -72,7 +70,6 @@ defmodule DerpyTools.Meilisearch do
               attributesToHighlight: ~w(name alias),
               highlightPreTag: @pre_tag,
               highlightPostTag: @post_tag,
-              showRankingScore: true,
               limit: 2,
               offset: 0
             },

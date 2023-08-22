@@ -18,7 +18,6 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
           attributesToHighlight: ~w(title description),
           highlightPreTag: @pre_tag,
           highlightPostTag: @post_tag,
-          showRankingScore: true,
           q: query
         }
       )
@@ -43,7 +42,6 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
           attributesToHighlight: ~w(label),
           highlightPreTag: @pre_tag,
           highlightPostTag: @post_tag,
-          showRankingScore: true,
           q: query
         }
       )
@@ -68,7 +66,6 @@ defmodule DerpyTools.Meilisearch.BlogQueryBuilder do
           attributesToHighlight: ~w(name alias),
           highlightPreTag: @pre_tag,
           highlightPostTag: @post_tag,
-          showRankingScore: true,
           q: query
         }
       )
