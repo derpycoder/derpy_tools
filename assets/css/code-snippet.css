@@ -11,7 +11,7 @@
   color: #f5a97f;
 }
 
-.code-snippet button {
+.code-snippet .copy-btn {
   width: 36px;
   height: 36px;
   background: none;
@@ -23,18 +23,18 @@
   top: 5px;
   right: 5px;
 }
-.code-snippet button:first-child svg {
+.code-snippet .copy-btn:first-child svg {
   stroke: #4dd4ae;
   display: block;
   cursor: pointer;
 }
 
-.code-snippet button.active svg {
+.code-snippet .copy-btn.active svg {
   stroke: #60fed2;
   transform: rotate(-4deg);
 }
 
-.code-snippet button.active svg .highlight {
+.code-snippet .copy-btn.active svg .highlight {
   opacity: 1;
 }
 
@@ -67,7 +67,7 @@
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.code-snippet button.active .tooltip {
+.code-snippet .copy-btn.active .tooltip {
   top: -45px;
   opacity: 1;
   visibility: visible;
