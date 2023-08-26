@@ -134,7 +134,7 @@ defmodule DerpyTools.MixProject do
       ],
       Blog: [
         DerpyCoderWeb.BlogPosts,
-        DerpyToolsWeb.CodeSnippets
+        DerpyToolsWeb.Snippets
       ]
     ]
   end

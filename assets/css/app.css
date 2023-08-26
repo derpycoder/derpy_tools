@@ -4,8 +4,8 @@
 @import "./base.css";
 
 @import "tailwindcss/components";
-@import "./components.css";
 @import "./misc.css";
+@import "./components.css";
 
 @import "tailwindcss/utilities";
 
@@ -17,7 +17,7 @@ h2,
 h3,
 h4,
 h5,
-span[id^="L"] {
+span[id*="L"] {
   scroll-margin-top: calc(var(--header-height) + 30px);
 }
 

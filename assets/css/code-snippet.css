@@ -1,0 +1,116 @@
+.code-snippet pre {
+  overflow: auto;
+  max-height: 500px;
+
+  border-radius: 12px;
+  box-shadow: 0 2px 3px #0a0a0a1a, 0 0 0 1px #0a0a0a1a;
+  padding: 40px 20px 20px;
+
+  margin: 0;
+
+  color: #f5a97f;
+}
+
+.code-snippet button {
+  width: 36px;
+  height: 36px;
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  right: 5px;
+}
+.code-snippet button:first-child svg {
+  stroke: #4dd4ae;
+  display: block;
+  cursor: pointer;
+}
+
+.code-snippet button.active svg {
+  stroke: #60fed2;
+  transform: rotate(-4deg);
+}
+
+.code-snippet button.active svg .highlight {
+  opacity: 1;
+}
+
+.code-snippet .tooltip {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  background: #1e1e2e;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.code-snippet .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #1e1e2e;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.code-snippet button.active .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.code-snippet .label {
+  position: absolute;
+  z-index: 1;
+  left: 20px;
+  top: -10px;
+  font-family: sans-serif;
+  background-color: #60e8fe;
+  font-size: 14px;
+  line-height: 14px;
+  padding: 6px 15px;
+
+  border-top-left-radius: 25px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 25px;
+}
+
+.code-snippet .label.blue {
+  background-color: #60e8fe;
+}
+
+.code-snippet .label.pink {
+  background-color: #fe608c;
+}
+
+.code-snippet .label.purple {
+  background-color: #e160fe;
+}
+
+.code-snippet .label.green {
+  background-color: #60fec5;
+}
+
+.code-snippet .label.yellow {
+  background-color: #feee60;
+}
+
+.code-snippet .label.red {
+  background-color: #fe6f60;
+}

@@ -1,16 +1,5 @@
 const CommandPalette = {
   mounted() {
-    const fetchDomNodes = () => {
-      this.search_results =
-        Array.from(
-          document.querySelectorAll("#command-palette-results > ul > li")
-        ) || [];
-
-      this.selected && this.removeHighlight(this.search_results[this.selected]);
-      this.selected = 0;
-      this.highlightSelection(this.search_results[this.selected]);
-    };
-
     const handleKeyDown = (e) => {
       switch (e.key) {
         case "ArrowUp":
@@ -59,13 +48,13 @@ const CommandPalette = {
         e.preventDefault();
         liveSocket.execJS(this.el, this.el.getAttribute("data-show-modal"));
 
-        !this.search_results && fetchDomNodes();
+        !this.search_results && this.fetchDomNodes().bind(this);
       } else {
         this.el.addEventListener("keydown", handleKeyDown);
       }
     });
 
-    this.handleEvent("search-results-ready", fetchDomNodes);
+    this.handleEvent("search-results-ready", this.fetchDomNodes.bind(this));
   },
   highlightSelection(target) {
     if (!target) return;
@@ -78,6 +67,16 @@ const CommandPalette = {
   removeHighlight(target) {
     if (!target) return;
     target.setAttribute("aria-selected", false);
+  },
+  fetchDomNodes() {
+    this.search_results =
+      Array.from(
+        document.querySelectorAll("#command-palette-results > ul > li")
+      ) || [];
+
+    this.selected && this.removeHighlight(this.search_results[this.selected]);
+    this.selected = 0;
+    this.highlightSelection(this.search_results[this.selected]);
   },
 };
 

@@ -37,6 +37,7 @@ import SourceInspector from "./source_inspector";
 import LozadObserver from "./lozad_observer";
 import AutoRedirect from "./auto_redirect";
 import TableOfContents from "./table_of_contents";
+import CopySnippet from "./copy_snippet";
 
 window.goodshare = goodshare;
 
@@ -78,6 +79,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
     AutoRedirect,
     TableOfContents,
     KeyboardShortcuts,
+    CopySnippet,
   },
 });
 
