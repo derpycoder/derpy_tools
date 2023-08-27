@@ -33,59 +33,64 @@ defmodule Mix.Tasks.Snippets.Heexify do
             Path.join([@destination_directory, destination_sub_directory, "#{filename}.html.heex"]),
           else: Path.join([@destination_directory, "#{filename}.html.heex"])
 
-      File.rm_rf!(target_snippet_file)
+      if File.exists?(target_snippet_file) do
+        Logger.info("Skipping: #{filename}")
+      else
+        Logger.info("Styling: #{filename}")
+        File.rm_rf!(target_snippet_file)
 
-      id =
-        "i" <> (:crypto.strong_rand_bytes(7) |> Base.url_encode64() |> binary_part(0, 7))
+        id =
+          "i" <> (:crypto.strong_rand_bytes(7) |> Base.url_encode64() |> binary_part(0, 7))
 
-      css =
-        case System.cmd("chroma", [
-               "--lexer=#{lexer}",
-               "--formatter=html",
-               "--style=#{theme}",
-               "--html-styles",
-               path
-             ]) do
-          {css, 0} ->
-            css
-            |> String.replace("chroma", id)
-            |> String.replace(~r"\/\*.*\*\/", "")
+        css =
+          case System.cmd("chroma", [
+                 "--lexer=#{lexer}",
+                 "--formatter=html",
+                 "--style=#{theme}",
+                 "--html-styles",
+                 path
+               ]) do
+            {css, 0} ->
+              css
+              |> String.replace("chroma", id)
+              |> String.replace(~r"\/\*.*\*\/", "")
 
-          _ ->
-            nil
-        end
+            _ ->
+              nil
+          end
 
-      html =
-        case System.cmd("chroma", [
-               "--lexer=#{lexer}",
-               "--formatter=html",
-               "--style=#{theme}",
-               "--html-only",
-               path
-             ]) do
-          {html, 0} ->
-            html
-            |> String.replace("<pre class=\"chroma\">", "<pre class=\"#{id}\">")
-            |> String.replace(
-              ~r/<span class="cl"><span class="k">([\$❯])<\/span>/u,
-              "<span class=\"cl\"><span class=\"select-none\">\\1<\/span>"
-            )
+        html =
+          case System.cmd("chroma", [
+                 "--lexer=#{lexer}",
+                 "--formatter=html",
+                 "--style=#{theme}",
+                 "--html-only",
+                 path
+               ]) do
+            {html, 0} ->
+              html
+              |> String.replace("<pre class=\"chroma\">", "<pre class=\"#{id}\">")
+              |> String.replace(
+                ~r/<span class="k">([\$❯])<\/span>/u,
+                "<span class=\"select-none\">\\1<\/span>"
+              )
 
-          _ ->
-            nil
-        end
+            _ ->
+              nil
+          end
 
-      Mix.Generator.copy_template(
-        @template,
-        target_snippet_file,
-        %{
-          id: id,
-          css: css,
-          html: html,
-          lines: lines
-        },
-        force: true
-      )
+        Mix.Generator.copy_template(
+          @template,
+          target_snippet_file,
+          %{
+            id: id,
+            css: css,
+            html: html,
+            lines: lines
+          },
+          force: true
+        )
+      end
     end)
   end
 
