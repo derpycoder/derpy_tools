@@ -2,12 +2,7 @@
 <%= @css %>
 </style>
 
-<div id="<%= @id %>-container"
-  data-file={__ENV__.file}
-  data-line={__ENV__.line}
-  phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
-  class="relative"
->
+<div id="<%= @id %>-container" class="relative">
   <button id="<%= @id %>-btn" data-target="<%= @id %>" class="copy-btn" phx-hook="CopySnippet" data-target="<%= @id %>" data-target-lines="<%= @lines %>">
     <span class="tooltip">Copied!</span>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 32 32" width="32" height="32">
@@ -16,5 +11,5 @@
       <path d="M15.998 6V4m3.999 2 1-1m-8.999 1-1-1" class="opacity-0 highlight"></path>
     </svg>
   </button>
-<%= @html %>
+  <%= @html %>
 </div>
