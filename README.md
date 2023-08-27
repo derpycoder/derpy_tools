@@ -13,16 +13,19 @@
 
 ![Metadata Checker](https://github.com/derpycoder/derpy_tools/assets/25662120/a271b6a8-339c-4a0a-af3f-1c19b13dc335)
 
-
 ## Run Locally
 
 1. `brew install go-task`
 1. `task install:tools`
 1. `task install:deps`
+
 ---
+
 1. `task generate:caddy_cert`
 1. `task setup:hosts`
+
 ---
+
 1. `task start:meilisearch`
 1. `task start:imgproxy`
 1. `task start:caddy`
@@ -68,8 +71,8 @@ Litestream <---> |S3| S3((Object Store))
 ## TODO (App)
 
 ### Blog
-![Table of Contents](https://github.com/derpycoder/derpy_tools/assets/25662120/2555b87d-f929-4f78-85df-d3394b898e10)
 
+![Table of Contents](https://github.com/derpycoder/derpy_tools/assets/25662120/2555b87d-f929-4f78-85df-d3394b898e10)
 
 - [ ] Reach feature parity with Ghost Blog
   - [x] Routing
@@ -83,9 +86,9 @@ Litestream <---> |S3| S3((Object Store))
   - [x] HTTP/3, Brotli, AVIF like modern features achieved
   - [x] Keyboard Shortcuts
   - [x] Meilisearch for Command Palette
-  - [ ] Command Palette
-  - [ ] Proper code snippet embed
-  - [ ] Code snippet copy button
+  - [x] Command Palette
+  - [x] Proper code snippet embed
+  - [x] Code snippet copy button
   - [ ] Recent Posts
   - [ ] Blog main page
   - [ ] Tags page
@@ -97,12 +100,12 @@ Litestream <---> |S3| S3((Object Store))
   - [ ] URL auto-embed, with auto image extraction
   - [ ] File uploader with cropping & compression
   - [ ] Lqip
-  ---
+  ***
 - [ ] Move blog posts
   - [x] Taskfile
   - [ ] Multipass
   - [x] Image Compression
-  ---
+  ***
 - [ ] Move misc pages from Ghost Blog
   - [ ] Privacy Policy
   - [ ] Terms & Conditions
@@ -112,6 +115,7 @@ Litestream <---> |S3| S3((Object Store))
   - [ ] Contact Form
 
 ### Tools
+
 ![Command Palette Keyboard Shortcut](https://github.com/derpycoder/derpy_tools/assets/25662120/2fc2c396-bb01-4fb4-9b79-df4a35d8fe09)
 
 - [ ] URL Beaver
@@ -122,9 +126,11 @@ Litestream <---> |S3| S3((Object Store))
   - [ ] Wordle
 
 ### Authentication & Authorization
+
 ![Auth Flow](https://github.com/derpycoder/derpy_tools/assets/25662120/9c5c6c40-61dd-4caa-9dd4-886a9774ba49)
 
 - [ ] Authentication
+
   - [x] Basic Auth
   - [ ] Google OAuth
   - [ ] GitHub OAuth
@@ -134,8 +140,8 @@ Litestream <---> |S3| S3((Object Store))
   - [ ] Add policies to restrict apps and routes to certain users
   - [ ] Add super user through an env variable
 
-
 ### Misc
+
 ![Derpy Tools](https://github.com/derpycoder/derpy_tools/assets/25662120/b236b7f0-9d72-473c-be7f-695a8cac965d)
 
 - [x] Heartbeat
