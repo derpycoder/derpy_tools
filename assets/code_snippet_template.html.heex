@@ -1,20 +1,20 @@
 <style type="text/css" nonce={@style_nonce}>
-<%= @style %>
+<%= @css %>
 </style>
 
-<div id="<%= @name %>-container"
+<div id="<%= @id %>-container"
   data-file={__ENV__.file}
   data-line={__ENV__.line}
   phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
   class="relative"
 >
-  <button id="<%= @name %>-btn" data-target="<%= @name %>" class="group copy-btn" phx-hook="CopySnippet" data-target="<%= @name %>">
+  <button id="<%= @id %>-btn" data-target="<%= @id %>" class="copy-btn" phx-hook="CopySnippet" data-target="<%= @id %>" data-target-lines="<%= @lines %>">
     <span class="tooltip">Copied!</span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 32 32" width="32" height="32" class="group-hover:-rotate-3">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 32 32" width="32" height="32">
       <path d="M12.998 10.75h-1.25a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h8.5a2 2 0 0 0 2-2v-8.5a2 2 0 0 0-2-2h-1.25"></path>
       <path d="M17.997 12.25h-4a1 1 0 0 1-1-1v-1.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1Zm-4.249 4h4.5m-4.5 3h4.5"></path>
       <path d="M15.998 6V4m3.999 2 1-1m-8.999 1-1-1" class="opacity-0 highlight"></path>
     </svg>
   </button>
-<%= @body %>
+<%= @html %>
 </div>

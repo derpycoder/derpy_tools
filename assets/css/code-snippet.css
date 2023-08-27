@@ -23,19 +23,20 @@
   top: 5px;
   right: 5px;
 }
-.code-snippet .copy-btn:first-child svg {
-  stroke: #4dd4ae;
-  display: block;
-  cursor: pointer;
+.code-snippet .copy-btn svg {
+  @apply stroke-[#4dd4ae] block cursor-pointer;
 }
 
 .code-snippet .copy-btn.active svg {
-  stroke: #60fed2;
-  transform: rotate(-4deg);
+  @apply stroke-[#60fed2] -rotate-3;
 }
 
 .code-snippet .copy-btn.active svg .highlight {
-  opacity: 1;
+  @apply opacity-100;
+}
+
+.code-snippet .copy-btn:hover svg {
+  @apply -rotate-3;
 }
 
 .code-snippet .tooltip {
@@ -53,6 +54,8 @@
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  @apply dark:bg-slate-50 dark:text-navy-800 font-semibold;
 }
 
 .code-snippet .tooltip::before {
@@ -65,6 +68,8 @@
   left: 50%;
   transform: translate(-50%) rotate(45deg);
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  @apply dark:bg-slate-50;
 }
 
 .code-snippet .copy-btn.active .tooltip {
@@ -89,10 +94,14 @@
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 25px;
+
+  @apply text-navy-800 font-medium;
 }
 
 .code-snippet .label.blue {
   background-color: #60e8fe;
+
+  @apply text-navy-800;
 }
 
 .code-snippet .label.pink {

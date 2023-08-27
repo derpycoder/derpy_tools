@@ -1,82 +1,105 @@
 defmodule Mix.Tasks.Snippets.Heexify do
   @moduledoc """
-  https://swapoff.org/chroma/playground/
+  Visit: https://swapoff.org/chroma/playground/ to decide on lexer & theme.
+
+  Snip files should have the following structure:
+  1. filename.lexer.theme.snip
+  2. filename.lexer.theme.(0,5).snip (With optional copyable lines for bash scripts)
+
+  e.g. caddyfile.caddy.catppuccin-macchiato.snip
+
+  Use: chroma --list to see all the themes & lexers.
   """
   require Logger
-  @snippets Path.join(["assets", "snippets", "**/*.snip"])
-  @internal_destination Path.join(["lib", "derpy_tools_web", "components", "snippets"])
+  @template Path.join(["assets", "code_snippet_template.html.heex"])
+  @snippets_directory Path.join(["assets", "snippets"])
+  @destination_directory Path.join(["lib", "derpy_tools_web", "components", "_snippets"])
 
   def run(_args) do
-    @snippets
+    @snippets_directory
+    |> Path.join("**/*.snip")
     |> Path.wildcard()
-    |> Enum.map(fn path ->
-      [filename, lexer, theme] =
+    |> Enum.each(fn path ->
+      [filename, lexer, theme, lines] = path |> extract_options()
+
+      destination_sub_directory =
         path
-        |> String.replace(@snippets <> "/", "")
-        |> String.split(".")
-        |> Enum.take(3)
+        |> Path.relative_to(@snippets_directory)
+        |> Path.dirname()
 
-      random_name =
-        "sn-" <> (:crypto.strong_rand_bytes(10) |> Base.url_encode64() |> binary_part(0, 8))
+      target_snippet_file =
+        if destination_sub_directory,
+          do:
+            Path.join([@destination_directory, destination_sub_directory, "#{filename}.html.heex"]),
+          else: Path.join([@destination_directory, "#{filename}.html.heex"])
 
-      pre =
+      File.rm_rf!(target_snippet_file)
+
+      id =
+        "i" <> (:crypto.strong_rand_bytes(7) |> Base.url_encode64() |> binary_part(0, 7))
+
+      css =
         case System.cmd("chroma", [
                "--lexer=#{lexer}",
                "--formatter=html",
                "--style=#{theme}",
-               #  "--html-prefix=#{random_name}-",
-               #  "--html-lines",
-               #  "--html-linkable-lines",
-               "--html-only",
-               path
-             ]) do
-          {snippet, 0} -> snippet
-          _ -> nil
-        end
-
-      style =
-        case System.cmd("chroma", [
-               "--lexer=#{lexer}",
-               "--formatter=html",
-               "--style=#{theme}",
-               #  "--html-prefix=#{random_name}-",
-               #  "--html-lines",
-               #  "--html-linkable-lines",
                "--html-styles",
                path
              ]) do
-          {style, 0} -> style
-          _ -> nil
+          {css, 0} ->
+            css
+            |> String.replace("chroma", id)
+            |> String.replace(~r"\/\*.*\*\/", "")
+
+          _ ->
+            nil
         end
 
-      {filename, style, pre, random_name}
-    end)
-    |> Enum.each(fn {filename, style, pre, random_name} ->
-      style = style |> String.replace("chroma", random_name)
+      html =
+        case System.cmd("chroma", [
+               "--lexer=#{lexer}",
+               "--formatter=html",
+               "--style=#{theme}",
+               "--html-only",
+               path
+             ]) do
+          {html, 0} ->
+            html
+            |> String.replace("<pre class=\"chroma\">", "<pre class=\"#{id}\">")
+            |> String.replace(
+              ~r/<span class="cl"><span class="k">([\$❯])<\/span>/u,
+              "<span class=\"cl\"><span class=\"select-none\">\\1<\/span>"
+            )
 
-      style = style |> String.replace(~r"\/\*.*\*\/", "")
+          _ ->
+            nil
+        end
 
-      pre = pre |> String.replace("<pre class=\"chroma\">", "<pre class=\"#{random_name}\">")
-
-      filename = filename |> String.replace(Path.join(["assets", "snippets"]), "")
-
-      # unless File.exists?(Path.join(@internal_destination, "#{filename}.html.heex")) do
       Mix.Generator.copy_template(
-        "assets/snippet.html.heex",
-        Path.join(@internal_destination, "#{filename}.html.heex"),
+        @template,
+        target_snippet_file,
         %{
-          style: style,
-          body: pre,
-          name: random_name
+          id: id,
+          css: css,
+          html: html,
+          lines: lines
         },
         force: true
       )
-
-      # else
-      #   Logger.info("Skipping: #{filename}")
-      # end
-
-      Mix.Task.run("format")
     end)
   end
+
+  defp extract_options(path) do
+    path
+    |> Path.basename()
+    |> Path.rootname()
+    |> String.split(".")
+    |> options()
+  end
+
+  defp options([filename, lexer, theme] = list) when length(list) == 3,
+    do: [filename, lexer, theme, nil]
+
+  defp options([filename, lexer, theme, lines] = list) when length(list) == 4,
+    do: [filename, lexer, theme, lines |> String.replace(~r/[\(\)]/, "")]
 end

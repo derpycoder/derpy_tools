@@ -4,17 +4,18 @@ defmodule DerpyToolsWeb.Snippets do
   """
   use Phoenix.Component
 
-  embed_templates "snippets/**/*"
+  embed_templates "_snippets/**/*"
 
   attr :snippet, :atom
   attr :style_nonce, :string
   attr :name, :string, default: "Filename"
   attr :caption, :string, default: "Description"
+  attr :class, :string, default: ""
 
   def render(assigns) do
     ~H"""
     <figure class="code-snippet relative">
-      <div class="label purple"><%= @name %></div>
+      <div class={["label", @class]}><%= @name %></div>
       <%= apply(__MODULE__, @snippet, [assigns]) %>
       <figcaption class="flex justify-center"><%= @caption %></figcaption>
     </figure>
