@@ -227,6 +227,11 @@ tasks:
     cmds:
       - mix format
 
+  heexify:snippets:
+    desc: Generated HEEx files for Code snippets
+    cmds:
+      - mix snippets.heexify
+
   optimize:images:
     desc: Optimize All Images in Assets folder.
     cmds:
