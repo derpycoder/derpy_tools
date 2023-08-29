@@ -16,8 +16,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   Fragment:
   https://cloudfour.com/thinks/svg-icon-stress-test/#:~:text=Image%20element%20with%20data%20URI,-Because%20SVGs%20are&text=This%20may%20be%20used%20to,or%20loading%20a%20separate%20file).&text=Across%20all%20browsers%20and%20regardless,and%20with%20the%20least%20deviation.
 
-  TODO:
-  content-security-policy: upgrade-insecure-requests; (HTTP - HTTPS)
+  Misc Links:
+  https://github.com/schollz/croc
   """
   use DerpyToolsWeb, :live_view
 
@@ -46,7 +46,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
         data-file={__ENV__.file}
         data-line={__ENV__.line}
         phx-hook={Application.fetch_env!(:derpy_tools, :show_inspector?) && "SourceInspector"}
-        class="w-[65svw] relative items-center justify-center sm:w-[55svw] md:w-[45svw] lg:w-[35svw] xl:w-[25svw]"
+        class="w-[65svw] relative items-center justify-center sm:w-[55svw] md:w-[45svw] lg:w-[65svw] xl:w-[55svw]"
       >
         <nav class="card flex rounded-lg px-5 py-3" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
@@ -135,6 +135,19 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
     <%= inspect(@output, pretty: true) %>
           </pre>
         </div>
+        <h2 :if={@output} class="card mt-5 rounded-lg px-5 py-3">
+          Redirects (<%= @output.redirects.count %>)
+        </h2>
+        <div :if={@output} class="card mt-5 overflow-scroll rounded-lg px-5 py-3">
+          <div>
+            Fetched URL: <%= @form.params["url"] %>
+          </div>
+          <div>Canonical URL: <%= @output.redirects.url %></div>
+          <div :for={{code, url} <- @output.redirects.trail |> Enum.reverse()}>
+            <span><%= code %></span>
+            <span><%= url %></span>
+          </div>
+        </div>
       </div>
     </div>
     """
@@ -166,6 +179,7 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   end
 
   def handle_info({:analyze_metadata, url}, socket) do
+    # Req.new(range: "bytes=100-200")
     res =
       Req.new()
       |> FetchExtraMetadata.attach(fetch_redirects: true)
