@@ -179,7 +179,8 @@ defmodule DerpyToolsWeb.MetadataAnalyzerLive do
   end
 
   def handle_info({:analyze_metadata, url}, socket) do
-    # Req.new(range: "bytes=100-200")
+    # Best for partial requests!
+    # Req.new(range: "bytes=0-5000", compressed: false)
     res =
       Req.new()
       |> FetchExtraMetadata.attach(fetch_redirects: true)
