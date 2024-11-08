@@ -47,6 +47,7 @@ tasks:
       - mkcert -install
       - mix  do local.hex, local.phx, local.rebar
       - mix  escript.install hex livebook
+      - rm ~/.asdf/shims/*
       - asdf reshim elixir
   install:deps:
     desc: Fetch & Compile dependencies

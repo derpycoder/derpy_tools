@@ -30,6 +30,10 @@ end
 ```
 
 ```elixir
+Naming.title_case("hello, abhijit kar!")
+```
+
+```elixir
 slugs =
   DerpyToolsWeb.Router.__routes__()
   |> Enum.map(fn route -> {route.path, route.verb} end)

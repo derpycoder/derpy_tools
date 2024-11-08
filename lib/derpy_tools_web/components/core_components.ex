@@ -394,7 +394,7 @@ defmodule DerpyToolsWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name} class={["w-full relative"]}>
+    <div phx-feedback-for={@name} class={["w-full relative", @class]}>
       <.label for={@id}><%= @label %></.label>
       <input
         type={@type}
@@ -407,8 +407,7 @@ defmodule DerpyToolsWeb.CoreComponents do
             "border-slate-300 hover:ring-slate-400 focus:z-10 focus:ring-primary dark:ring-navy-450 dark:hover:ring-navy-400 dark:focus:ring-accent",
           @errors != [] && "!border-rose-400 focus:ring-rose-400",
           @icon != [] && "pl-9",
-          @shortcut != [] && "pr-9",
-          @class
+          @shortcut != [] && "pr-9"
         ]}
         {@rest}
       />
